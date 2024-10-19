@@ -8,11 +8,11 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header /> {/* Header będzie wyświetlany na każdej podstronie */}
+        <Header />
         <main>
           <Routes></Routes>
         </main>
-        <Footer /> {/* Footer będzie wyświetlany na każdej podstronie */}
+        <Footer />
       </div>
     </Router>
   );
