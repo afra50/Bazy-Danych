@@ -40,7 +40,7 @@ function Search_form() {
     <form className="search_form" onSubmit={handleSubmit}>
       {/* Pole wyboru zakresu dat */}
       <div className="form_group">
-        <label>Zakres dat:</label>
+        <label>Data wyjazdu</label>
         <DatePicker
           selected={searchData.dateRange[0]} // Data początkowa
           onChange={handleDateChange}
@@ -78,7 +78,7 @@ function Search_form() {
           type="text"
           id="location"
           name="location"
-          placeholder="Gdzie chcesz pojechać?"
+          placeholder="Wybierz miasto"
           value={searchData.location}
           onChange={handleInputChange}
           required

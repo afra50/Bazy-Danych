@@ -1,4 +1,23 @@
 .search_form {
   z-index: 2;
   position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  width: 85%;
+  padding: 1rem 0;
+  border-radius: 0.7rem;
+  height: 15%;
+  .form_group {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 80%;
+  }
+  .btn_search {
+    height: 50%;
+  }
 }
