@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/Search.scss";
+import SearchForm from "./Search_form";
+import Search_form from "./Search_form";
 
 function Search() {
   return (
@@ -8,6 +10,7 @@ function Search() {
       <span className="main_subtitle">
         Wyszukaj idealne miejsce na wypoczynek – szybko i łatwo.
       </span>
+      <Search_form></Search_form>
     </section>
   );
 }
