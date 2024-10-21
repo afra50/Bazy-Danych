@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import { pl } from "date-fns/locale";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,6 +13,7 @@ function Search_form() {
   });
   const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/ zamykaniem listy krajobrazu
   const [selectedCategories, setSelectedCategories] = useState([]); // Zaznaczone kategorie
+  const dropdownRef = useRef(null); // Ref dla dropdown menu
 
   // Obsługa zmiany zakresu dat
   const handleDateChange = (dates) => {
@@ -55,6 +56,20 @@ function Search_form() {
   const toggleCategoryDropdown = () => {
     setCategoryOpen(!isCategoryOpen);
   };
+
+  // Nasłuchiwanie kliknięcia poza komponentem
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setCategoryOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   // Obsługa wysyłania formularza
   const handleSubmit = (e) => {
@@ -99,7 +114,7 @@ function Search_form() {
         </div>
 
         {/* Lista rozwijana kategorii */}
-        <div className="form_group">
+        <div className="form_group" ref={dropdownRef}>
           <label>Krajobraz</label>
           <div className="dropdown">
             <button
