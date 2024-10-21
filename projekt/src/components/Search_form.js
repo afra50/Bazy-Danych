@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css"; // Style dla kalendarza
-import "../styles/Search_form.scss"; // Twoje style
+import { pl } from "date-fns/locale";
+import "react-datepicker/dist/react-datepicker.css";
+import "../styles/DatePicker.scss";
+import "../styles/Search_form.scss";
 
 function Search_form() {
   const [searchData, setSearchData] = useState({
@@ -67,16 +69,17 @@ function Search_form() {
         <div className="form_group">
           <label>Data wyjazdu</label>
           <DatePicker
-            selected={searchData.dateRange[0]} // Data początkowa
+            selected={searchData.dateRange[0]}
             onChange={handleDateChange}
-            startDate={searchData.dateRange[0]} // Data początkowa
-            endDate={searchData.dateRange[1]} // Data końcowa
-            selectsRange // Umożliwia wybór zakresu dat
-            minDate={new Date()} // Blokowanie dat przeszłych
+            startDate={searchData.dateRange[0]}
+            endDate={searchData.dateRange[1]}
+            selectsRange
+            minDate={new Date()}
             dateFormat="dd/MM/yyyy"
-            className="date_input" // Klasa do stylowania
-            placeholderText="Wybierz datę" // Tekst zastępczy, jeśli data nie jest wybrana
-            isClearable={true} // Pozwala wyczyścić wybór daty
+            className="date_input"
+            placeholderText="Wybierz datę"
+            isClearable={true}
+            locale={pl}
           />
         </div>
 
@@ -106,64 +109,66 @@ function Search_form() {
             >
               Wybierz krajobraz
             </button>
-            {isCategoryOpen && (
-              <div className="dropdown_menu">
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="gory"
-                    checked={selectedCategories.includes("gory")}
-                    onChange={handleCategoryChange}
-                  />
-                  Góry
-                </label>
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="jezioro"
-                    checked={selectedCategories.includes("jezioro")}
-                    onChange={handleCategoryChange}
-                  />
-                  Jezioro
-                </label>
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="morze"
-                    checked={selectedCategories.includes("morze")}
-                    onChange={handleCategoryChange}
-                  />
-                  Morze
-                </label>
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="las"
-                    checked={selectedCategories.includes("las")}
-                    onChange={handleCategoryChange}
-                  />
-                  Las
-                </label>
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="rzeka"
-                    checked={selectedCategories.includes("rzeka")}
-                    onChange={handleCategoryChange}
-                  />
-                  Rzeka
-                </label>
-                <label className="category">
-                  <input
-                    type="checkbox"
-                    value="wieś"
-                    checked={selectedCategories.includes("wieś")}
-                    onChange={handleCategoryChange}
-                  />
-                  Wieś
-                </label>
-              </div>
-            )}
+            <div
+              className={`dropdown_menu ${
+                isCategoryOpen ? "dropdown-visible" : ""
+              }`}
+            >
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="gory"
+                  checked={selectedCategories.includes("gory")}
+                  onChange={handleCategoryChange}
+                />
+                Góry
+              </label>
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="jezioro"
+                  checked={selectedCategories.includes("jezioro")}
+                  onChange={handleCategoryChange}
+                />
+                Jezioro
+              </label>
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="morze"
+                  checked={selectedCategories.includes("morze")}
+                  onChange={handleCategoryChange}
+                />
+                Morze
+              </label>
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="rzeka"
+                  checked={selectedCategories.includes("rzeka")}
+                  onChange={handleCategoryChange}
+                />
+                Rzeka
+              </label>
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="wieś"
+                  checked={selectedCategories.includes("wieś")}
+                  onChange={handleCategoryChange}
+                />
+                Wieś
+              </label>
+              <label className="category">
+                <input
+                  type="checkbox"
+                  value="las"
+                  checked={selectedCategories.includes("las")}
+                  onChange={handleCategoryChange}
+                />
+                Las
+              </label>
+            </div>
           </div>
         </div>
 
