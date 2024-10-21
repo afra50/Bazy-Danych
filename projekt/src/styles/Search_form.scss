@@ -90,6 +90,9 @@
           &:focus {
             border-color: darkgrey;
           }
+          &.selected {
+            color: $primary-color;
+          }
         }
       }
 

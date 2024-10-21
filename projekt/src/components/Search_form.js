@@ -71,6 +71,14 @@ function Search_form() {
     };
   }, []);
 
+  // Placeholder dla listy rozwijanej
+  const getDropdownPlaceholder = () => {
+    if (selectedCategories.length > 0) {
+      return `Wybrano: ${selectedCategories.length}`;
+    }
+    return "Wybierz krajobraz";
+  };
+
   // Obsługa wysyłania formularza
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -119,10 +127,12 @@ function Search_form() {
           <div className="dropdown">
             <button
               type="button"
-              className="dropdown_toggle"
+              className={`dropdown_toggle ${
+                selectedCategories.length > 0 ? "selected" : ""
+              }`}
               onClick={toggleCategoryDropdown}
             >
-              Wybierz krajobraz
+              {getDropdownPlaceholder()}
             </button>
             <div
               className={`dropdown_menu ${
