@@ -7,7 +7,7 @@ function Search_form() {
   const [searchData, setSearchData] = useState({
     dateRange: [null, null], // Zakres dat
     location: "", // Lokalizacja
-    guests: "", // Liczba gości, początkowo pusty string
+    guests: 1, // Początkowa liczba gości ustawiona na 1
   });
   const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/ zamykaniem listy krajobrazu
   const [selectedCategories, setSelectedCategories] = useState([]); // Zaznaczone kategorie
@@ -31,6 +31,22 @@ function Search_form() {
         prevCategories.filter((category) => category !== value)
       );
     }
+  };
+
+  // Zwiększanie liczby gości
+  const handleIncreaseGuests = () => {
+    setSearchData((prevData) => ({
+      ...prevData,
+      guests: prevData.guests + 1,
+    }));
+  };
+
+  // Zmniejszanie liczby gości z limitem minimalnym 1
+  const handleDecreaseGuests = () => {
+    setSearchData((prevData) => ({
+      ...prevData,
+      guests: prevData.guests > 1 ? prevData.guests - 1 : 1, // Minimalna liczba to 1
+    }));
   };
 
   // Sterowanie otwieraniem listy kategorii
@@ -59,7 +75,7 @@ function Search_form() {
             minDate={new Date()} // Blokowanie dat przeszłych
             dateFormat="dd/MM/yyyy"
             className="date_input" // Klasa do stylowania
-            placeholderText="Kiedy jedziesz?" // Tekst zastępczy, jeśli data nie jest wybrana
+            placeholderText="Wybierz datę" // Tekst zastępczy, jeśli data nie jest wybrana
             isClearable={true} // Pozwala wyczyścić wybór daty
           />
         </div>
@@ -76,7 +92,6 @@ function Search_form() {
             onChange={(e) =>
               setSearchData({ ...searchData, location: e.target.value })
             }
-            required
           />
         </div>
 
@@ -89,11 +104,11 @@ function Search_form() {
               className="dropdown_toggle"
               onClick={toggleCategoryDropdown}
             >
-              W jakiej lokalizacji?
+              Wybierz krajobraz
             </button>
             {isCategoryOpen && (
               <div className="dropdown_menu">
-                <label>
+                <label className="category">
                   <input
                     type="checkbox"
                     value="gory"
@@ -102,7 +117,7 @@ function Search_form() {
                   />
                   Góry
                 </label>
-                <label>
+                <label className="category">
                   <input
                     type="checkbox"
                     value="jezioro"
@@ -111,7 +126,7 @@ function Search_form() {
                   />
                   Jezioro
                 </label>
-                <label>
+                <label className="category">
                   <input
                     type="checkbox"
                     value="morze"
@@ -120,35 +135,64 @@ function Search_form() {
                   />
                   Morze
                 </label>
-                <label>
+                <label className="category">
                   <input
                     type="checkbox"
-                    value="miasto"
-                    checked={selectedCategories.includes("miasto")}
+                    value="las"
+                    checked={selectedCategories.includes("las")}
                     onChange={handleCategoryChange}
                   />
-                  Miasto
+                  Las
+                </label>
+                <label className="category">
+                  <input
+                    type="checkbox"
+                    value="rzeka"
+                    checked={selectedCategories.includes("rzeka")}
+                    onChange={handleCategoryChange}
+                  />
+                  Rzeka
+                </label>
+                <label className="category">
+                  <input
+                    type="checkbox"
+                    value="wieś"
+                    checked={selectedCategories.includes("wieś")}
+                    onChange={handleCategoryChange}
+                  />
+                  Wieś
                 </label>
               </div>
             )}
           </div>
         </div>
 
-        {/* Pole liczby gości */}
+        {/* Licznik gości */}
         <div className="form_group">
-          <label>Goście</label>
-          <input
-            type="number"
-            id="guests"
-            name="guests"
-            min="1"
-            placeholder="Liczba gości"
-            value={searchData.guests}
-            onChange={(e) =>
-              setSearchData({ ...searchData, guests: e.target.value })
-            }
-            required
-          />
+          <label>Liczba osób</label>
+          <div className="guests_counter">
+            <button
+              type="button"
+              className="guests_button"
+              onClick={handleDecreaseGuests}
+            >
+              -
+            </button>
+            <input
+              type="text"
+              id="guests"
+              name="guests"
+              value={searchData.guests}
+              readOnly // Zablokowanie wpisywania ręcznie
+            />
+            <button
+              type="button"
+              className="guests_button"
+              onClick={handleIncreaseGuests}
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
 
