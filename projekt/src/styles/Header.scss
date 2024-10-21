@@ -20,7 +20,7 @@
 }
 
 .navi {
-  width: 40%;
+  width: 30vw;
   display: flex;
   justify-content: space-evenly;
   a {
@@ -31,8 +31,12 @@
     font-style: normal;
     font-variation-settings: "wdth" 100;
     display: block;
-    letter-spacing: 0.1rem;
-    text-transform: uppercase;
     text-decoration: none;
+    transition: color 0.3s ease;
+    transition: font-size 0.1s ease;
+    &:hover {
+      color: $hover_color;
+      font-size: 1.31rem;
+    }
   }
 }
