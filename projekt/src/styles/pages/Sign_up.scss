@@ -7,6 +7,8 @@
   background-position: center;
   position: relative;
   padding: 2rem 0;
+  min-height: 100vh;
+
   &::before {
     content: "";
     position: absolute;
@@ -72,13 +74,26 @@
         &::placeholder {
           color: lightgrey;
         }
+
+        /* Domyślny styl dla inputów z błędami */
+        &.input-error {
+          border-color: red;
+        }
       }
 
+      /* Komunikaty błędów - domyślnie przezroczyste */
       .error {
-        color: red;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
+        color: transparent; /* Komunikaty są niewidoczne */
+        font-size: 0.8rem; /* Mniejsze komunikaty */
+        height: 1rem; /* Zajmuje zawsze przestrzeń, by nie przesuwać layoutu */
+        margin-top: 0.3rem;
         display: block;
+        transition: color 0.3s ease; /* Płynna zmiana koloru */
+      }
+
+      /* Kiedy pole zawiera błąd, zmienia kolor na czerwony */
+      .error-active {
+        color: red;
       }
     }
 

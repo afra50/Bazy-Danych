@@ -20,13 +20,21 @@ function SignUp() {
       ...formData,
       [name]: value,
     });
+
+    // Usunięcie błędu, gdy użytkownik zaczyna wpisywać poprawne dane
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: "", // Usuwa błąd dla tego pola
+      });
+    }
   };
 
   // Walidacja formularza
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.imiw) {
+    if (!formData.imie) {
       newErrors.imie = "Imię jest obowiązkowe";
     }
 
@@ -85,9 +93,11 @@ function SignUp() {
               name="imie"
               value={formData.imie}
               onChange={handleChange}
-              required
+              className={errors.imie ? "input-error" : ""}
             />
-            {errors.imie && <span className="error">{errors.imie}</span>}
+            <span className={errors.imie ? "error error-active" : "error"}>
+              {errors.imie}
+            </span>
           </div>
 
           {/* Nazwisko */}
@@ -100,11 +110,11 @@ function SignUp() {
               name="nazwisko"
               value={formData.nazwisko}
               onChange={handleChange}
-              required
+              className={errors.nazwisko ? "input-error" : ""}
             />
-            {errors.nazwisko && (
-              <span className="error">{errors.nazwisko}</span>
-            )}
+            <span className={errors.nazwisko ? "error error-active" : "error"}>
+              {errors.nazwisko}
+            </span>
           </div>
 
           {/* Email */}
@@ -112,14 +122,16 @@ function SignUp() {
             <label>Adres e-mail</label>
             <input
               placeholder="Adres e-mail"
-              type="email"
+              type="text"
               id="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
-              required
+              className={errors.email ? "input-error" : ""}
             />
-            {errors.email && <span className="error">{errors.email}</span>}
+            <span className={errors.email ? "error error-active" : "error"}>
+              {errors.email}
+            </span>
           </div>
 
           {/* Telefon */}
@@ -132,9 +144,11 @@ function SignUp() {
               name="telefon"
               value={formData.telefon}
               onChange={handleChange}
-              required
+              className={errors.telefon ? "input-error" : ""}
             />
-            {errors.telefon && <span className="error">{errors.telefon}</span>}
+            <span className={errors.telefon ? "error error-active" : "error"}>
+              {errors.telefon}
+            </span>
           </div>
 
           {/* Hasło */}
@@ -147,9 +161,11 @@ function SignUp() {
               name="haslo"
               value={formData.haslo}
               onChange={handleChange}
-              required
+              className={errors.haslo ? "input-error" : ""}
             />
-            {errors.haslo && <span className="error">{errors.haslo}</span>}
+            <span className={errors.haslo ? "error error-active" : "error"}>
+              {errors.haslo}
+            </span>
           </div>
 
           {/* Potwierdzenie hasła */}
@@ -162,12 +178,15 @@ function SignUp() {
               name="potwierdzhaslo"
               value={formData.potwierdzhaslo}
               onChange={handleChange}
-              required
+              className={errors.potwierdzhaslo ? "input-error" : ""}
             />
-            {errors.potwierdzhaslo && (
-              <span className="error">{errors.potwierdzhaslo}</span>
-            )}
+            <span
+              className={errors.potwierdzhaslo ? "error error-active" : "error"}
+            >
+              {errors.potwierdzhaslo}
+            </span>
           </div>
+
           <div className="to_sign_in">
             <span>Masz już konto?</span>
             <a href="/SignIn">Zaloguj się</a>
