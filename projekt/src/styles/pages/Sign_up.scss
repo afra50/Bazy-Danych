@@ -1,79 +1,121 @@
 @import "../../styles/Variables.scss";
 
-.sign-form {
-  width: 90vw;
-  font-family: $font-primary;
-  max-width: 30rem;
-  margin: 2rem auto;
-  padding: 1rem 3rem;
-  padding-bottom: 2rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-
-  h2 {
-    text-align: center;
-    margin-bottom: 2rem;
+.sign_container {
+  background-image: url("../../assets/images/signupimage.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 2rem 0;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
   }
 
-  .form-group {
-    margin-bottom: 1.5rem;
+  .sign-form {
+    position: relative;
+    z-index: 2;
+    width: 90vw;
+    font-family: $font-primary;
+    color: $primary-color;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1rem 3rem;
+    padding-bottom: 2rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
 
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 1rem;
     }
 
-    input {
-      padding: 0.8rem;
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      input {
+        padding: 0.8rem;
+        font-family: $font-primary;
+        color: $primary-color;
+        border: 1px solid lightgrey;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        width: 94%;
+        height: 1.5rem;
+
+        &:hover {
+          outline: none;
+          border-color: darkgrey;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: darkgrey;
+        }
+
+        &::placeholder {
+          color: lightgrey;
+        }
+      }
+
+      .error {
+        color: red;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: block;
+      }
+    }
+
+    .to_sign_in {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      span {
+        margin-right: 0.3rem;
+      }
+
+      a {
+        color: $primary-color;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: $hover-color;
+        }
+      }
+    }
+
+    .btn-submit {
+      width: 100%;
+      height: 10vh;
       font-family: $font-primary;
-      color: $primary-color;
-      border: 1px solid lightgrey;
+      background-color: $primary-color;
+      color: $secondary-color;
+      border: none;
       border-radius: 0.5rem;
-      font-size: 1rem;
-      width: 94%;
-      height: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s ease;
+      font-size: 1.3rem;
 
       &:hover {
-        outline: none;
-        border-color: darkgrey;
+        background-color: $hover-color;
+        color: white;
       }
-
-      &:focus {
-        outline: none;
-        border-color: darkgrey;
-      }
-
-      &::placeholder {
-        color: lightgrey;
-      }
-    }
-
-    .error {
-      color: red;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      display: block;
-    }
-  }
-
-  .btn-submit {
-    width: 100%;
-    padding: 1rem;
-    background-color: $primary-color;
-    color: $secondary-color;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s ease;
-    font-size: 1.1rem;
-
-    &:hover {
-      background-color: $hover-color;
-      color: white;
     }
   }
 }
