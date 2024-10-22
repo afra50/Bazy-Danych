@@ -52,6 +52,8 @@ function SignUp() {
       newErrors.email = "E-mail jest wymagany";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = "E-mail jest błędny";
+    } else if (formData.email.split("@").length !== 2) {
+      newErrors.email = "E-mail może zawierać tylko jeden znak @";
     }
 
     if (!formData.haslo) {
@@ -69,12 +71,28 @@ function SignUp() {
   };
 
   // Obsługa wysyłania formularza
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      console.log("Form data:", formData);
-      // Wyślij dane na serwer lub obsłuż je lokalnie
+      try {
+        const response = await fetch("http://localhost:5000/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData), // formData zawiera dane z formularza
+        });
+
+        if (response.ok) {
+          alert("Rejestracja zakończona sukcesem");
+        } else {
+          alert("Błąd podczas rejestracji");
+        }
+      } catch (error) {
+        console.error("Błąd podczas wysyłania danych:", error);
+        alert("Wystąpił problem z rejestracją");
+      }
     }
   };
 
@@ -142,6 +160,7 @@ function SignUp() {
               type="text"
               id="telefon"
               name="telefon"
+              maxLength="9"
               value={formData.telefon}
               onChange={handleChange}
               className={errors.telefon ? "input-error" : ""}
