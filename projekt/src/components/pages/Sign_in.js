@@ -9,7 +9,6 @@ function SignIn() {
 
   const [errors, setErrors] = useState({});
 
-  // Obsługa zmian w formularzu
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -17,11 +16,10 @@ function SignIn() {
       [name]: value,
     });
 
-    // Usuwanie błędów, gdy użytkownik zaczyna wpisywać poprawne dane
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "", // Usuwa błąd dla tego pola
+        [name]: "",
       });
     }
   };
@@ -44,7 +42,6 @@ function SignIn() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Obsługa wysyłania formularza
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -55,11 +52,14 @@ function SignIn() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData), // formData zawiera dane z formularza
+          body: JSON.stringify(formData),
         });
 
         if (response.ok) {
+          localStorage.setItem("role", "client");
+
           alert("Zalogowano pomyślnie");
+          window.location.href = "/";
         } else {
           alert("Błąd podczas logowania");
         }

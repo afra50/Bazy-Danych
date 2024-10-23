@@ -23,21 +23,56 @@
   width: 30vw;
   display: flex;
   justify-content: space-evenly;
+
   a {
     font-family: $font-primary;
     text-transform: uppercase;
     font-size: 1rem;
     color: $primary-color;
     font-weight: 400;
-    font-style: normal;
-    font-variation-settings: "wdth" 100;
-    display: block;
     text-decoration: none;
-    transition: color 0.3s ease;
-    transition: font-size 0.1s ease;
+    transition: color 0.3s ease, font-size 0.1s ease;
+
     &:hover {
       color: $hover_color;
       font-size: 1.01rem;
+    }
+  }
+
+  .user-menu {
+    position: relative;
+
+    .user-icon {
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: $primary-color;
+      transition: color 0.3s ease;
+    }
+
+    .dropdown-menu {
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      list-style: none;
+      padding: 0;
+      margin: 10px 0 0;
+      width: 200px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    &.open .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
   }
 }
