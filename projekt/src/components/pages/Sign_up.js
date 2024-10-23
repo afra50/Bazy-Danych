@@ -58,6 +58,10 @@ function SignUp() {
 
     if (!formData.haslo) {
       newErrors.haslo = "Hasło jest wymagane";
+    } else if (formData.haslo.length < 8) {
+      newErrors.haslo = "Hasło musi mieć co najmniej 8 znaków";
+    } else if (!/[A-Z]/.test(formData.haslo)) {
+      newErrors.haslo = "Hasło musi zawierać co najmniej jedną wielką literę";
     }
 
     if (!formData.potwierdzhaslo) {
