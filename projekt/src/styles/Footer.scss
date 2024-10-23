@@ -1,0 +1,16 @@
+@import "./Variables.scss";
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  .column_footer {
+    margin: 0 4.5vw;
+    #footer_logo {
+      height: 20vh;
+    }
+    a {
+      display: block;
+    }
+  }
+}
