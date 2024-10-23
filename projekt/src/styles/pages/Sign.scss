@@ -7,7 +7,8 @@
   background-position: center;
   position: relative;
   padding: 2rem 0;
-  min-height: 100vh;
+  min-height: 90vh;
+  align-content: center;
 
   &::before {
     content: "";
@@ -40,6 +41,7 @@
       text-align: center;
       font-size: 2rem;
       margin: 1rem;
+      margin-bottom: 2rem;
     }
 
     .form-group {
@@ -94,7 +96,7 @@
       }
     }
 
-    .to_sign_in {
+    .to_sign {
       text-align: center;
       margin-bottom: 1rem;
 
@@ -127,6 +129,24 @@
       &:hover {
         background-color: $hover-color;
         color: white;
+      }
+    }
+    p {
+      text-align: center;
+    }
+    .toSignAsOther {
+      margin: 0 auto;
+      padding: 1rem;
+      text-align: center;
+      background-color: $secondary-color;
+      color: $primary-color;
+      border: none;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      transition: background-color 0.3s, color 0.3s ease;
+      &:hover {
+        color: white;
+        background-color: $hover-color;
       }
     }
   }

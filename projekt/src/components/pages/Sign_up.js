@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/pages/Sign_up.scss";
+import "../../styles/pages/Sign.scss";
 
 function SignUp() {
   const [formData, setFormData] = useState({
@@ -210,7 +210,7 @@ function SignUp() {
             </span>
           </div>
 
-          <div className="to_sign_in">
+          <div className="to_sign">
             <span>Masz już konto?</span>
             <a href="/SignIn">Zaloguj się</a>
           </div>

@@ -24,7 +24,7 @@ function Footer() {
       </div>
       <div className="column_footer">
         <h2>Konto właściciela</h2>
-        <a href="/SignIn">Zaloguj się</a>
+        <a href="/SignInAsOwner">Zaloguj się</a>
         <a href="">Moje oferty</a>
         <a href="">Rezerwacje</a>
       </div>
