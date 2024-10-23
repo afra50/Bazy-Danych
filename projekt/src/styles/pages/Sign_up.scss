@@ -55,7 +55,7 @@
         padding: 0.8rem;
         font-family: $font-primary;
         color: $primary-color;
-        border: 1px solid lightgrey;
+        border: 1px solid $light-color;
         border-radius: 0.5rem;
         font-size: 1rem;
         width: 94%;
@@ -63,35 +63,32 @@
 
         &:hover {
           outline: none;
-          border-color: darkgrey;
+          border-color: $dark-color;
         }
 
         &:focus {
           outline: none;
-          border-color: darkgrey;
+          border-color: $dark-color;
         }
 
         &::placeholder {
-          color: lightgrey;
+          color: $light-color;
         }
 
-        /* Domyślny styl dla inputów z błędami */
         &.input-error {
           border-color: red;
         }
       }
 
-      /* Komunikaty błędów - domyślnie przezroczyste */
       .error {
-        color: transparent; /* Komunikaty są niewidoczne */
-        font-size: 0.8rem; /* Mniejsze komunikaty */
-        height: 1rem; /* Zajmuje zawsze przestrzeń, by nie przesuwać layoutu */
+        color: transparent;
+        font-size: 0.8rem;
+        height: 1rem;
         margin-top: 0.3rem;
         display: block;
-        transition: color 0.3s ease; /* Płynna zmiana koloru */
+        transition: color 0.3s ease;
       }
 
-      /* Kiedy pole zawiera błąd, zmienia kolor na czerwony */
       .error-active {
         color: red;
       }

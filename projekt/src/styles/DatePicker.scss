@@ -32,8 +32,8 @@
     }
 
     &.react-datepicker__day--disabled {
-      color: lightgrey;
-      background-color: #f8f8f8; // Jasnoszare tło
+      color: $light-color;
+      background-color: #f8f8f8;
       text-decoration: line-through;
     }
   }
@@ -65,12 +65,12 @@
   .react-datepicker__input-container input {
     width: 100%;
     padding: 0.5rem 1rem;
-    border: 1px solid lightgrey;
+    border: 1px solid $light-color;
     border-radius: 0.5rem;
     outline: none;
 
     &:hover {
-      border-color: darkgrey;
+      border-color: $dark-color;
     }
 
     &:focus {
