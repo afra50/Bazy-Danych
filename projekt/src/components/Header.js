@@ -36,32 +36,41 @@ function Header() {
         {isLoggedIn ? (
           <div className={`user-menu ${isMenuOpen ? "open" : ""}`}>
             <div className="user-icon" onClick={toggleMenu}>
-              <i class="fa-solid fa-bars" id="burger-menu"></i>
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-bars" id="burger-menu"></i>
+              <i className="fa-solid fa-user"></i>
             </div>
             <ul className="dropdown-menu">
               {role === "owner" ? (
                 <>
                   <li>
-                    <a href="/owner/profile">Profil</a>
+                    <a href="/owner/profile">
+                      <i className="fa-solid fa-user-pen"></i> Profil
+                    </a>
                   </li>
                   <li>
-                    <a href="/owner/offers">Moje oferty</a>
+                    <a href="/owner/offers">
+                      <i className="fa-solid fa-house"></i> Moje oferty
+                    </a>
                   </li>
                   <li>
-                    <a href="/owner/reservations">Rezerwacje</a>
+                    <a href="/owner/reservations">
+                      <i className="fa-solid fa-note-sticky"></i> Rezerwacje
+                    </a>
                   </li>
                 </>
               ) : (
                 <>
                   <li>
-                    <a href="/client/reservations">Moje rezerwacje</a>
+                    <a href="/client/reservations">
+                      <i className="fa-solid fa-note-sticky"></i> Moje
+                      rezerwacje
+                    </a>
                   </li>
                 </>
               )}
               <li>
                 <a href="/" onClick={handleLogout}>
-                  Wyloguj się
+                  <i className="fa-solid fa-right-from-bracket"></i> Wyloguj się
                 </a>
               </li>
             </ul>
