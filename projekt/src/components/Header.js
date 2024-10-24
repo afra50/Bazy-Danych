@@ -8,7 +8,7 @@ function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
-    const storedRole = localStorage.getItem("role");
+    const storedRole = sessionStorage.getItem("role");
     if (storedRole) {
       setIsLoggedIn(true);
       setRole(storedRole);
@@ -16,10 +16,11 @@ function Header() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("role");
     setIsLoggedIn(false);
     setRole(null);
     setIsMenuOpen(false);
+    window.location.href = "/";
   };
 
   const toggleMenu = () => {
@@ -35,7 +36,8 @@ function Header() {
         {isLoggedIn ? (
           <div className={`user-menu ${isMenuOpen ? "open" : ""}`}>
             <div className="user-icon" onClick={toggleMenu}>
-              👤
+              <i class="fa-solid fa-bars" id="burger-menu"></i>
+              <i class="fa-solid fa-user"></i>
             </div>
             <ul className="dropdown-menu">
               {role === "owner" ? (

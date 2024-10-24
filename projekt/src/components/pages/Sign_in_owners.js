@@ -58,7 +58,7 @@ function SignInAsOwner() {
         });
 
         if (response.ok) {
-          localStorage.setItem("role", "owner");
+          sessionStorage.setItem("role", "owner");
 
           alert("Zalogowano pomyślnie");
           window.location.href = "/";

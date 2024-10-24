@@ -155,7 +155,7 @@
           transition: background-color 0.3s ease;
 
           &:hover {
-            background-color: #f0f0f0;
+            background-color: $very-light-color;
           }
         }
       }

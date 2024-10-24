@@ -56,7 +56,7 @@ function SignIn() {
         });
 
         if (response.ok) {
-          localStorage.setItem("role", "client");
+          sessionStorage.setItem("role", "client");
 
           alert("Zalogowano pomyślnie");
           window.location.href = "/";
