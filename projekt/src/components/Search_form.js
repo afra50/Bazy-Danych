@@ -11,6 +11,7 @@ function Search_form() {
     location: "", // Lokalizacja
     guests: 1, // Początkowa liczba gości ustawiona na 1
   });
+
   const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/ zamykaniem listy krajobrazu
   const [selectedCategories, setSelectedCategories] = useState([]); // Zaznaczone kategorie
   const [isDatePickerOpen, setDatePickerOpen] = useState(false); // Stan do otwierania i zamykania DatePicker
@@ -18,33 +19,20 @@ function Search_form() {
 
   // Obsługa zmiany zakresu dat
   const handleDateChange = (dates) => {
-    const [start, end] = dates;
+    const [start, end] = dates; // Start i koniec zakresu
     setSearchData((prevData) => ({
       ...prevData,
-      dateRange: [start, end],
+      dateRange: [start, end], // Aktualizacja zakresu
     }));
   };
 
-  // Otwieranie DatePicker
-  const handleCalendarOpen = () => {
-    setDatePickerOpen(true);
-  };
-
-  // Zamykanie DatePicker
-  const handleCalendarClose = () => {
-    setDatePickerOpen(false);
-  };
-
-  // Obsługa zmian w checkboxach krajobrazu
-  const handleCategoryChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSelectedCategories((prevCategories) => [...prevCategories, value]);
-    } else {
-      setSelectedCategories((prevCategories) =>
-        prevCategories.filter((category) => category !== value)
-      );
-    }
+  // Obsługa zmiany lokalizacji
+  const handleLocationChange = (e) => {
+    const { value } = e.target;
+    setSearchData((prevData) => ({
+      ...prevData,
+      location: value,
+    }));
   };
 
   // Zwiększanie liczby gości
@@ -59,13 +47,33 @@ function Search_form() {
   const handleDecreaseGuests = () => {
     setSearchData((prevData) => ({
       ...prevData,
-      guests: prevData.guests > 1 ? prevData.guests - 1 : 1, // Minimalna liczba to 1
+      guests: prevData.guests > 1 ? prevData.guests - 1 : 1,
     }));
+  };
+
+  // Obsługa zmian w checkboxach krajobrazu
+  const handleCategoryChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSelectedCategories((prevCategories) => [...prevCategories, value]);
+    } else {
+      setSelectedCategories((prevCategories) =>
+        prevCategories.filter((category) => category !== value)
+      );
+    }
   };
 
   // Sterowanie otwieraniem listy kategorii
   const toggleCategoryDropdown = () => {
     setCategoryOpen(!isCategoryOpen);
+  };
+
+  // Placeholder dla listy rozwijanej
+  const getDropdownPlaceholder = () => {
+    if (selectedCategories.length > 0) {
+      return `Wybrano: ${selectedCategories.length}`;
+    }
+    return "Wybierz krajobraz";
   };
 
   // Nasłuchiwanie kliknięcia poza komponentem
@@ -82,14 +90,6 @@ function Search_form() {
     };
   }, []);
 
-  // Placeholder dla listy rozwijanej
-  const getDropdownPlaceholder = () => {
-    if (selectedCategories.length > 0) {
-      return `Wybrano: ${selectedCategories.length}`;
-    }
-    return "Wybierz krajobraz";
-  };
-
   // Obsługa wysyłania formularza
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -103,19 +103,19 @@ function Search_form() {
         <div className="form_group">
           <label>Data wyjazdu</label>
           <DatePicker
-            selected={searchData.dateRange[0]}
+            selected={searchData.dateRange[0]} // Początek zakresu
             onChange={handleDateChange}
-            startDate={searchData.dateRange[0]}
-            endDate={searchData.dateRange[1]}
-            selectsRange
-            minDate={new Date().setHours(0, 0, 0, 0)}
+            startDate={searchData.dateRange[0]} // Początek zakresu
+            endDate={searchData.dateRange[1]} // Koniec zakresu
+            selectsRange // Umożliwia wybór zakresu dat
+            minDate={new Date().setHours(0, 0, 0, 0)} // Minimalna data to dzisiaj
             dateFormat="dd/MM/yyyy"
             className="date_input"
             placeholderText="Wybierz datę"
             isClearable={true}
             locale={pl}
-            onCalendarOpen={handleCalendarOpen}
-            onCalendarClose={handleCalendarClose}
+            onCalendarOpen={() => setDatePickerOpen(true)}
+            onCalendarClose={() => setDatePickerOpen(false)}
             calendarClassName={isDatePickerOpen ? "open" : ""}
           />
         </div>
@@ -129,9 +129,7 @@ function Search_form() {
             name="location"
             placeholder="Dokąd jedziesz?"
             value={searchData.location}
-            onChange={(e) =>
-              setSearchData({ ...searchData, location: e.target.value })
-            }
+            onChange={handleLocationChange}
           />
         </div>
 
@@ -227,7 +225,7 @@ function Search_form() {
               id="guests"
               name="guests"
               value={searchData.guests}
-              readOnly // Zablokowanie wpisywania ręcznie
+              readOnly
             />
             <button
               type="button"

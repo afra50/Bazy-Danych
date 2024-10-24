@@ -1,5 +1,3 @@
-// src/styles/DatePicker.scss
-
 @import "./Variables.scss";
 
 .react-datepicker {
@@ -7,15 +5,15 @@
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
   position: absolute;
-  left: -7.5rem; /* Stała pozycja względem pola */
+  left: -7.5rem;
   z-index: 10;
-  transition: opacity 0.3s ease, transform 0.3s ease; /* Przejście płynne */
-  opacity: 0; /* Ukryty początkowo */
-  transform: translateY(-10px); /* Początkowo przesunięty lekko w górę */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
 
   &.open {
-    opacity: 1; /* Pełna widoczność */
-    transform: translateY(0); /* Brak przesunięcia */
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .react-datepicker__header {
@@ -49,19 +47,41 @@
       background-color: #f8f8f8;
       text-decoration: line-through;
     }
+
     &--keyboard-selected {
       background-color: transparent !important;
       color: inherit !important;
       border-radius: 0 !important;
     }
+
     &--today {
       background-color: $very-light-color !important;
-      border: 1px solid $light-color !important;
-      border-radius: 0.5rem !important;
-      outline: none !important;
+      color: $primary-color !important;
+      border-radius: 50% !important;
 
       &:hover {
-        background-color: $dark-color !important;
+        background-color: $light-color !important;
+      }
+    }
+
+    &--selected {
+      background-color: $primary-color !important;
+      color: $secondary-color !important;
+      border-radius: 50% !important;
+
+      &:hover {
+        background-color: lighten($primary-color, 20%) !important;
+      }
+    }
+
+    &--outside-month {
+      color: $light-color;
+      opacity: 0.5;
+      pointer-events: all;
+      cursor: pointer;
+
+      &:hover {
+        background-color: lighten($primary-color, 30%);
       }
     }
   }
