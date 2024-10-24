@@ -1,3 +1,5 @@
+// src/styles/DatePicker.scss
+
 @import "./Variables.scss";
 
 .react-datepicker {
@@ -43,10 +45,24 @@
     }
 
     &.react-datepicker__day--disabled {
-      color: $light-color !important; /* Użycie !important, aby nadpisać domyślne style */
-      background-color: #f8f8f8 !important;
-      text-decoration: line-through !important;
-      cursor: not-allowed; /* Zmiana kursora na wskazujący, że dzień jest nieaktywny */
+      color: $light-color;
+      background-color: #f8f8f8;
+      text-decoration: line-through;
+    }
+    &--keyboard-selected {
+      background-color: transparent !important;
+      color: inherit !important;
+      border-radius: 0 !important;
+    }
+    &--today {
+      background-color: $very-light-color !important;
+      border: 1px solid $light-color !important;
+      border-radius: 0.5rem !important;
+      outline: none !important;
+
+      &:hover {
+        background-color: $dark-color !important;
+      }
     }
   }
 
