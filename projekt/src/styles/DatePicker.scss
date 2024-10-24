@@ -43,9 +43,10 @@
     }
 
     &.react-datepicker__day--disabled {
-      color: $light-color;
-      background-color: #f8f8f8;
-      text-decoration: line-through;
+      color: $light-color !important; /* Użycie !important, aby nadpisać domyślne style */
+      background-color: #f8f8f8 !important;
+      text-decoration: line-through !important;
+      cursor: not-allowed; /* Zmiana kursora na wskazujący, że dzień jest nieaktywny */
     }
   }
 

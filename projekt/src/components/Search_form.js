@@ -108,7 +108,7 @@ function Search_form() {
             startDate={searchData.dateRange[0]}
             endDate={searchData.dateRange[1]}
             selectsRange
-            minDate={new Date()}
+            minDate={new Date().setHours(0, 0, 0, 0)}
             dateFormat="dd/MM/yyyy"
             className="date_input"
             placeholderText="Wybierz datę"
