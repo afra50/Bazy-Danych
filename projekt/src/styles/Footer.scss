@@ -3,14 +3,54 @@
 .footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-between; /* Równe odstępy między kolumnami */
+  align-items: baseline; /* Wyrównanie pionowe */
+  font-family: $font-primary;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  
   .column_footer {
     margin: 0 4.5vw;
     #footer_logo {
-      height: 20vh;
+      display: block;
+      height: 13vh;
+      margin: 0 auto;            /* Wyśrodkuj logo poziomo */
+      position: relative;        /* Ustaw logo jako element względny */
+      top: 4rem;  
+      margin-left:-1rem;     
+      
     }
     a {
       display: block;
+      transition: transform 0.3s ease;
+    }
+    a:hover{
+      transform: scale(1.1);
     }
   }
+  
+  .Kontakt br {
+    line-height: 3; /* Zwiększa odstęp między liniami */
+    display: block;
+    margin-bottom: 0.5rem; /* Dodaje margines poniżej każdego <br> */
+  }
+  .konto_klienta a{
+    margin-top: 1rem;
+    line-height:1.5;
+    display: block;
+    margin-bottom: 0.5rem;
+    
+  }
+  .konto_wlasciciela a{
+    line-height:1.5;
+    display: block;
+    margin-bottom: 0.5rem;
+
+  
+  }
+  .column_footer.kontakt {
+    position: relative;
+    margin-top: -200% !important;  /* Przesuń kolumnę „Kontakt” w górę */
+  }
+
 }
