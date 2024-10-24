@@ -14,8 +14,8 @@
     #footer_logo {
       display: block;
       height: 13vh;
-      margin: 0 auto;            /* Wyśrodkuj logo poziomo */
-      position: relative;        /* Ustaw logo jako element względny */
+      margin: 0 auto;            
+      position: relative;        
       top: 4rem;  
       margin-left:-1rem;     
       
@@ -30,9 +30,9 @@
   }
   
   .Kontakt br {
-    line-height: 3; /* Zwiększa odstęp między liniami */
+    line-height: 3; 
     display: block;
-    margin-bottom: 0.5rem; /* Dodaje margines poniżej każdego <br> */
+    margin-bottom: 0.5rem; 
   }
   .konto_klienta a{
     margin-top: 1rem;
@@ -50,7 +50,7 @@
   }
   .column_footer.kontakt {
     position: relative;
-    margin-top: -200% !important;  /* Przesuń kolumnę „Kontakt” w górę */
+    margin-top: -200% !important;  
   }
 
 }
