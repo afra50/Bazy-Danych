@@ -4,6 +4,17 @@
   font-family: $font-primary;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: -7.5rem; /* Stała pozycja względem pola */
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Przejście płynne */
+  opacity: 0; /* Ukryty początkowo */
+  transform: translateY(-10px); /* Początkowo przesunięty lekko w górę */
+
+  &.open {
+    opacity: 1; /* Pełna widoczność */
+    transform: translateY(0); /* Brak przesunięcia */
+  }
 
   .react-datepicker__header {
     background-color: $primary-color;

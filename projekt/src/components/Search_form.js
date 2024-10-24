@@ -13,6 +13,7 @@ function Search_form() {
   });
   const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/ zamykaniem listy krajobrazu
   const [selectedCategories, setSelectedCategories] = useState([]); // Zaznaczone kategorie
+  const [isDatePickerOpen, setDatePickerOpen] = useState(false); // Stan do otwierania i zamykania DatePicker
   const dropdownRef = useRef(null); // Ref dla dropdown menu
 
   // Obsługa zmiany zakresu dat
@@ -22,6 +23,16 @@ function Search_form() {
       ...prevData,
       dateRange: [start, end],
     }));
+  };
+
+  // Otwieranie DatePicker
+  const handleCalendarOpen = () => {
+    setDatePickerOpen(true);
+  };
+
+  // Zamykanie DatePicker
+  const handleCalendarClose = () => {
+    setDatePickerOpen(false);
   };
 
   // Obsługa zmian w checkboxach krajobrazu
@@ -103,6 +114,9 @@ function Search_form() {
             placeholderText="Wybierz datę"
             isClearable={true}
             locale={pl}
+            onCalendarOpen={handleCalendarOpen}
+            onCalendarClose={handleCalendarClose}
+            calendarClassName={isDatePickerOpen ? "open" : ""}
           />
         </div>
 
