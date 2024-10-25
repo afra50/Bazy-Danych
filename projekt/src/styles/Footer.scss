@@ -4,10 +4,11 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  padding: 2rem 4rem 2rem 8rem;
+  padding: 1rem 4rem 1rem 8rem;
   font-family: $font-primary;
   color: $primary-color;
   background-color: $very-light-color;
+  align-items: center;
   .column_footer {
     display: flex;
     flex-direction: column;
