@@ -3,54 +3,40 @@
 .footer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Równe odstępy między kolumnami */
-  align-items: baseline; /* Wyrównanie pionowe */
+  justify-content: space-evenly;
+  padding: 2rem 4rem 2rem 8rem;
   font-family: $font-primary;
-  margin-bottom: 2rem;
-  margin-top: 1rem;
-  
+  color: $primary-color;
+  background-color: $very-light-color;
   .column_footer {
-    margin: 0 4.5vw;
+    display: flex;
+    flex-direction: column;
+    margin-right: 8vw;
     #footer_logo {
       display: block;
       height: 13vh;
-      margin: 0 auto;            
-      position: relative;        
-      top: 4rem;  
-      margin-left:-1rem;     
-      
+      margin: 0 auto;
+    }
+    h2 {
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
     }
     a {
+      text-decoration: none;
       display: block;
-      transition: transform 0.3s ease;
+      color: $primary-color;
+      margin-bottom: 0.2rem;
+      &:hover {
+        text-decoration: underline;
+      }
     }
-    a:hover{
-      transform: scale(1.1);
+    p {
+      font-size: 0.8rem;
+      span {
+        display: block;
+        margin-bottom: 0.2rem;
+      }
     }
   }
-  
-  .Kontakt br {
-    line-height: 3; 
-    display: block;
-    margin-bottom: 0.5rem; 
-  }
-  .konto_klienta a{
-    margin-top: 1rem;
-    line-height:1.5;
-    display: block;
-    margin-bottom: 0.5rem;
-    
-  }
-  .konto_wlasciciela a{
-    line-height:1.5;
-    display: block;
-    margin-bottom: 0.5rem;
-
-  
-  }
-  .column_footer.kontakt {
-    position: relative;
-    margin-top: -200% !important;  
-  }
-
 }
