@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth_context";
 import "../../styles/pages/Sign.scss";
 
 function SignInAsOwner() {
@@ -6,10 +8,14 @@ function SignInAsOwner() {
     email: "",
     haslo: "",
   });
-
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth(); // Użycie funkcji logowania z kontekstu
 
-  // Obsługa zmian w formularzu
+  // Przechwycenie docelowej ścieżki (jeśli istnieje)
+  const from = location.state?.from?.pathname || "/";
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -43,7 +49,6 @@ function SignInAsOwner() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Obsługa wysyłania formularza
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,12 +63,14 @@ function SignInAsOwner() {
         });
 
         if (response.ok) {
+          const data = await response.json(); // Otrzymujemy dane właściciela w formacie JSON
           sessionStorage.setItem("role", "owner");
-
-          alert("Zalogowano pomyślnie");
-          window.location.href = "/";
+          sessionStorage.setItem("ownerId", data.id_wlasciciela); // Zapisujemy ID właściciela
+          login("owner");
+          navigate(from, { replace: true });
         } else {
-          alert("Błąd podczas logowania");
+          const errorData = await response.json();
+          alert(errorData.error || "Błąd podczas logowania");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);

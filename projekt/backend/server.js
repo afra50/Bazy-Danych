@@ -19,12 +19,20 @@ const db = mysql.createConnection({
   database: "strona_z_rezerwacjami",
 });
 
+const path = require("path");
+// Upewnij się, że katalog 'uploads' jest serwowany jako statyczny
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 db.connect((err) => {
   if (err) {
     console.error("Błąd połączenia z bazą danych:", err);
   } else {
     console.log("Połączono z bazą danych MySQL");
   }
+});
+
+app.listen(port, () => {
+  console.log(`Serwer działa na porcie ${port}`);
 });
 
 // Endpoint do obsługi rejestracji klientów
@@ -102,7 +110,7 @@ app.post("/login-owner", (req, res) => {
 
   // Walidacja pól
   if (!email || !haslo) {
-    return res.status(400).send("E-mail i hasło są wymagane");
+    return res.status(400).json({ error: "E-mail i hasło są wymagane" });
   }
 
   // Sprawdzenie, czy właściciel istnieje w bazie danych
@@ -110,27 +118,110 @@ app.post("/login-owner", (req, res) => {
   db.query(sql, [email], (err, results) => {
     if (err) {
       console.error("Błąd podczas pobierania danych:", err);
-      return res.status(500).send("Błąd serwera");
+      return res.status(500).json({ error: "Błąd serwera" });
     }
 
     if (results.length === 0) {
       return res
         .status(400)
-        .send("Nie znaleziono właściciela o podanym adresie e-mail");
+        .json({ error: "Nie znaleziono właściciela o podanym adresie e-mail" });
     }
 
     const owner = results[0];
 
     // Porównanie hasła wprowadzonego przez właściciela z hasłem zapisanym w bazie danych (bez szyfrowania)
     if (haslo !== owner.haslo) {
-      return res.status(400).send("Błędne hasło");
+      return res.status(400).json({ error: "Błędne hasło" });
     }
 
-    // Jeśli wszystko jest poprawne, zwróć sukces
-    res.status(200).send("Zalogowano pomyślnie jako właściciel");
+    // Zwrócenie danych właściciela, w tym jego ID, w formacie JSON
+    res.status(200).json({
+      message: "Zalogowano pomyślnie jako właściciel",
+      id_wlasciciela: owner.id_wlasciciela,
+      imie: owner.imie,
+      nazwisko: owner.nazwisko,
+      email: owner.email,
+    });
   });
 });
 
-app.listen(port, () => {
-  console.log(`Serwer działa na porcie ${port}`);
+// Endpoint do pobierania danych właściciela
+app.get("/owner/profile/:id", (req, res) => {
+  const ownerId = req.params.id;
+  const sql = `SELECT imie, nazwisko, email, telefon, opis, zdjecie FROM wlasciciele WHERE id_wlasciciela = ?`;
+
+  db.query(sql, [ownerId], (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania danych właściciela:", err);
+      return res.status(500).send("Błąd serwera");
+    }
+
+    if (results.length === 0) {
+      return res.status(404).send("Właściciel nie znaleziony");
+    }
+
+    res.status(200).json(results[0]);
+  });
+});
+
+//Endpoint do aktualizacji opisu właściciela
+app.put("/owner/profile/:id", (req, res) => {
+  const ownerId = req.params.id;
+  const { opis } = req.body;
+
+  const sql = `UPDATE wlasciciele SET opis = ? WHERE id_wlasciciela = ?`;
+  db.query(sql, [opis, ownerId], (err, result) => {
+    if (err) {
+      console.error("Błąd podczas aktualizacji opisu:", err);
+      return res.status(500).send("Błąd serwera");
+    }
+
+    res.status(200).send("Opis zaktualizowany pomyślnie");
+  });
+});
+
+const multer = require("multer");
+
+// Konfiguracja multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname); // Nazwa pliku na serwerze
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Endpoint do aktualizacji zdjęcia
+app.post("/owner/upload/:id", upload.single("zdjecie"), (req, res) => {
+  const ownerId = req.params.id;
+  const zdjeciePath = `/uploads/${req.file.filename}`;
+
+  const sql = `UPDATE wlasciciele SET zdjecie = ? WHERE id_wlasciciela = ?`;
+  db.query(sql, [zdjeciePath, ownerId], (err, result) => {
+    if (err) {
+      console.error("Błąd podczas aktualizacji zdjęcia:", err);
+      return res.status(500).send("Błąd serwera");
+    }
+
+    res.status(200).send("Zdjęcie zaktualizowane pomyślnie");
+  });
+});
+
+// Endpoint do aktualizacji danych właściciela (imię, nazwisko, telefon, email)
+app.put("/owner/profile/update/:id", (req, res) => {
+  const ownerId = req.params.id;
+  const { imie, nazwisko, telefon, email } = req.body;
+
+  const sql = `UPDATE wlasciciele SET imie = ?, nazwisko = ?, telefon = ?, email = ? WHERE id_wlasciciela = ?`;
+  db.query(sql, [imie, nazwisko, telefon, email, ownerId], (err, result) => {
+    if (err) {
+      console.error("Błąd podczas aktualizacji danych właściciela:", err);
+      return res.status(500).send("Błąd serwera");
+    }
+
+    res.status(200).send("Dane właściciela zaktualizowane pomyślnie");
+  });
 });

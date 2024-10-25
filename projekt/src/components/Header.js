@@ -1,27 +1,12 @@
-import React, { useState, useEffect } from "react";
+// Header.js
+import React, { useState } from "react";
 import logo from "../assets/images/logo.png";
 import "../styles/Header.scss";
+import { useAuth } from "./Auth_context";
 
 function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [role, setRole] = useState(null);
+  const { isLoggedIn, role, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const storedRole = sessionStorage.getItem("role");
-    if (storedRole) {
-      setIsLoggedIn(true);
-      setRole(storedRole);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    sessionStorage.removeItem("role");
-    setIsLoggedIn(false);
-    setRole(null);
-    setIsMenuOpen(false);
-    window.location.href = "/";
-  };
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
@@ -30,7 +15,7 @@ function Header() {
   return (
     <header className="top_bar">
       <a href="/" id="logo">
-        <img src={logo} alt="logo" id="logo_picture"></img>
+        <img src={logo} alt="logo" id="logo_picture" />
       </a>
       <nav className="navi">
         {isLoggedIn ? (
@@ -59,17 +44,14 @@ function Header() {
                   </li>
                 </>
               ) : (
-                <>
-                  <li>
-                    <a href="/client/reservations">
-                      <i className="fa-solid fa-note-sticky"></i> Moje
-                      rezerwacje
-                    </a>
-                  </li>
-                </>
+                <li>
+                  <a href="/client/reservations">
+                    <i className="fa-solid fa-note-sticky"></i> Moje rezerwacje
+                  </a>
+                </li>
               )}
               <li>
-                <a href="/" onClick={handleLogout}>
+                <a href="/" onClick={logout}>
                   <i className="fa-solid fa-right-from-bracket"></i> Wyloguj się
                 </a>
               </li>

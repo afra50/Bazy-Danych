@@ -1,2 +1,8 @@
-- administratorzy beda musieli dodawac, usuwac lub edytowac oferty wlascicieli?
-- bez platnosci
+- zmiana hasla wlasciel (+ szyfrowanie) i klient
+-moj profil dla klienta
+- zmiana danych klienta
+- obsluga errorow backendu
+- komentarze
+-rozbicie server js
+- mozliwosc dopasowania zdjecia wlasciciela
+- zmiana od razu po przeslaniu
