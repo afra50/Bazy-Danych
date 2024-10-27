@@ -3,26 +3,29 @@
 .Owner_profile {
   padding: 2.5rem 1.25rem;
   font-family: $font-primary;
+  justify-items: center;
+  height: 80vh;
 
   h2 {
     text-align: center;
     font-size: 2rem;
     color: $primary-color;
     font-family: $font-primary;
-    margin-bottom: 1.875rem; // Odstęp poniżej nagłówka
+    margin-bottom: 1.8rem;
+    margin-top: 0;
   }
 
   .profile-container {
     display: flex;
     justify-content: space-between;
-    align-items: stretch; // Ustawienie elementów na pełną wysokość
-    flex-wrap: wrap; // Zawijanie na mniejszych ekranach
-    gap: 2.5rem; // Odstępy między lewą i prawą częścią
-    margin-top: 1.25rem; // Odstęp od nagłówka
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 80vw;
+    margin-top: 1.25rem;
 
     .profile-left {
       flex: 1;
-      min-width: 15.625rem; // Minimalna szerokość (250px ≈ 15.625rem)
+      min-width: 15.625rem;
       max-width: 45%;
       text-align: center;
       display: flex;
@@ -32,20 +35,19 @@
 
       .profile-img {
         width: 100%;
-        max-width: 12rem; // Maksymalna szerokość (300px ≈ 18.75rem)
+        max-width: 12rem;
         height: auto;
-        border-radius: 50%;
         cursor: pointer;
       }
 
       .profile-info {
-        margin-top: 0.5rem; // Odstęp od zdjęcia (20px ≈ 1.25rem)
+        margin-top: 0.5rem;
         color: $primary-color;
 
         h3 {
           font-size: 2rem;
           font-weight: 400;
-          margin-bottom: 0.625rem; // Odstęp poniżej imienia i nazwiska (10px ≈ 0.625rem)
+          margin-bottom: 0.625rem;
           color: $primary-color;
         }
 
@@ -56,18 +58,19 @@
       }
 
       .edit-button {
-        margin-top: 1.875rem; // Odstęp od informacji o profilu (30px ≈ 1.875rem)
-        padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
-        font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+        margin-top: 1.875rem;
+        padding: 0.625rem 1.25rem;
+        font-size: 1rem;
         font-family: $font-primary;
         cursor: pointer;
         background-color: $primary-color;
         color: $secondary-color;
         border: none;
         border-radius: 0.3rem;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         &:hover {
+          color: white;
           background-color: $hover-color;
         }
       }
@@ -143,68 +146,73 @@
 
     .profile-right {
       flex: 1;
-      min-width: 18.75rem; // Minimalna szerokość (300px ≈ 18.75rem)
+      min-width: 18.75rem;
       max-width: 50%;
       display: flex;
       flex-direction: column;
-      gap: 1.875rem; // Odstęp między elementami (30px ≈ 1.875rem)
+      gap: 1.875rem;
 
       .profile-description {
-        border: 0.05rem solid $dark-color; // Obramowanie (2px ≈ 0.125rem)
-        height: 100%; // Pełna wysokość prawej części
-
         .description-text {
           margin: 0;
           padding: 1.25rem;
           cursor: text;
-          height: 90%;
-          overflow: auto;
           color: $primary-color;
+          white-space: pre-wrap;
         }
+
         div {
-          height: 100%;
           textarea.editable-textarea {
             width: 100%;
-            height: 100%;
-            resize: vertical;
-            font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+            border: 0.01rem solid $dark-color !important;
+            border-radius: 2%;
+            overflow: hidden;
+            resize: none;
+            font-size: 1rem;
+            color: $primary-color;
             font-family: $font-primary;
             padding: 1.25rem;
             box-sizing: border-box;
+            border: none;
+            &:focus {
+              outline: none;
+            }
           }
 
           .buttons {
+            display: flex;
+            gap: 0.625rem;
+            margin-top: 0.625rem;
+
             .save-button,
             .cancel-button {
-              padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
-              font-size: 0.875rem; // Rozmiar czcionki (14px ≈ 0.875rem)
+              padding: 0.625rem 1.25rem;
+              font-size: 0.875rem;
               cursor: pointer;
               border: none;
-              border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
-              transition: background-color 0.3s, transform 0.2s;
-
-              &:hover {
-                transform: translateY(
-                  -0.125rem
-                ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
-              }
+              border-radius: 0.3125rem;
+              font-family: $font-primary;
+              transition: background-color 0.3s ease, color 0.3s ease;
+              font-size: 1rem;
             }
 
             .save-button {
               background-color: $primary-color;
-              color: #fff;
+              color: $secondary-color;
 
               &:hover {
-                background-color: darken($primary-color, 10%);
+                background-color: $hover-color;
+                color: white;
               }
             }
 
             .cancel-button {
-              background-color: #e74c3c;
-              color: #fff;
+              background-color: $secondary-color;
+              color: $primary-color;
 
               &:hover {
-                background-color: darken(#e74c3c, 10%);
+                background-color: $hover-color;
+                color: white;
               }
             }
           }
@@ -314,14 +322,12 @@
       }
     }
 
-    // Responsywność
     @media (max-width: 48rem) {
-      // 768px ≈ 48rem
       .Owner_profile {
         .profile-container {
           flex-direction: column;
           align-items: center;
-          gap: 1.25rem; // Odstęp między elementami (20px ≈ 1.25rem)
+          gap: 1.25rem;
 
           .profile-left,
           .profile-right {
@@ -337,10 +343,6 @@
         .modal-overlay {
           .modal-content {
             padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
-          }
-
-          textarea.editable-textarea {
-            height: 9.375rem; // Wysokość (150px ≈ 9.375rem)
           }
         }
       }

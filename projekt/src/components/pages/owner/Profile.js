@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../../styles/pages/owner/Profile.scss";
 
 function Profile() {
@@ -15,6 +15,9 @@ function Profile() {
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [file, setFile] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+
+  // Dodajemy referencję do textarea
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (!ownerId) {
@@ -92,6 +95,13 @@ function Profile() {
   const handleDescriptionChange = (e) => {
     const { value } = e.target;
     setOwnerData((prevData) => ({ ...prevData, opis: value }));
+
+    // Dostosowujemy wysokość textarea
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // Resetujemy wysokość
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px"; // Ustawiamy wysokość na podstawie zawartości
+    }
   };
 
   const handleDescriptionSave = () => {
@@ -111,6 +121,15 @@ function Profile() {
       })
       .catch((err) => console.error("Błąd podczas aktualizacji opisu:", err));
   };
+
+  // Używamy useEffect, aby dostosować wysokość podczas wejścia w tryb edycji
+  useEffect(() => {
+    if (isEditingDescription && textareaRef.current) {
+      textareaRef.current.style.height = "auto"; // Resetujemy wysokość
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px"; // Ustawiamy wysokość na podstawie zawartości
+    }
+  }, [isEditingDescription]);
 
   return (
     <section className="Owner_profile">
@@ -190,6 +209,7 @@ function Profile() {
             {isEditingDescription ? (
               <div>
                 <textarea
+                  ref={textareaRef}
                   value={ownerData.opis}
                   onChange={handleDescriptionChange}
                   className="editable-textarea"
