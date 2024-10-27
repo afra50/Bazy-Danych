@@ -1,3 +1,24 @@
+@import "../styles/Variables.scss";
+
 body {
   margin: 0;
+}
+
+.back {
+  float: left;
+  color: $primary-color;
+  transition: color 0.3s ease;
+  a {
+    margin-left: 0.5rem;
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: $primary-color;
+    transition: color 0.3s ease;
+    &:hover {
+      color: $hover-color;
+    }
+  }
+  &:hover {
+    color: $hover-color;
+  }
 }

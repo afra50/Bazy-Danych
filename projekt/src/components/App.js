@@ -34,6 +34,14 @@ function App() {
                 }
               />
               <Route
+                path="/owner/myoffers"
+                element={<Private_owner_route></Private_owner_route>}
+              />
+              <Route
+                path="/owner/reservations"
+                element={<Private_owner_route></Private_owner_route>}
+              />
+              <Route
                 path="/client/reservations"
                 element={
                   <Private_client_route>

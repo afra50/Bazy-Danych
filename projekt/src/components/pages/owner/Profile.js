@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../../styles/pages/owner/Profile.scss";
+import "../../../styles/App.scss";
 
 function Profile() {
   const ownerId = sessionStorage.getItem("ownerId");
@@ -133,6 +134,10 @@ function Profile() {
 
   return (
     <section className="Owner_profile">
+      <span className="back">
+        <i class="fa-solid fa-chevron-left"></i>
+        <a href="/">Wróć do strony głównej</a>
+      </span>
       <h2>Profil właściciela</h2>
       <div className="profile-container">
         {/* Lewa część: Profile Info i Edycja Danych */}
@@ -205,6 +210,7 @@ function Profile() {
 
         {/* Prawa część: Opis */}
         <div className="profile-right">
+          <p className="about_me">O mnie:</p>
           <div className="profile-description">
             {isEditingDescription ? (
               <div>
@@ -259,6 +265,10 @@ function Profile() {
           </div>
         </div>
       )}
+      <section className="owner_other_pages">
+        <a href="/owner/myoffers">Moje oferty</a>
+        <a href="/owner/reservations">Rezerwacje</a>
+      </section>
     </section>
   );
 }

@@ -32,7 +32,7 @@
       &:hover {
         text-decoration: underline;
         transform: scale(1.05);
-        color: darken($primary-color, 30%);
+        color: $hover-color;
       }
     }
     p {

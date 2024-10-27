@@ -12,7 +12,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-  host: "95.215.232.175",
+  host: "127.0.0.1",
   port: "3306",
   user: "root",
   password: "puqu-gute-luna",

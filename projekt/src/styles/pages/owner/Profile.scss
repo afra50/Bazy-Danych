@@ -4,14 +4,14 @@
   padding: 2.5rem 1.25rem;
   font-family: $font-primary;
   justify-items: center;
-  height: 80vh;
 
   h2 {
     text-align: center;
+    font-weight: 400;
     font-size: 2rem;
     color: $primary-color;
     font-family: $font-primary;
-    margin-bottom: 1.8rem;
+    margin-bottom: 1rem;
     margin-top: 0;
   }
 
@@ -20,13 +20,13 @@
     justify-content: space-between;
     align-items: stretch;
     flex-wrap: wrap;
-    width: 80vw;
-    margin-top: 1.25rem;
+    width: 90vw;
+    padding: 2rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid $light-color;
 
     .profile-left {
-      flex: 1;
-      min-width: 15.625rem;
-      max-width: 45%;
+      width: 40%;
       text-align: center;
       display: flex;
       flex-direction: column;
@@ -145,12 +145,14 @@
     }
 
     .profile-right {
-      flex: 1;
-      min-width: 18.75rem;
-      max-width: 50%;
-      display: flex;
-      flex-direction: column;
-      gap: 1.875rem;
+      width: 60%;
+      .about_me {
+        font-size: 1.3rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-family: $font-primary;
+        color: $primary-color;
+      }
 
       .profile-description {
         .description-text {
@@ -159,13 +161,18 @@
           cursor: text;
           color: $primary-color;
           white-space: pre-wrap;
+          border: 0.01rem solid $dark-color;
+          border-radius: 0.2rem;
+          &:focus {
+            border: none;
+          }
         }
 
         div {
           textarea.editable-textarea {
             width: 100%;
-            border: 0.01rem solid $dark-color !important;
-            border-radius: 2%;
+            border: 0.01rem solid $hover-color !important;
+            border-radius: 0.2rem;
             overflow: hidden;
             resize: none;
             font-size: 1rem;
@@ -182,7 +189,7 @@
           .buttons {
             display: flex;
             gap: 0.625rem;
-            margin-top: 0.625rem;
+            justify-content: flex-end;
 
             .save-button,
             .cancel-button {
@@ -345,6 +352,32 @@
             padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
           }
         }
+      }
+    }
+  }
+  .owner_other_pages {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90vw;
+    align-content: center;
+    justify-content: space-evenly;
+    margin-top: 2rem;
+    a {
+      display: block;
+      width: 40%;
+      text-align: center;
+      align-content: center;
+      height: 20vh;
+      text-decoration: none;
+      color: $secondary-color;
+      font-family: $font-primary;
+      background-color: $primary-color;
+      border-radius: 0.5rem;
+      font-size: 1.5rem;
+      transition: color 0.3s ease, background-color 0.3s ease;
+      &:hover {
+        color: white;
+        background-color: $hover-color;
       }
     }
   }
