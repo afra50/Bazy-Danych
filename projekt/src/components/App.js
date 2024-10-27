@@ -20,7 +20,6 @@ function App() {
           <Header />
           <main>
             <Routes>
-              
               <Route path="/" element={<Home_page />} />
               <Route path="/SignUp" element={<Sign_up />} />
               <Route path="/SignIn" element={<SignIn />} />
@@ -34,7 +33,6 @@ function App() {
                 }
               />
               <Route path="/client/reservations" element={<MyReservations />} />
-
             </Routes>
           </main>
           <Footer />
