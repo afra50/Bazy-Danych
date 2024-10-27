@@ -7,7 +7,7 @@ function MyReservations() {
        
             <h1>MOJE REZERWACJE</h1>
             <div className="reservation-content">
-                <p>do połaczenia z bazą </p>
+                <p>...... </p>
              </div>
             <div className="reservation-option">
             
