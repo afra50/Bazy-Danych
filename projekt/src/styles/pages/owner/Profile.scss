@@ -1,0 +1,349 @@
+@import "../../Variables.scss";
+
+.Owner_profile {
+  padding: 2.5rem 1.25rem;
+  font-family: $font-primary;
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: $primary-color;
+    font-family: $font-primary;
+    margin-bottom: 1.875rem; // Odstęp poniżej nagłówka
+  }
+
+  .profile-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; // Ustawienie elementów na pełną wysokość
+    flex-wrap: wrap; // Zawijanie na mniejszych ekranach
+    gap: 2.5rem; // Odstępy między lewą i prawą częścią
+    margin-top: 1.25rem; // Odstęp od nagłówka
+
+    .profile-left {
+      flex: 1;
+      min-width: 15.625rem; // Minimalna szerokość (250px ≈ 15.625rem)
+      max-width: 45%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+
+      .profile-img {
+        width: 100%;
+        max-width: 12rem; // Maksymalna szerokość (300px ≈ 18.75rem)
+        height: auto;
+        border-radius: 50%;
+        cursor: pointer;
+      }
+
+      .profile-info {
+        margin-top: 0.5rem; // Odstęp od zdjęcia (20px ≈ 1.25rem)
+        color: $primary-color;
+
+        h3 {
+          font-size: 2rem;
+          font-weight: 400;
+          margin-bottom: 0.625rem; // Odstęp poniżej imienia i nazwiska (10px ≈ 0.625rem)
+          color: $primary-color;
+        }
+
+        p {
+          margin: 0.3rem 0;
+          font-size: 1rem;
+        }
+      }
+
+      .edit-button {
+        margin-top: 1.875rem; // Odstęp od informacji o profilu (30px ≈ 1.875rem)
+        padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
+        font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+        font-family: $font-primary;
+        cursor: pointer;
+        background-color: $primary-color;
+        color: $secondary-color;
+        border: none;
+        border-radius: 0.3rem;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+
+      // Styl dla formularza edycji danych
+      form {
+        width: 100%;
+        background-color: #fff;
+        padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
+        border: 0.125rem solid $primary-color; // Obramowanie (2px ≈ 0.125rem)
+        border-radius: 0.625rem; // Zaokrąglenie rogów (10px ≈ 0.625rem)
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); // Cień (2px ≈ 0.125rem, 4px ≈ 0.25rem)
+        transition: border-color 0.3s, box-shadow 0.3s;
+        margin-top: 1rem; // Odstęp od przycisku
+
+        &:hover {
+          border-color: darken($primary-color, 10%);
+          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); // Cień przy najechaniu
+        }
+
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem; // Odstęp między elementami (20px ≈ 1.25rem)
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            display: block;
+            margin-bottom: 0.3125rem; // Odstęp poniżej etykiety (5px ≈ 0.3125rem)
+            font-weight: bold;
+            color: #555;
+          }
+
+          input {
+            width: 100%;
+            padding: 0.625rem; // Padding wewnętrzny (10px ≈ 0.625rem)
+            font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+            border: 0.0625rem solid #ccc; // Obramowanie (1px ≈ 0.0625rem)
+            border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+
+            &:focus {
+              border-color: $primary-color;
+              box-shadow: 0 0 0.3125rem rgba($primary-color, 0.5); // Cień przy fokusu (5px ≈ 0.3125rem)
+              outline: none;
+            }
+          }
+        }
+
+        button.edit-button {
+          align-self: flex-start;
+          padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
+          font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+          cursor: pointer;
+          background-color: $primary-color;
+          color: #fff;
+          border: none;
+          border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+          transition: background-color 0.3s, transform 0.2s;
+
+          &:hover {
+            background-color: darken($primary-color, 10%);
+            transform: translateY(
+              -0.125rem
+            ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
+          }
+        }
+      }
+    }
+
+    .profile-right {
+      flex: 1;
+      min-width: 18.75rem; // Minimalna szerokość (300px ≈ 18.75rem)
+      max-width: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 1.875rem; // Odstęp między elementami (30px ≈ 1.875rem)
+
+      .profile-description {
+        border: 0.05rem solid $dark-color; // Obramowanie (2px ≈ 0.125rem)
+        height: 100%; // Pełna wysokość prawej części
+
+        .description-text {
+          margin: 0;
+          padding: 1.25rem;
+          cursor: text;
+          height: 90%;
+          overflow: auto;
+          color: $primary-color;
+        }
+        div {
+          height: 100%;
+          textarea.editable-textarea {
+            width: 100%;
+            height: 100%;
+            resize: vertical;
+            font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+            font-family: $font-primary;
+            padding: 1.25rem;
+            box-sizing: border-box;
+          }
+
+          .buttons {
+            .save-button,
+            .cancel-button {
+              padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
+              font-size: 0.875rem; // Rozmiar czcionki (14px ≈ 0.875rem)
+              cursor: pointer;
+              border: none;
+              border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+              transition: background-color 0.3s, transform 0.2s;
+
+              &:hover {
+                transform: translateY(
+                  -0.125rem
+                ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
+              }
+            }
+
+            .save-button {
+              background-color: $primary-color;
+              color: #fff;
+
+              &:hover {
+                background-color: darken($primary-color, 10%);
+              }
+            }
+
+            .cancel-button {
+              background-color: #e74c3c;
+              color: #fff;
+
+              &:hover {
+                background-color: darken(#e74c3c, 10%);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // Styl dla modala edycji zdjęcia
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6); // Zwiększenie ciemności tła modala
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+
+      .modal-content {
+        background: #fff;
+        padding: 1.875rem; // Padding wewnętrzny (30px ≈ 1.875rem)
+        border-radius: 0.625rem; // Zaokrąglenie rogów (10px ≈ 0.625rem)
+        width: 90%;
+        max-width: 31.25rem; // Maksymalna szerokość (500px ≈ 31.25rem)
+        position: relative;
+        box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); // Cień (4px ≈ 0.25rem, 8px ≈ 0.5rem)
+        animation: fadeIn 0.3s ease-in-out;
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(
+              -1.25rem
+            ); // Przesunięcie przy animacji (20px ≈ 1.25rem)
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .close-button {
+          position: absolute;
+          top: 0.9375rem; // Pozycja (15px ≈ 0.9375rem)
+          right: 0.9375rem; // Pozycja (15px ≈ 0.9375rem)
+          background: transparent;
+          border: none;
+          font-size: 1.5rem;
+          cursor: pointer;
+          color: #333;
+          transition: color 0.3s;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+
+        h3 {
+          margin-bottom: 1.25rem; // Odstęp poniżej nagłówka (20px ≈ 1.25rem)
+          text-align: center;
+          color: $primary-color;
+        }
+
+        .file-upload-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem; // Odstęp między elementami (20px ≈ 1.25rem)
+
+          label {
+            margin-bottom: 0.625rem; // Odstęp poniżej etykiety (10px ≈ 0.625rem)
+            font-weight: bold;
+            color: #555;
+          }
+
+          input[type="file"] {
+            padding: 0.625rem; // Padding wewnętrzny (10px ≈ 0.625rem)
+            border: 0.0625rem solid #ccc; // Obramowanie (1px ≈ 0.0625rem)
+            border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+            transition: border-color 0.3s;
+
+            &:focus {
+              border-color: $primary-color;
+              outline: none;
+            }
+          }
+
+          button {
+            padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
+            font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+            cursor: pointer;
+            background-color: $primary-color;
+            color: #fff;
+            border: none;
+            border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+            transition: background-color 0.3s, transform 0.2s;
+
+            &:hover {
+              background-color: darken($primary-color, 10%);
+              transform: translateY(
+                -0.125rem
+              ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
+            }
+          }
+        }
+      }
+    }
+
+    // Responsywność
+    @media (max-width: 48rem) {
+      // 768px ≈ 48rem
+      .Owner_profile {
+        .profile-container {
+          flex-direction: column;
+          align-items: center;
+          gap: 1.25rem; // Odstęp między elementami (20px ≈ 1.25rem)
+
+          .profile-left,
+          .profile-right {
+            max-width: 100%;
+            padding-left: 0;
+          }
+
+          .profile-right {
+            padding-top: 0;
+          }
+        }
+
+        .modal-overlay {
+          .modal-content {
+            padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
+          }
+
+          textarea.editable-textarea {
+            height: 9.375rem; // Wysokość (150px ≈ 9.375rem)
+          }
+        }
+      }
+    }
+  }
+}

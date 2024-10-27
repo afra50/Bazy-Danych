@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../../../styles/pages/owner/Profile.scss";
 
 function Profile() {
   const ownerId = sessionStorage.getItem("ownerId");
@@ -11,7 +12,9 @@ function Profile() {
     zdjecie: "",
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [file, setFile] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     if (!ownerId) {
@@ -82,93 +85,161 @@ function Profile() {
       .catch((err) => console.error("Błąd podczas przesyłania zdjęcia:", err));
   };
 
-  return (
-    <div>
-      <h2>Profil właściciela</h2>
-      <img
-        src={`http://localhost:5000${
-          ownerData.zdjecie ? ownerData.zdjecie : "/uploads/default_profile.png"
-        }`}
-        alt={`${ownerData.imie} ${ownerData.nazwisko}`}
-        style={{ width: "150px", height: "150px", borderRadius: "50%" }}
-        onError={(e) => {
-          // Jeśli zdjęcie nie zostanie znalezione, ustaw domyślne zdjęcie
-          e.target.src = "http://localhost:5000/uploads/default_profile.png";
-        }}
-      />
-      <h3>
-        {ownerData.imie} {ownerData.nazwisko}
-      </h3>
-      <p>Email: {ownerData.email}</p>
-      <p>Telefon: {ownerData.telefon}</p>
+  const handleDescriptionClick = () => {
+    setIsEditingDescription(true);
+  };
 
-      <div>
-        <p>
-          <strong>Opis:</strong>
-        </p>
-        <p>{ownerData.opis || "Brak opisu."}</p>
+  const handleDescriptionChange = (e) => {
+    const { value } = e.target;
+    setOwnerData((prevData) => ({ ...prevData, opis: value }));
+  };
+
+  const handleDescriptionSave = () => {
+    fetch(`http://localhost:5000/owner/profile/update/${ownerId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...ownerData,
+      }),
+    })
+      .then((res) => res.text())
+      .then((message) => {
+        alert(message);
+        setIsEditingDescription(false);
+      })
+      .catch((err) => console.error("Błąd podczas aktualizacji opisu:", err));
+  };
+
+  return (
+    <section className="Owner_profile">
+      <h2>Profil właściciela</h2>
+      <div className="profile-container">
+        {/* Lewa część: Profile Info i Edycja Danych */}
+        <div className="profile-left">
+          <img
+            src={`http://localhost:5000${
+              ownerData.zdjecie
+                ? ownerData.zdjecie
+                : "/uploads/default_profile.png"
+            }`}
+            alt={`${ownerData.imie} ${ownerData.nazwisko}`}
+            className="profile-img"
+            onClick={() => setShowEditModal(true)}
+          />
+          <div className="profile-info">
+            <h3>
+              {ownerData.imie} {ownerData.nazwisko}
+            </h3>
+            <p>Email: {ownerData.email}</p>
+            <p>Telefon: {ownerData.telefon}</p>
+          </div>
+          <button onClick={() => setIsEditing(true)} className="edit-button">
+            Edytuj dane
+          </button>
+
+          {isEditing && (
+            <form onSubmit={handleProfileUpdateSubmit}>
+              <div>
+                <label>Imię:</label>
+                <input
+                  type="text"
+                  name="imie"
+                  value={ownerData.imie}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label>Nazwisko:</label>
+                <input
+                  type="text"
+                  name="nazwisko"
+                  value={ownerData.nazwisko}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label>Telefon:</label>
+                <input
+                  type="text"
+                  name="telefon"
+                  value={ownerData.telefon}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div>
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={ownerData.email}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button type="submit" className="edit-button">
+                Zapisz zmiany
+              </button>
+            </form>
+          )}
+        </div>
+
+        {/* Prawa część: Opis */}
+        <div className="profile-right">
+          <div className="profile-description">
+            {isEditingDescription ? (
+              <div>
+                <textarea
+                  value={ownerData.opis}
+                  onChange={handleDescriptionChange}
+                  className="editable-textarea"
+                />
+                <div className="buttons">
+                  <button
+                    onClick={handleDescriptionSave}
+                    className="save-button"
+                  >
+                    Zapisz
+                  </button>
+                  <button
+                    onClick={() => setIsEditingDescription(false)}
+                    className="cancel-button"
+                  >
+                    Anuluj
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <p onClick={handleDescriptionClick} className="description-text">
+                {ownerData.opis || "Brak opisu."}
+              </p>
+            )}
+          </div>
+        </div>
       </div>
 
-      {isEditing ? (
-        <form onSubmit={handleProfileUpdateSubmit}>
-          <div>
-            <label>Imię:</label>
-            <input
-              type="text"
-              name="imie"
-              value={ownerData.imie}
-              onChange={handleInputChange}
-            />
+      {/* Modal edycji zdjęcia */}
+      {showEditModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button
+              onClick={() => setShowEditModal(false)}
+              className="close-button"
+            >
+              &times;
+            </button>
+            <h3>Zaktualizuj zdjęcie</h3>
+            <form onSubmit={handleFileSubmit} className="file-upload-form">
+              <label>
+                Wybierz nowe zdjęcie:
+                <input type="file" onChange={handleFileChange} />
+              </label>
+              <button type="submit">Prześlij zdjęcie</button>
+            </form>
           </div>
-          <div>
-            <label>Nazwisko:</label>
-            <input
-              type="text"
-              name="nazwisko"
-              value={ownerData.nazwisko}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label>Telefon:</label>
-            <input
-              type="text"
-              name="telefon"
-              value={ownerData.telefon}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={ownerData.email}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div>
-            <label>Opis:</label>
-            <textarea
-              name="opis"
-              value={ownerData.opis}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button type="submit">Zapisz zmiany</button>
-        </form>
-      ) : (
-        <button onClick={() => setIsEditing(true)}>Edytuj dane</button>
+        </div>
       )}
-
-      <form onSubmit={handleFileSubmit}>
-        <label>
-          Zaktualizuj zdjęcie:
-          <input type="file" onChange={handleFileChange} />
-        </label>
-        <button type="submit">Prześlij zdjęcie</button>
-      </form>
-    </div>
+    </section>
   );
 }
 
