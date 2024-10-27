@@ -11,6 +11,7 @@ import Profile from "./pages/owner/Profile";
 import MyReservations from "./pages/client/My_reservation";
 import Private_owner_route from "./Private_owner_route";
 import { AuthProvider } from "./Auth_context";
+import Private_client_route from "./Private_client_route";
 
 function App() {
   return (
@@ -32,7 +33,14 @@ function App() {
                   </Private_owner_route>
                 }
               />
-              <Route path="/client/reservations" element={<MyReservations />} />
+              <Route
+                path="/client/reservations"
+                element={
+                  <Private_client_route>
+                    <MyReservations />
+                  </Private_client_route>
+                }
+              />
             </Routes>
           </main>
           <Footer />
