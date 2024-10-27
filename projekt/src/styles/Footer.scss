@@ -19,7 +19,7 @@
       margin: 0 auto;
     }
     h2 {
-      font-weight: 400;
+      font-weight: 3000;
       margin-bottom: 0.5rem;
       font-size: 1.2rem;
     }
@@ -28,8 +28,11 @@
       display: block;
       color: $primary-color;
       margin-bottom: 0.2rem;
+      transition: transform 0.3s ease, color 0.3s ease;
       &:hover {
         text-decoration: underline;
+        transform: scale(1.1); 
+        color: darken($primary-color, 30%); 
       }
     }
     p {

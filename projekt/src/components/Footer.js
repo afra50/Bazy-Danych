@@ -6,10 +6,16 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="column_footer">
-        <img src={logo} alt="logo" id="footer_logo"></img>
+      <a href="/">
+          <img src={logo} alt="logo" id="footer_logo" />
+        </a>
         <p>
-          <span>wyjedzstad@mail.com</span>
-          <span>+48 728 273 283</span>
+          <span>
+          <a href="mailto:wyjedzstad@mail.com">wyjedzstad@mail.com</a>
+          </span>
+          <span>
+          <a href="tel:+48728273283">+48 728 273 283</a>
+          </span>
           <span>pn-pt 8:00-22:00</span>
           <span>sb-nd 9:00-20:00</span>
         </p>
