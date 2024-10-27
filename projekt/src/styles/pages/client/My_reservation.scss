@@ -3,7 +3,7 @@
 .reservation{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     font-family: $font-primary;
     color: $primary-color;
   //  padding: 1rem 4rem 1rem 8rem;
@@ -29,7 +29,51 @@
             bottom: -0.3rem; 
             left: 10%; 
     }
+  
+}
+.reservation-content {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+.reservation-option{
+    position: relative; 
+    display: flex;
+    flex-direction: column; 
+    width: 15rem; 
     
+    margin-left: 2rem; 
+    padding: 1rem; 
+    background-color: #f0f0f0d7; 
+    border-radius: 1rem; 
+
+
+    h2{
+        font-weight: 900;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+
+    }
+
+    
+     a {
+            text-decoration: none;
+            display: block;
+            color: $primary-color;
+            margin-bottom: 0.2rem;
+            transition: transform 0.3s ease, color 0.3s ease;
+            &:hover {
+              text-decoration: underline;
+              transform: scale(1.1); 
+              color: darken($primary-color, 30%); 
+            }
+        }
+
+
+        
+
     
 }
+    
 }

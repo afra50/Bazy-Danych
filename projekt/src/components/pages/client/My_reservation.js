@@ -7,12 +7,13 @@ function MyReservations() {
        
             <h1>MOJE REZERWACJE</h1>
             <div className="reservation-content">
-                <p>...... </p>
+                <p>......[*] </p>
              </div>
+             
             <div className="reservation-option">
-            
-                <button>Oferty</button>
-                <button>Nadchodzące</button>
+                <h2>Opcje</h2>            
+                < a href="Oferty">Oferty</a>
+                < a href="Nadchodzące">Nadchodzące</a>
             </div> 
               
     </div>
