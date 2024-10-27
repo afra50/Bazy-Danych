@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/Footer.scss";
 import logo from "../assets/images/logo.png";
+import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -21,16 +22,16 @@ function Footer() {
         </p>
       </div>
       <div className="column_footer">
-        <h2>Konto klienta</h2>
-        <a href="/SignIn">Zaloguj się</a>
-        <a href="/SignUp">Załóż konto</a>
-        <a href="">Moje rezerwacje</a>
+      <h2>Konto klienta</h2>
+        <Link to="/SignIn">Zaloguj się</Link>
+        <Link to="/SignUp">Załóż konto</Link>
+        <Link to="/client/reservations">Moje rezerwacje</Link>
       </div>
       <div className="column_footer">
         <h2>Konto właściciela</h2>
-        <a href="/SignInAsOwner">Zaloguj się</a>
-        <a href="">Moje oferty</a>
-        <a href="">Rezerwacje</a>
+        <Link to="/SignInAsOwner">Zaloguj się</Link>
+        <Link to="/owner/offers">Moje oferty</Link> 
+        <Link to="/owner/reservations">Rezerwacje</Link> 
       </div>
     </footer>
   );
