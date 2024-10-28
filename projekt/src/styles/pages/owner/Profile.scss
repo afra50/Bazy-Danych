@@ -11,19 +11,20 @@
     font-size: 2rem;
     color: $primary-color;
     font-family: $font-primary;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     margin-top: 0;
   }
 
   .profile-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: stretch;
     flex-wrap: wrap;
     width: 90vw;
-    padding: 2rem 1rem;
+    padding: 3rem 1rem;
     border-radius: 0.5rem;
-    border: 1px solid $light-color;
+    box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.1);
+    height: 60vh;
 
     .profile-left {
       width: 40%;
@@ -145,7 +146,8 @@
     }
 
     .profile-right {
-      width: 60%;
+      width: 50%;
+
       .about_me {
         font-size: 1.3rem;
         margin-top: 0;
@@ -155,6 +157,8 @@
       }
 
       .profile-description {
+        height: 55vh;
+        overflow-y: auto;
         .description-text {
           margin: 0;
           padding: 1.25rem;
