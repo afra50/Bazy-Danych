@@ -213,7 +213,7 @@ function Profile() {
           <p className="about_me">O mnie:</p>
           <div className="profile-description">
             {isEditingDescription ? (
-              <div>
+              <>
                 <textarea
                   ref={textareaRef}
                   value={ownerData.opis}
@@ -234,7 +234,7 @@ function Profile() {
                     Anuluj
                   </button>
                 </div>
-              </div>
+              </>
             ) : (
               <p onClick={handleDescriptionClick} className="description-text">
                 {ownerData.opis || "Brak opisu."}

@@ -157,11 +157,15 @@
       }
 
       .profile-description {
-        height: 55vh;
-        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        height: 51vh;
         .description-text {
+          overflow-y: auto;
+          resize: none;
           margin: 0;
           padding: 1.25rem;
+          padding-right: 1.75rem;
           cursor: text;
           color: $primary-color;
           white-space: pre-wrap;
@@ -170,61 +174,82 @@
           &:focus {
             border: none;
           }
+          &::-webkit-scrollbar {
+            width: 0.5rem;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $dark-color;
+            border-radius: 4px;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+          }
         }
 
-        div {
-          textarea.editable-textarea {
-            width: 100%;
-            border: 0.01rem solid $hover-color !important;
-            border-radius: 0.2rem;
-            overflow: hidden;
-            resize: none;
+        .editable-textarea {
+          flex: 1;
+          overflow-y: auto;
+          resize: none;
+          width: 100%;
+          border: 0.01rem solid $hover-color !important;
+          border-radius: 0.2rem;
+          font-size: 1rem;
+          color: $primary-color;
+          font-family: $font-primary;
+          padding: 1.25rem;
+          box-sizing: border-box;
+          scrollbar-gutter: stable;
+          &:focus {
+            outline: none;
+          }
+          &::-webkit-scrollbar {
+            width: 0.5rem;
+          }
+          &::-webkit-scrollbar-thumb {
+            background-color: $dark-color;
+            border-radius: 4px;
+          }
+          &::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+            border-radius: 4px;
+          }
+        }
+
+        .buttons {
+          display: flex;
+          gap: 0.625rem;
+          justify-content: flex-end;
+          margin-top: 0.5rem;
+
+          .save-button,
+          .cancel-button {
+            padding: 0.625rem 1.25rem;
             font-size: 1rem;
-            color: $primary-color;
-            font-family: $font-primary;
-            padding: 1.25rem;
-            box-sizing: border-box;
+            cursor: pointer;
             border: none;
-            &:focus {
-              outline: none;
+            border-radius: 0.3125rem;
+            font-family: $font-primary;
+            transition: background-color 0.3s ease, color 0.3s ease;
+          }
+
+          .save-button {
+            background-color: $primary-color;
+            color: $secondary-color;
+
+            &:hover {
+              background-color: $hover-color;
+              color: white;
             }
           }
 
-          .buttons {
-            display: flex;
-            gap: 0.625rem;
-            justify-content: flex-end;
+          .cancel-button {
+            background-color: $secondary-color;
+            color: $primary-color;
 
-            .save-button,
-            .cancel-button {
-              padding: 0.625rem 1.25rem;
-              font-size: 0.875rem;
-              cursor: pointer;
-              border: none;
-              border-radius: 0.3125rem;
-              font-family: $font-primary;
-              transition: background-color 0.3s ease, color 0.3s ease;
-              font-size: 1rem;
-            }
-
-            .save-button {
-              background-color: $primary-color;
-              color: $secondary-color;
-
-              &:hover {
-                background-color: $hover-color;
-                color: white;
-              }
-            }
-
-            .cancel-button {
-              background-color: $secondary-color;
-              color: $primary-color;
-
-              &:hover {
-                background-color: $hover-color;
-                color: white;
-              }
+            &:hover {
+              background-color: $hover-color;
+              color: white;
             }
           }
         }
@@ -324,36 +349,8 @@
 
             &:hover {
               background-color: darken($primary-color, 10%);
-              transform: translateY(
-                -0.125rem
-              ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
+              transform: translateY(-0.125rem);
             }
-          }
-        }
-      }
-    }
-
-    @media (max-width: 48rem) {
-      .Owner_profile {
-        .profile-container {
-          flex-direction: column;
-          align-items: center;
-          gap: 1.25rem;
-
-          .profile-left,
-          .profile-right {
-            max-width: 100%;
-            padding-left: 0;
-          }
-
-          .profile-right {
-            padding-top: 0;
-          }
-        }
-
-        .modal-overlay {
-          .modal-content {
-            padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
           }
         }
       }
@@ -365,23 +362,54 @@
     width: 90vw;
     align-content: center;
     justify-content: space-evenly;
-    margin-top: 2rem;
+    margin-top: 3rem;
     a {
       display: block;
-      width: 40%;
+      width: 30%;
       text-align: center;
       align-content: center;
-      height: 20vh;
+      height: 30vh;
       text-decoration: none;
       color: $secondary-color;
       font-family: $font-primary;
       background-color: $primary-color;
       border-radius: 0.5rem;
       font-size: 1.5rem;
-      transition: color 0.3s ease, background-color 0.3s ease;
+      transition: color 0.4s ease, background-color 0.4s ease;
       &:hover {
         color: white;
         background-color: $hover-color;
+      }
+    }
+  }
+}
+
+//responsywność
+@media (max-width: 1050px) {
+  .Owner_profile {
+    .profile-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      height: auto;
+
+      .profile-left,
+      .profile-right {
+        max-width: 100%;
+        padding-left: 0;
+      }
+
+      .profile-right {
+        padding-top: 0;
+        .profile-description {
+          height: auto;
+        }
+      }
+    }
+
+    .modal-overlay {
+      .modal-content {
+        padding: 1.25rem;
       }
     }
   }
