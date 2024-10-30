@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import AvatarEditor from "react-avatar-editor";
 import "../../../styles/pages/owner/Profile.scss";
 import "../../../styles/App.scss";
 
@@ -14,11 +15,14 @@ function Profile() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [editedOpis, setEditedOpis] = useState(""); // Nowy stan dla edytowanego opisu
+  const [editedOpis, setEditedOpis] = useState("");
   const [file, setFile] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editorScale, setEditorScale] = useState(1);
+  const [image, setImage] = useState(null);
+  const editorRef = useRef(null);
 
-  // Dodajemy referencję do textarea
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -75,35 +79,46 @@ function Profile() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("zdjecie", file);
+    setImage(URL.createObjectURL(file));
+    setEditorOpen(true);
+  };
 
-    fetch(`http://localhost:5000/owner/upload/${ownerId}`, {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.text())
-      .then(() => {
-        alert("Zdjęcie zostało zaktualizowane");
-        window.location.reload();
-      })
-      .catch((err) => console.error("Błąd podczas przesyłania zdjęcia:", err));
+  const handleSaveAvatar = () => {
+    if (editorRef.current) {
+      editorRef.current.getImageScaledToCanvas().toBlob((blob) => {
+        const formData = new FormData();
+        formData.append("zdjecie", blob, "avatar.png");
+
+        fetch(`http://localhost:5000/owner/upload/${ownerId}`, {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.text())
+          .then(() => {
+            alert("Zdjęcie zostało zaktualizowane");
+            setEditorOpen(false);
+            window.location.reload();
+          })
+          .catch((err) =>
+            console.error("Błąd podczas przesyłania zdjęcia:", err)
+          );
+      }, "image/png");
+    }
   };
 
   const handleDescriptionClick = () => {
-    setEditedOpis(ownerData.opis); // Ustawiamy editedOpis na aktualny opis
+    setEditedOpis(ownerData.opis);
     setIsEditingDescription(true);
   };
 
   const handleDescriptionChange = (e) => {
     const { value } = e.target;
-    setEditedOpis(value); // Aktualizujemy tylko editedOpis
+    setEditedOpis(value);
 
-    // Dostosowujemy wysokość textarea
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Resetujemy wysokość
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height =
-        textareaRef.current.scrollHeight + "px"; // Ustawiamy wysokość na podstawie zawartości
+        textareaRef.current.scrollHeight + "px";
     }
   };
 
@@ -114,13 +129,13 @@ function Profile() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        opis: editedOpis, // Używamy editedOpis
+        opis: editedOpis,
       }),
     })
       .then((res) => res.text())
       .then((message) => {
         alert(message);
-        setOwnerData((prevData) => ({ ...prevData, opis: editedOpis })); // Aktualizujemy ownerData.opis
+        setOwnerData((prevData) => ({ ...prevData, opis: editedOpis }));
         setIsEditingDescription(false);
       })
       .catch((err) => console.error("Błąd podczas aktualizacji opisu:", err));
@@ -128,15 +143,14 @@ function Profile() {
 
   const handleDescriptionCancel = () => {
     setIsEditingDescription(false);
-    setEditedOpis(""); // Opcjonalnie: Czyścimy editedOpis
+    setEditedOpis("");
   };
 
-  // Używamy useEffect, aby dostosować wysokość podczas wejścia w tryb edycji
   useEffect(() => {
     if (isEditingDescription && textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Resetujemy wysokość
+      textareaRef.current.style.height = "auto";
       textareaRef.current.style.height =
-        textareaRef.current.scrollHeight + "px"; // Ustawiamy wysokość na podstawie zawartości
+        textareaRef.current.scrollHeight + "px";
     }
   }, [isEditingDescription]);
 
@@ -150,16 +164,23 @@ function Profile() {
       <div className="profile-container">
         {/* Lewa część: Profile Info i Edycja Danych */}
         <div className="profile-left">
-          <img
-            src={`http://localhost:5000${
-              ownerData.zdjecie
-                ? ownerData.zdjecie
-                : "/uploads/default_profile.png"
-            }`}
-            alt={`${ownerData.imie} ${ownerData.nazwisko}`}
-            className="profile-img"
+          <div
+            className="profile-img-container"
             onClick={() => setShowEditModal(true)}
-          />
+          >
+            <img
+              src={`http://localhost:5000${
+                ownerData.zdjecie
+                  ? ownerData.zdjecie
+                  : "/uploads/default_profile.png"
+              }`}
+              alt={`${ownerData.imie} ${ownerData.nazwisko}`}
+              className="profile-img"
+            />
+            <div className="overlay">
+              <i className="fa-solid fa-camera"></i>
+            </div>
+          </div>
           <div className="profile-info">
             <h3>
               {ownerData.imie} {ownerData.nazwisko}
@@ -224,7 +245,7 @@ function Profile() {
               <>
                 <textarea
                   ref={textareaRef}
-                  value={editedOpis} // Używamy editedOpis
+                  value={editedOpis}
                   onChange={handleDescriptionChange}
                   className="editable-textarea"
                 />
@@ -236,7 +257,7 @@ function Profile() {
                     Zapisz
                   </button>
                   <button
-                    onClick={handleDescriptionCancel} // Nowa funkcja
+                    onClick={handleDescriptionCancel}
                     className="cancel-button"
                   >
                     Anuluj
@@ -253,25 +274,69 @@ function Profile() {
       </div>
 
       {/* Modal edycji zdjęcia */}
-      {showEditModal && (
+      {editorOpen ? (
         <div className="modal-overlay">
           <div className="modal-content">
             <button
-              onClick={() => setShowEditModal(false)}
+              onClick={() => setEditorOpen(false)}
               className="close-button"
             >
               &times;
             </button>
-            <h3>Zaktualizuj zdjęcie</h3>
-            <form onSubmit={handleFileSubmit} className="file-upload-form">
-              <label>
-                Wybierz nowe zdjęcie:
-                <input type="file" onChange={handleFileChange} />
-              </label>
-              <button type="submit">Prześlij zdjęcie</button>
-            </form>
+            <h3>Edytuj swoje zdjęcie</h3>
+            <AvatarEditor
+              ref={editorRef}
+              image={image}
+              width={250}
+              height={250}
+              border={50}
+              borderRadius={125}
+              color={[0, 0, 0, 0.6]}
+              scale={editorScale}
+            />
+            <div className="slider-container">
+              <label htmlFor="scale">Zoom:</label>
+              <input
+                type="range"
+                id="scale"
+                name="scale"
+                min="1"
+                max="3"
+                step="0.01"
+                value={editorScale}
+                onChange={(e) => setEditorScale(parseFloat(e.target.value))}
+              />
+            </div>
+            <button onClick={handleSaveAvatar} className="save-button">
+              Zapisz
+            </button>
           </div>
         </div>
+      ) : (
+        showEditModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="close-button"
+              >
+                &times;
+              </button>
+              <h3>Zaktualizuj zdjęcie</h3>
+              <form onSubmit={handleFileSubmit} className="file-upload-form">
+                <label>
+                  Wybierz nowe zdjęcie:
+                  <input
+                    type="file"
+                    onChange={handleFileChange}
+                    accept="image/*"
+                  />
+                </label>
+                <button type="submit">Prześlij zdjęcie</button>
+              </form>
+            </div>
+          </div>
+        )
       )}
       <section className="owner_other_pages">
         <a href="/owner/myoffers">Moje oferty</a>
