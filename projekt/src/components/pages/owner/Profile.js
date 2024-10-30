@@ -14,6 +14,7 @@ function Profile() {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [editedOpis, setEditedOpis] = useState(""); // Nowy stan dla edytowanego opisu
   const [file, setFile] = useState(null);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -90,12 +91,13 @@ function Profile() {
   };
 
   const handleDescriptionClick = () => {
+    setEditedOpis(ownerData.opis); // Ustawiamy editedOpis na aktualny opis
     setIsEditingDescription(true);
   };
 
   const handleDescriptionChange = (e) => {
     const { value } = e.target;
-    setOwnerData((prevData) => ({ ...prevData, opis: value }));
+    setEditedOpis(value); // Aktualizujemy tylko editedOpis
 
     // Dostosowujemy wysokość textarea
     if (textareaRef.current) {
@@ -106,21 +108,27 @@ function Profile() {
   };
 
   const handleDescriptionSave = () => {
-    fetch(`http://localhost:5000/owner/profile/update/${ownerId}`, {
+    fetch(`http://localhost:5000/owner/profile/${ownerId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ...ownerData,
+        opis: editedOpis, // Używamy editedOpis
       }),
     })
       .then((res) => res.text())
       .then((message) => {
         alert(message);
+        setOwnerData((prevData) => ({ ...prevData, opis: editedOpis })); // Aktualizujemy ownerData.opis
         setIsEditingDescription(false);
       })
       .catch((err) => console.error("Błąd podczas aktualizacji opisu:", err));
+  };
+
+  const handleDescriptionCancel = () => {
+    setIsEditingDescription(false);
+    setEditedOpis(""); // Opcjonalnie: Czyścimy editedOpis
   };
 
   // Używamy useEffect, aby dostosować wysokość podczas wejścia w tryb edycji
@@ -135,7 +143,7 @@ function Profile() {
   return (
     <section className="Owner_profile">
       <span className="back">
-        <i class="fa-solid fa-chevron-left"></i>
+        <i className="fa-solid fa-chevron-left"></i>
         <a href="/">Wróć do strony głównej</a>
       </span>
       <h2>Profil właściciela</h2>
@@ -216,7 +224,7 @@ function Profile() {
               <>
                 <textarea
                   ref={textareaRef}
-                  value={ownerData.opis}
+                  value={editedOpis} // Używamy editedOpis
                   onChange={handleDescriptionChange}
                   className="editable-textarea"
                 />
@@ -228,7 +236,7 @@ function Profile() {
                     Zapisz
                   </button>
                   <button
-                    onClick={() => setIsEditingDescription(false)}
+                    onClick={handleDescriptionCancel} // Nowa funkcja
                     className="cancel-button"
                   >
                     Anuluj
