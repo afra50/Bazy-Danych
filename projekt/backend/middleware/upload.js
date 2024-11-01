@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
   },
 });
 
-// Filtr plików (opcjonalnie, np. tylko obrazy)
+// Filtr plików – dopuszcza tylko obrazy
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|gif/;
   const extname = allowedTypes.test(
@@ -22,12 +22,23 @@ const fileFilter = (req, file, cb) => {
   const mimetype = allowedTypes.test(file.mimetype);
 
   if (mimetype && extname) {
-    return cb(null, true);
+    cb(null, true); // Jeśli typ pliku jest poprawny, akceptujemy plik
   } else {
-    cb(new Error("Tylko obrazy są dozwolone"));
+    cb(
+      new Error(
+        "Tylko obrazy są dozwolone. Proszę wybrać plik o rozszerzeniu JPEG, JPG, PNG lub GIF."
+      )
+    ); // Jeśli nie, odrzucamy
   }
 };
 
-const upload = multer({ storage: storage, fileFilter: fileFilter });
+// Inicjalizacja multer z konfiguracją storage i filtrem plików
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // Maksymalny rozmiar pliku 5MB
+  },
+});
 
 module.exports = upload;

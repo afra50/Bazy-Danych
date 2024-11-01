@@ -4,12 +4,33 @@
   padding: 2.5rem 1.25rem;
   font-family: $font-primary;
   justify-items: center;
+  background-image: url("../../../assets/images/ownerprofile.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 
   h2 {
     text-align: center;
     font-weight: 400;
     font-size: 2rem;
-    color: $primary-color;
+    color: $very-light-color;
     font-family: $font-primary;
     margin-bottom: 2rem;
     margin-top: 0;
@@ -22,8 +43,10 @@
     flex-wrap: wrap;
     width: 90vw;
     padding: 3rem 1rem;
-    border-radius: 0.5rem;
     box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.1);
+    background-color: $very-light-color;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
     height: 60vh;
 
     .profile-left {
@@ -432,7 +455,7 @@
     flex-wrap: wrap;
     width: 90vw;
     align-content: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-top: 3rem;
 
     a {
@@ -442,9 +465,9 @@
       align-content: center;
       height: 30vh;
       text-decoration: none;
-      color: $secondary-color;
+      background-color: $secondary-color;
+      color: $primary-color;
       font-family: $font-primary;
-      background-color: $primary-color;
       border-radius: 0.5rem;
       font-size: 1.5rem;
       transition: color 0.4s ease, background-color 0.4s ease;

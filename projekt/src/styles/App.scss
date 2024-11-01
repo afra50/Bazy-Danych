@@ -6,19 +6,19 @@ body {
 
 .back {
   float: left;
-  color: $primary-color;
+  color: $very-light-color;
   transition: color 0.3s ease;
   a {
     margin-left: 0.5rem;
     font-size: 0.8rem;
     text-decoration: none;
-    color: $primary-color;
+    color: $secondary-color;
     transition: color 0.3s ease;
     &:hover {
-      color: $hover-color;
+      color: white;
     }
   }
   &:hover {
-    color: $hover-color;
+    color: white;
   }
 }

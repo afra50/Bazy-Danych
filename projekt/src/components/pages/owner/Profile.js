@@ -68,7 +68,19 @@ function Profile() {
   };
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+
+    // Sprawdzenie, czy plik ma prawidłowy typ MIME
+    if (selectedFile && allowedTypes.includes(selectedFile.type)) {
+      setFile(selectedFile);
+      setImage(URL.createObjectURL(selectedFile));
+      setEditorOpen(true);
+    } else {
+      alert("Proszę wybrać plik obrazu (JPEG, JPG, PNG lub GIF).");
+      e.target.value = ""; // Resetuje pole wyboru pliku
+      setFile(null); // Resetuje stan pliku
+    }
   };
 
   const handleFileSubmit = (e) => {
@@ -162,7 +174,6 @@ function Profile() {
       </span>
       <h2>Profil właściciela</h2>
       <div className="profile-container">
-        {/* Lewa część: Profile Info i Edycja Danych */}
         <div className="profile-left">
           <div
             className="profile-img-container"
@@ -237,7 +248,6 @@ function Profile() {
           )}
         </div>
 
-        {/* Prawa część: Opis */}
         <div className="profile-right">
           <p className="about_me">O mnie:</p>
           <div className="profile-description">

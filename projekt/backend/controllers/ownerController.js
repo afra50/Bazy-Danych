@@ -53,7 +53,6 @@ exports.updateOwnerData = (req, res) => {
   });
 };
 
-// Aktualizacja zdjęcia właściciela z usunięciem poprzedniego
 // Aktualizacja zdjęcia właściciela
 exports.uploadOwnerPhoto = (req, res) => {
   const ownerId = req.params.id;
