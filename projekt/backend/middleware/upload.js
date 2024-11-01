@@ -1,4 +1,3 @@
-// middleware/upload.js
 const multer = require("multer");
 const path = require("path");
 
@@ -8,7 +7,9 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+    const ownerId = req.params.id; // Pobieramy ownerId z parametrów
+    const extension = path.extname(file.originalname); // Zachowujemy rozszerzenie oryginalnego pliku
+    cb(null, `owner_${ownerId}${extension}`); // Nazwa pliku oparta na ownerId
   },
 });
 

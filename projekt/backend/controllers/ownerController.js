@@ -1,4 +1,5 @@
-// controllers/ownerController.js
+const fs = require("fs");
+const path = require("path");
 const db = require("../models/db");
 
 // Pobieranie profilu właściciela
@@ -52,10 +53,13 @@ exports.updateOwnerData = (req, res) => {
   });
 };
 
+// Aktualizacja zdjęcia właściciela z usunięciem poprzedniego
 // Aktualizacja zdjęcia właściciela
 exports.uploadOwnerPhoto = (req, res) => {
   const ownerId = req.params.id;
-  const zdjeciePath = `/uploads/${req.file.filename}`;
+  const zdjeciePath = `/uploads/owner_${ownerId}${path.extname(
+    req.file.originalname
+  )}`;
 
   const sql = `UPDATE wlasciciele SET zdjecie = ? WHERE id_wlasciciela = ?`;
   db.query(sql, [zdjeciePath, ownerId], (err, result) => {
