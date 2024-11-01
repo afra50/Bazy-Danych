@@ -31,7 +31,7 @@ function Profile() {
       return;
     }
 
-    fetch(`http://localhost:5000/owner/profile/${ownerId}`)
+    fetch(`http://localhost:5000/api/owner/profile/${ownerId}`)
       .then((res) => res.json())
       .then((data) => {
         setOwnerData(data);
@@ -46,7 +46,7 @@ function Profile() {
 
   const handleProfileUpdateSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:5000/owner/profile/update/${ownerId}`, {
+    fetch(`http://localhost:5000/api/owner/profile/update/${ownerId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -89,7 +89,7 @@ function Profile() {
         const formData = new FormData();
         formData.append("zdjecie", blob, "avatar.png");
 
-        fetch(`http://localhost:5000/owner/upload/${ownerId}`, {
+        fetch(`http://localhost:5000/api/owner/upload/${ownerId}`, {
           method: "POST",
           body: formData,
         })
@@ -123,7 +123,7 @@ function Profile() {
   };
 
   const handleDescriptionSave = () => {
-    fetch(`http://localhost:5000/owner/profile/${ownerId}`, {
+    fetch(`http://localhost:5000/api/owner/profile/${ownerId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

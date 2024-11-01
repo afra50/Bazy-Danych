@@ -80,13 +80,16 @@ function SignUp() {
 
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:5000/register", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData), // formData zawiera dane z formularza
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/auth/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData), // formData zawiera dane z formularza
+          }
+        );
 
         if (response.ok) {
           alert("Rejestracja zakończona sukcesem");

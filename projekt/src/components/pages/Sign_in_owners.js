@@ -54,13 +54,16 @@ function SignInAsOwner() {
 
     if (validateForm()) {
       try {
-        const response = await fetch("http://localhost:5000/login-owner", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/auth/login-owner",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
 
         if (response.ok) {
           const data = await response.json(); // Otrzymujemy dane właściciela w formacie JSON
