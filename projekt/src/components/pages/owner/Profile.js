@@ -169,7 +169,7 @@ function Profile() {
             onClick={() => setShowEditModal(true)}
           >
             <img
-              src={`http://localhost:5000${
+              src={`${process.env.REACT_APP_API_URL}${
                 ownerData.zdjecie
                   ? ownerData.zdjecie
                   : "/uploads/default_profile.png"
