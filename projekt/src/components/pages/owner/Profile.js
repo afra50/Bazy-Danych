@@ -13,6 +13,7 @@ function Profile() {
     opis: "",
     zdjecie: "",
   });
+  const [editedData, setEditedData] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingDescription, setIsEditingDescription] = useState(false);
   const [editedOpis, setEditedOpis] = useState("");
@@ -39,9 +40,14 @@ function Profile() {
       .catch((err) => console.error("Błąd podczas pobierania danych:", err));
   }, [ownerId]);
 
-  const handleInputChange = (e) => {
+  const handleEditClick = () => {
+    setEditedData(ownerData);
+    setIsEditing(true);
+  };
+
+  const handleEditedInputChange = (e) => {
     const { name, value } = e.target;
-    setOwnerData((prevData) => ({ ...prevData, [name]: value }));
+    setEditedData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleProfileUpdateSubmit = (e) => {
@@ -52,16 +58,17 @@ function Profile() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        imie: ownerData.imie,
-        nazwisko: ownerData.nazwisko,
-        telefon: ownerData.telefon,
-        email: ownerData.email,
-        opis: ownerData.opis,
+        imie: editedData.imie,
+        nazwisko: editedData.nazwisko,
+        telefon: editedData.telefon,
+        email: editedData.email,
+        opis: editedData.opis,
       }),
     })
       .then((res) => res.text())
       .then((message) => {
         alert(message);
+        setOwnerData(editedData);
         setIsEditing(false);
       })
       .catch((err) => console.error("Błąd podczas aktualizacji danych:", err));
@@ -71,15 +78,14 @@ function Profile() {
     const selectedFile = e.target.files[0];
     const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
 
-    // Sprawdzenie, czy plik ma prawidłowy typ MIME
     if (selectedFile && allowedTypes.includes(selectedFile.type)) {
       setFile(selectedFile);
       setImage(URL.createObjectURL(selectedFile));
       setEditorOpen(true);
     } else {
       alert("Proszę wybrać plik obrazu (JPEG, JPG, PNG lub GIF).");
-      e.target.value = ""; // Resetuje pole wyboru pliku
-      setFile(null); // Resetuje stan pliku
+      e.target.value = "";
+      setFile(null);
     }
   };
 
@@ -199,7 +205,7 @@ function Profile() {
             <p>Email: {ownerData.email}</p>
             <p>Telefon: {ownerData.telefon}</p>
           </div>
-          <button onClick={() => setIsEditing(true)} className="edit-button">
+          <button onClick={handleEditClick} className="edit-button">
             Edytuj dane
           </button>
         </div>
@@ -256,8 +262,8 @@ function Profile() {
                 <input
                   type="text"
                   name="imie"
-                  value={ownerData.imie}
-                  onChange={handleInputChange}
+                  value={editedData.imie}
+                  onChange={handleEditedInputChange}
                 />
               </div>
               <div>
@@ -265,8 +271,8 @@ function Profile() {
                 <input
                   type="text"
                   name="nazwisko"
-                  value={ownerData.nazwisko}
-                  onChange={handleInputChange}
+                  value={editedData.nazwisko}
+                  onChange={handleEditedInputChange}
                 />
               </div>
               <div>
@@ -274,8 +280,10 @@ function Profile() {
                 <input
                   type="text"
                   name="telefon"
-                  value={ownerData.telefon}
-                  onChange={handleInputChange}
+                  maxLength="9"
+                  required
+                  value={editedData.telefon}
+                  onChange={handleEditedInputChange}
                 />
               </div>
               <div>
@@ -283,13 +291,15 @@ function Profile() {
                 <input
                   type="email"
                   name="email"
-                  value={ownerData.email}
-                  onChange={handleInputChange}
+                  value={editedData.email}
+                  onChange={handleEditedInputChange}
                 />
               </div>
-              <button type="submit" className="save-button">
-                Zapisz zmiany
-              </button>
+              <div className="buttons">
+                <button type="submit" className="save-button">
+                  Zapisz zmiany
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -347,7 +357,6 @@ function Profile() {
               <h3>Zaktualizuj zdjęcie</h3>
               <form onSubmit={handleFileSubmit} className="file-upload-form">
                 <label>
-                  Wybierz nowe zdjęcie:
                   <input
                     type="file"
                     onChange={handleFileChange}
