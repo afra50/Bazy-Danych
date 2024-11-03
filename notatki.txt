@@ -1,8 +1,19 @@
 - zmiana hasla wlasciel (+ szyfrowanie) i klient
--moj profil dla klienta
+- moj profil dla klienta
+- usuwanie konta
 - zmiana danych klienta
+
 - obsluga errorow backendu
+
+- przekierowanie po rejestracji
+
 - komentarze
--rozbicie server js
-- mozliwosc dopasowania zdjecia wlasciciela
-- zmiana od razu po przeslaniu
+
+- modalne okno do wgrania zdjecia
+- modalne okno do dopasowania zdjecia
+- modalne okno do zmiany danych
+> na przyszlosc w zakladce profil wyswietlone oferty i rezerwacje ale nie wszystkie (+ odnosnik)
+
+- responsywność
+
+- kilka kategorii 
