@@ -202,8 +202,54 @@ function Profile() {
           <button onClick={() => setIsEditing(true)} className="edit-button">
             Edytuj dane
           </button>
+        </div>
 
-          {isEditing && (
+        <div className="profile-right">
+          <p className="about_me">O mnie:</p>
+          <div className="profile-description">
+            {isEditingDescription ? (
+              <>
+                <textarea
+                  ref={textareaRef}
+                  value={editedOpis}
+                  onChange={handleDescriptionChange}
+                  className="editable-textarea"
+                />
+                <div className="buttons">
+                  <button
+                    onClick={handleDescriptionSave}
+                    className="save-button"
+                  >
+                    Zapisz
+                  </button>
+                  <button
+                    onClick={handleDescriptionCancel}
+                    className="cancel-button"
+                  >
+                    Anuluj
+                  </button>
+                </div>
+              </>
+            ) : (
+              <p onClick={handleDescriptionClick} className="description-text">
+                {ownerData.opis || "Brak opisu."}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Modal edycji danych */}
+      {isEditing && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button
+              onClick={() => setIsEditing(false)}
+              className="close-button"
+            >
+              &times;
+            </button>
+            <h3>Edytuj dane</h3>
             <form onSubmit={handleProfileUpdateSubmit}>
               <div>
                 <label>Imię:</label>
@@ -241,47 +287,13 @@ function Profile() {
                   onChange={handleInputChange}
                 />
               </div>
-              <button type="submit" className="edit-button">
+              <button type="submit" className="save-button">
                 Zapisz zmiany
               </button>
             </form>
-          )}
-        </div>
-
-        <div className="profile-right">
-          <p className="about_me">O mnie:</p>
-          <div className="profile-description">
-            {isEditingDescription ? (
-              <>
-                <textarea
-                  ref={textareaRef}
-                  value={editedOpis}
-                  onChange={handleDescriptionChange}
-                  className="editable-textarea"
-                />
-                <div className="buttons">
-                  <button
-                    onClick={handleDescriptionSave}
-                    className="save-button"
-                  >
-                    Zapisz
-                  </button>
-                  <button
-                    onClick={handleDescriptionCancel}
-                    className="cancel-button"
-                  >
-                    Anuluj
-                  </button>
-                </div>
-              </>
-            ) : (
-              <p onClick={handleDescriptionClick} className="description-text">
-                {ownerData.opis || "Brak opisu."}
-              </p>
-            )}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Modal edycji zdjęcia */}
       {editorOpen ? (
