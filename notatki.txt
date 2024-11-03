@@ -1,19 +1,21 @@
-- zmiana hasla wlasciel (+ szyfrowanie) i klient
-- moj profil dla klienta
+1. GOSPODARZ
+- zmiana hasla (+ szyfrowanie)
 - usuwanie konta
-- zmiana danych klienta
-
-- obsluga errorow backendu
-
-- przekierowanie po rejestracji
-
-- komentarze
-
-- modalne okno do wgrania zdjecia
-- modalne okno do dopasowania zdjecia
-- modalne okno do zmiany danych
+- walidacja zmiany danych
 > na przyszlosc w zakladce profil wyswietlone oferty i rezerwacje ale nie wszystkie (+ odnosnik)
 
-- responsywność
+2. KLIENT 
+- zmiana hasła
+- mój profil + zmiana danych
+- usuwanie konta
+- walidacja zmiany danych
+> na przyszlosc w zakladce profil wyswietlone rezerwacje ale nie wszystkie (+ odnosnik)
 
-- kilka kategorii 
+3. CALY SERWIS
+- responsywnosc
+- komentarze
+- obsluga komunikatow i errorow
+- przekierowanie po rejestracji
+
+4. DOMKI
+- kilka kategorii
