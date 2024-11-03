@@ -134,47 +134,41 @@
 
       // Styl dla formularza edycji danych
       form {
-        width: 100%;
         background-color: #fff;
-        padding: 1.25rem; // Padding wewnętrzny (20px ≈ 1.25rem)
-        border: 0.125rem solid $primary-color; // Obramowanie (2px ≈ 0.125rem)
-        border-radius: 0.625rem; // Zaokrąglenie rogów (10px ≈ 0.625rem)
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05); // Cień (2px ≈ 0.125rem, 4px ≈ 0.25rem)
-        transition: border-color 0.3s, box-shadow 0.3s;
-        margin-top: 1rem; // Odstęp od przycisku
-
-        &:hover {
-          border-color: darken($primary-color, 10%);
-          box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); // Cień przy najechaniu
-        }
-
+        padding: 1.25rem;
+        border: 0.05rem solid $dark-color;
+        border-radius: 0.625rem;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
-        gap: 1.25rem; // Odstęp między elementami (20px ≈ 1.25rem)
-
+        gap: 1.25rem;
+        position: fixed;
+        top: 10%;
+        width: 30%;
+        inset-area: center;
         div {
           display: flex;
           flex-direction: column;
+          align-items: center;
 
           label {
             display: block;
-            margin-bottom: 0.3125rem; // Odstęp poniżej etykiety (5px ≈ 0.3125rem)
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 0.3rem;
+            color: $primary-color;
           }
 
           input {
-            width: 100%;
-            padding: 0.625rem; // Padding wewnętrzny (10px ≈ 0.625rem)
-            font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
-            border: 0.0625rem solid #ccc; // Obramowanie (1px ≈ 0.0625rem)
-            border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
+            width: 90%;
+            padding: 0.6rem;
+            font-size: 1rem;
+            border: 0.0625rem solid #ccc;
+            border-radius: 0.3125rem;
             box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
-
+            transition: border-color 0.3s;
+            color: $primary-color;
+            font-family: $font-primary;
             &:focus {
               border-color: $primary-color;
-              box-shadow: 0 0 0.3125rem rgba($primary-color, 0.5); // Cień przy fokusu (5px ≈ 0.3125rem)
               outline: none;
             }
           }
@@ -182,20 +176,18 @@
 
         button.edit-button {
           align-self: flex-start;
-          padding: 0.625rem 1.25rem; // Padding (10px ≈ 0.625rem, 20px ≈ 1.25rem)
-          font-size: 1rem; // Rozmiar czcionki (16px ≈ 1rem)
+          padding: 0.6rem 1.25rem;
+          font-size: 1rem;
           cursor: pointer;
           background-color: $primary-color;
-          color: #fff;
+          color: $secondary-color;
           border: none;
-          border-radius: 0.3125rem; // Zaokrąglenie rogów (5px ≈ 0.3125rem)
-          transition: background-color 0.3s, transform 0.2s;
+          border-radius: 0.3125rem;
+          transition: background-color 0.3s ease, color 0.3s ease;
 
           &:hover {
-            background-color: darken($primary-color, 10%);
-            transform: translateY(
-              -0.125rem
-            ); // Przesunięcie przy najechaniu (2px ≈ 0.125rem)
+            background-color: $hover-color;
+            color: white;
           }
         }
       }
@@ -458,6 +450,7 @@
     align-content: center;
     justify-content: space-around;
     margin-top: 3rem;
+    z-index: 0;
 
     a {
       display: block;
