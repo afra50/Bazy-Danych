@@ -8,6 +8,7 @@ import Sign_up from "./pages/Sign_up";
 import SignIn from "./pages/Sign_in";
 import SignInAsOwner from "./pages/Sign_in_owners";
 import Profile from "./pages/owner/Profile";
+import My_offers from "./pages/owner/My_offers";
 import MyReservations from "./pages/client/My_reservation";
 import Private_owner_route from "./Private_owner_route";
 import { AuthProvider } from "./Auth_context";
@@ -35,7 +36,11 @@ function App() {
               />
               <Route
                 path="/owner/myoffers"
-                element={<Private_owner_route></Private_owner_route>}
+                element={
+                  <Private_owner_route>
+                    <My_offers />
+                  </Private_owner_route>
+                }
               />
               <Route
                 path="/owner/reservations"
