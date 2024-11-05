@@ -7,6 +7,7 @@ const path = require("path");
 // Import tras
 const authRoutes = require("./routes/authRoutes");
 const ownerRoutes = require("./routes/ownerRoutes");
+const recommendedRoutes = require("./routes/recommendedRoutes");
 
 const app = express();
 const port = 5000;
@@ -15,12 +16,16 @@ const port = 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serwowanie statycznych plików (uploads)
+// Serwowanie statycznych plików uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Serwowanie statycznych plików domki
+app.use("/domki", express.static(path.join(__dirname, "domki")));
 
 // Użycie tras
 app.use("/api/auth", authRoutes);
 app.use("/api/owner", ownerRoutes);
+app.use("/api/recommended", recommendedRoutes);
 
 // Obsługa błędów multer
 app.use((err, req, res, next) => {
