@@ -16,14 +16,15 @@
 - komentarze
 - obsluga komunikatow i errorow
 - przekierowanie po rejestracji
-- zmienne kolorow
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)
+- wojewodztwa
 
 5. POLECANE
 - placeholder dla braku zdjecia
 - linki z domkow, kursor pointer
 
 6. HOME_PAGE
+- klikalne dropdown menu mimo ze ukryte
 - karuzela z kategoriami

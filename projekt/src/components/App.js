@@ -13,6 +13,7 @@ import MyReservations from "./pages/client/My_reservation";
 import Private_owner_route from "./Private_owner_route";
 import { AuthProvider } from "./Auth_context";
 import Private_client_route from "./Private_client_route";
+import Search_page from "./pages/Search_page";
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
                   </Private_client_route>
                 }
               />
+              <Route path="/searchpage" element={<Search_page></Search_page>} />
             </Routes>
           </main>
           <Footer />

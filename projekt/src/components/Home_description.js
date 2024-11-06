@@ -18,7 +18,7 @@ function Home_description() {
           która otula Cię niczym najcieplejszy koc – to doświadczenia, które
           budują wspomnienia.
         </p>
-        <a href="/">Poznaj miejsca pełne magii</a>
+        <a href="/searchpage">Poznaj miejsca pełne magii</a>
       </div>
     </section>
   );
