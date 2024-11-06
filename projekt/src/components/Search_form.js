@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "../styles/DatePicker.scss";
 import "../styles/Search_form.scss";
 
-function Search_form() {
+function Search_form(props) {
   const [searchData, setSearchData] = useState({
     dateRange: [null, null], // Zakres dat
     location: "", // Lokalizacja
@@ -90,10 +90,33 @@ function Search_form() {
     };
   }, []);
 
-  // Obsługa wysyłania formularza
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Wyszukiwanie:", searchData, selectedCategories);
+    const searchParams = {
+      dateRange: searchData.dateRange,
+      location: searchData.location,
+      guests: searchData.guests,
+      categories: selectedCategories,
+    };
+
+    // Wysyłamy żądanie do backendu
+    fetch("http://localhost:5000/api/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(searchParams),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Wywołujemy funkcję przekazaną przez props, aby zaktualizować wyniki
+        if (props.onSearchResults) {
+          props.onSearchResults(data);
+        }
+      })
+      .catch((error) => {
+        console.error("Błąd podczas wysyłania zapytania wyszukiwania:", error);
+      });
   };
 
   return (

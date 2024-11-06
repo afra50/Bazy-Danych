@@ -8,6 +8,7 @@ const path = require("path");
 const authRoutes = require("./routes/authRoutes");
 const ownerRoutes = require("./routes/ownerRoutes");
 const recommendedRoutes = require("./routes/recommendedRoutes");
+const searchRoutes = require("./routes/searchRoutes");
 
 const app = express();
 const port = 5000;
@@ -26,6 +27,7 @@ app.use("/domki", express.static(path.join(__dirname, "domki")));
 app.use("/api/auth", authRoutes);
 app.use("/api/owner", ownerRoutes);
 app.use("/api/recommended", recommendedRoutes);
+app.use("/api/search", searchRoutes);
 
 // Obsługa błędów multer
 app.use((err, req, res, next) => {
