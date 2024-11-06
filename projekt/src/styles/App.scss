@@ -15,10 +15,10 @@ body {
     color: $secondary-color;
     transition: color 0.3s ease;
     &:hover {
-      color: white;
+      color: $white;
     }
   }
   &:hover {
-    color: white;
+    color: $white;
   }
 }

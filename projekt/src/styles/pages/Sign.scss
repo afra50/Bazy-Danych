@@ -33,7 +33,7 @@
     padding-bottom: 2rem;
     border: 1px solid #ddd;
     border-radius: 1rem;
-    background-color: #f9f9f9;
+    background-color: $almost-white;
     display: flex;
     flex-direction: column;
 
@@ -128,7 +128,7 @@
 
       &:hover {
         background-color: $hover-color;
-        color: white;
+        color: $white;
       }
     }
     p {
@@ -145,7 +145,7 @@
       text-decoration: none;
       transition: background-color 0.3s, color 0.3s ease;
       &:hover {
-        color: white;
+        color: $white;
         background-color: $hover-color;
       }
     }

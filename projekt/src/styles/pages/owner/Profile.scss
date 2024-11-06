@@ -83,7 +83,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          color: white;
+          color: $white;
           font-size: 2rem;
           transition: opacity 0.3s ease;
 
@@ -127,7 +127,7 @@
         transition: background-color 0.3s ease, color 0.3s ease;
 
         &:hover {
-          color: white;
+          color: $white;
           background-color: $hover-color;
         }
       }
@@ -161,7 +161,7 @@
           white-space: pre-wrap;
           border: 0.01rem solid $dark-color;
           border-radius: 0.2rem;
-          background-color: white;
+          background-color: $white;
 
           &:focus {
             border: none;
@@ -238,7 +238,7 @@
 
             &:hover {
               background-color: $hover-color;
-              color: white;
+              color: $white;
             }
           }
 
@@ -248,7 +248,7 @@
 
             &:hover {
               background-color: $hover-color;
-              color: white;
+              color: $white;
             }
           }
         }
@@ -269,7 +269,7 @@
     z-index: 1000;
 
     .modal-content {
-      background-color: #f9f9f9;
+      background-color: $almost-white;
       padding: 1.5rem;
       border-radius: 2%;
       position: relative;
@@ -346,7 +346,7 @@
           width: 40%;
           transition: background-color 0.3s ease, color 0.3s ease;
           &:hover {
-            color: white;
+            color: $white;
             background-color: $hover-color;
           }
         }
@@ -373,7 +373,7 @@
             margin-bottom: 1rem;
             transition: background-color 0.3s ease, color 0.3s ease;
             &:hover {
-              color: white;
+              color: $white;
               background-color: $hover-color;
             }
           }
@@ -389,7 +389,7 @@
           border-radius: 0.3rem;
           transition: background-color 0.3s ease, color 0.3s ease;
           &:hover {
-            color: white;
+            color: $white;
             background-color: $hover-color;
           }
         }
@@ -456,7 +456,7 @@
         align-self: center;
         transition: background-color 0.3s ease, color 0.3s ease;
         &:hover {
-          color: white;
+          color: $white;
           background-color: $hover-color;
         }
       }
@@ -487,7 +487,7 @@
       transition: color 0.4s ease, background-color 0.4s ease;
 
       &:hover {
-        color: white;
+        color: $white;
         background-color: $hover-color;
       }
     }

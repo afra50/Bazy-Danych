@@ -66,6 +66,26 @@
     }
   }
 
+  a {
+    text-decoration: none;
+    display: block;
+    font-family: $font-primary;
+    font-size: 1.2rem;
+    color: $white;
+    margin-top: 3rem;
+    padding: 1.5rem 3rem;
+    text-align: center;
+    border-radius: 0.6rem;
+    border: none;
+    background-color: $primary-color;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+
   @media (max-width: 768px) {
     padding: 2rem;
 

@@ -29,6 +29,7 @@ function Recommended() {
           </div>
         ))}
       </div>
+      <a href="/">Zobacz więcej miejsc</a>
     </section>
   );
 }

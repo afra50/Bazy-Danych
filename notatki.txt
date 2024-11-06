@@ -9,13 +9,21 @@
 - mój profil + zmiana danych
 - usuwanie konta
 - walidacja zmiany danych
-> na przyszlosc w zakladce profil wyswietlone rezerwacje ale nie wszystkie (+ odnosnik)
+> w zakladce profil wyswietlone rezerwacje ale nie wszystkie (+ odnosnik)
 
 3. CALY SERWIS
 - responsywnosc
 - komentarze
 - obsluga komunikatow i errorow
 - przekierowanie po rejestracji
+- zmienne kolorow
 
 4. DOMKI
-- kilka kategorii
+> kilka kategorii (na homepage tez zmiany)
+
+5. POLECANE
+- placeholder dla braku zdjecia
+- linki z domkow, kursor pointer
+
+6. HOME_PAGE
+- karuzela z kategoriami
