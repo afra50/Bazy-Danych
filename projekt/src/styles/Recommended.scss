@@ -14,6 +14,13 @@
     margin: 0;
   }
 
+  hr {
+    width: 75%;
+    height: 1px;
+    background-color: $light-color;
+    border: none;
+  }
+
   .wrapper {
     display: grid;
     margin-top: 4rem;

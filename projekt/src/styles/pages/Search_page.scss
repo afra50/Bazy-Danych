@@ -1,0 +1,21 @@
+@import "../Variables.scss";
+
+.search_page {
+  justify-items: center;
+  .search_form {
+    padding: 0;
+    border-radius: 0;
+    width: auto;
+    margin: 2rem auto;
+    font-family: $font-primary;
+    .form_groups {
+      .form_group {
+        .dropdown {
+          .dropdown_menu {
+            top: 5rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,6 +14,7 @@ function Recommended() {
   return (
     <section className="recommended">
       <h1>Polecane domki</h1>
+      <hr></hr>
       <div className="wrapper">
         {domki.map((domek) => (
           <div className="card" key={domek.id}>
