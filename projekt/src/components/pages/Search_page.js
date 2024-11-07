@@ -1,5 +1,6 @@
 // Search_page.js
 import React, { useState, useEffect } from "react";
+import Select from "react-select";
 import { useLocation } from "react-router-dom";
 import "../../styles/pages/Search_page.scss";
 import Search_form from "../Search_form";
@@ -97,19 +98,59 @@ function Search_page() {
         const { results } = data;
         setSearchResults((prevResults) => [...prevResults, ...results]);
         setHasMore(results.length === resultsPerPage);
-        // 'totalResults' pozostaje niezmienione, ponieważ jest już ustawione przy pierwszym wyszukiwaniu
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
       });
   };
 
+  // Opcje sortowania
+  const sortOptions = [
+    { value: "most_relevant", label: "Najtrafniejsze" },
+    { value: "price_asc", label: "Cena: rosnąco" },
+    { value: "price_desc", label: "Cena: malejąco" },
+  ];
+
   // Funkcja do obsługi zmiany sortowania
-  const handleSortChange = (e) => {
-    const selectedSort = e.target.value;
+  const handleSortChange = (selectedOption) => {
+    const selectedSort = selectedOption.value;
     setSort(selectedSort);
     setCurrentPage(1);
     performSearch(searchParams, selectedSort);
+  };
+
+  // Obiekt customStyles dla react-select
+  const customStyles = {
+    control: (provided, state) => ({
+      ...provided,
+      backgroundColor: "#fff",
+      borderColor: state.isFocused ? "#007bff" : "#ced4da",
+      boxShadow: state.isFocused ? "0 0 0 0.2rem rgba(0,123,255,.25)" : null,
+      "&:hover": {
+        borderColor: "#80bdff",
+      },
+      fontFamily: "Arial, sans-serif",
+      fontSize: "1rem",
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected
+        ? "#007bff"
+        : state.isFocused
+        ? "#e9ecef"
+        : "#fff",
+      color: state.isSelected ? "#fff" : "#495057",
+      fontFamily: "Arial, sans-serif",
+      fontSize: "1rem",
+      "&:hover": {
+        backgroundColor: "#e9ecef",
+        color: "#495057",
+      },
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9999,
+    }),
   };
 
   return (
@@ -129,16 +170,15 @@ function Search_page() {
         {/* Opcje sortowania */}
         <div className="sort_options">
           <label htmlFor="sort_select">Sortuj według:</label>
-          <select
+          <Select
             id="sort_select"
-            value={sort}
+            value={sortOptions.find((option) => option.value === sort)}
             onChange={handleSortChange}
-            className="sort_select"
-          >
-            <option value="most_relevant">Najtrafniejsze</option>
-            <option value="price_asc">Cena: rosnąco</option>
-            <option value="price_desc">Cena: malejąco</option>
-          </select>
+            options={sortOptions}
+            classNamePrefix="react-select"
+            placeholder="Wybierz opcję"
+            styles={customStyles} // Przekazujemy customStyles
+          />
         </div>
 
         {/* Wyświetlanie liczby wyników */}

@@ -1,3 +1,5 @@
+// Search_page.scss
+
 @import "../Variables.scss";
 
 .search_page {
@@ -56,26 +58,92 @@
     flex-direction: row-reverse;
     justify-content: space-between;
     margin-top: 1.5rem;
+
     .sort_options {
       text-align: right;
       display: flex;
-      align-items: stretch;
+      align-items: center;
       justify-content: flex-end;
+
       label {
         margin-right: 0.5rem;
         font-family: $font-primary;
         color: $primary-color;
       }
-      select {
+
+      // Stylizacja komponentu react-select
+      .react-select__control {
+        background-color: $white;
+        border: 1px solid $primary-color;
         font-family: $font-primary;
-        color: $primary-color;
-        border: none;
-        cursor: pointer;
         font-size: 1rem;
-        transition: color 0.3s ease;
+        cursor: pointer;
+
         &:hover {
-          outline: none;
+          border-color: $hover-color;
+        }
+
+        &--is-focused {
+          border-color: $hover-color;
+          box-shadow: none;
+        }
+      }
+
+      .react-select__value-container {
+        justify-content: center;
+        max-width: fit-content;
+      }
+
+      .react-select__single-value {
+        color: $primary-color;
+      }
+
+      .react-select__indicator-separator {
+        display: none;
+      }
+
+      .react-select__dropdown-indicator {
+        color: $primary-color;
+
+        &:hover {
           color: $hover-color;
+        }
+      }
+
+      .react-select__menu {
+        background-color: $white;
+        border: 1px solid $primary-color;
+        border-radius: 4px;
+        margin-top: 0;
+        z-index: 9999;
+        width: 200px;
+      }
+
+      .react-select__menu-list {
+        padding: 0;
+      }
+
+      .react-select__option {
+        font-family: $font-primary;
+        font-size: 1rem;
+        color: $primary-color;
+        cursor: pointer;
+        padding: 0.5rem;
+        text-align: left;
+
+        &:hover {
+          background-color: $hover-color;
+          color: $white;
+        }
+
+        &--is-focused {
+          background-color: $hover-color;
+          color: $white;
+        }
+
+        &--is-selected {
+          background-color: $primary-color;
+          color: $white;
         }
       }
     }
@@ -97,6 +165,7 @@
     padding: 2rem;
     width: 80%;
     border-radius: 1rem;
+
     i {
       display: block;
       justify-self: center;
@@ -137,7 +206,6 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background-color: rgba(0, 0, 0, 0.7);
         background-color: $white;
         color: $primary-color;
         padding: 0.5rem 1rem;
@@ -159,6 +227,7 @@
       font-size: 0.8rem;
       margin: 0 1rem 0.5rem;
       color: $dark-color;
+
       em {
         font-size: 0.9rem;
         color: $primary-color;
@@ -166,6 +235,7 @@
       }
     }
   }
+
   .load-more {
     width: 14vw;
     height: 7vh;
@@ -178,6 +248,7 @@
     transition: background-color 0.3s;
     font-size: 1rem;
     margin-top: 1.5rem;
+
     &:hover {
       background-color: $hover-color;
     }
