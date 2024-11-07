@@ -101,8 +101,9 @@ function Search_page() {
       </span>
       <Search_form
         onSearchResults={handleSearchResults}
-        initialData={searchParams} // Przekazujemy initialData do Search_form
+        initialData={searchParams}
       />
+      <hr></hr>
       {totalResults > 0 && (
         <p className="total-results">Znaleziono: {totalResults} </p>
       )}
@@ -134,7 +135,7 @@ function Search_page() {
         <p className="no-results">
           Niestety nie mamy domków spełniających kryteria. Spróbuj zmienić
           kryteria wyszukiwania.
-          <i class="fa-regular fa-face-frown"></i>
+          <i className="fa-regular fa-face-frown"></i>
         </p>
       )}
     </main>

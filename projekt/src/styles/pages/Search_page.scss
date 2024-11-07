@@ -43,6 +43,13 @@
     }
   }
 
+  hr {
+    width: 80%;
+    height: 1px;
+    background-color: $light-color;
+    border: none;
+  }
+
   .total-results {
     margin: 0;
     width: 80%;
@@ -125,6 +132,23 @@
         color: $primary-color;
         font-style: normal;
       }
+    }
+  }
+  .load-more {
+    width: 14vw;
+    height: 7vh;
+    font-family: "Bree Serif", serif;
+    background-color: #494547;
+    color: #e6e6e6;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s ease;
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    &:hover {
+      background-color: $hover-color;
+      color: $white;
     }
   }
 }
