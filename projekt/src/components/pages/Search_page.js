@@ -15,7 +15,7 @@ function Search_page() {
     guests: 1,
     categories: [],
   });
-  const [sort, setSort] = useState("random"); // Dodany stan sortowania
+  const [sort, setSort] = useState("most_relevant");
   const [totalResults, setTotalResults] = useState(0);
   const resultsPerPage = 9;
 
@@ -123,27 +123,29 @@ function Search_page() {
         onSearchResults={handleSearchResults}
         initialData={searchParams} // Przekazujemy initialData do Search_form
       />
+      <hr></hr>
 
-      {/* Opcje sortowania */}
-      <div className="sort_options">
-        <label htmlFor="sort_select">Sortuj według:</label>
-        <select
-          id="sort_select"
-          value={sort}
-          onChange={handleSortChange}
-          className="sort_select"
-        >
-          <option value="random">Losowo</option>
-          <option value="price_asc">Cena: rosnąco</option>
-          <option value="price_desc">Cena: malejąco</option>
-          <option value="most_relevant">Najtrafniejsze</option>
-        </select>
+      <div className="sort_and_results">
+        {/* Opcje sortowania */}
+        <div className="sort_options">
+          <label htmlFor="sort_select">Sortuj według:</label>
+          <select
+            id="sort_select"
+            value={sort}
+            onChange={handleSortChange}
+            className="sort_select"
+          >
+            <option value="most_relevant">Najtrafniejsze</option>
+            <option value="price_asc">Cena: rosnąco</option>
+            <option value="price_desc">Cena: malejąco</option>
+          </select>
+        </div>
+
+        {/* Wyświetlanie liczby wyników */}
+        {totalResults > 0 && (
+          <p className="total-results">Znaleziono: {totalResults} domków</p>
+        )}
       </div>
-
-      {/* Wyświetlanie liczby wyników */}
-      {totalResults > 0 && (
-        <p className="total-results">Znaleziono: {totalResults} domków</p>
-      )}
 
       {/* Lista wyników */}
       <div className="wrapper">

@@ -62,7 +62,7 @@ const searchDomki = (req, res) => {
   }
 
   // Definicja klauzuli ORDER BY na podstawie parametru sort
-  let orderByClause = "ORDER BY RAND()"; // Domyślne sortowanie losowe
+  let orderByClause = "ORDER BY d.polecany DESC";
 
   if (sort) {
     switch (sort) {

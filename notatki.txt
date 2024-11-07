@@ -32,6 +32,5 @@
 7. WYSZUKIWARKA
 - odnosniki do domkow
 - efekty
-- sortowanie losowe niewidoczne
 > po wpisywaniu czegos w czeckboxach robi sie czrny kolor
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami
