@@ -1,6 +1,8 @@
+// Search_form.js
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import { pl } from "date-fns/locale";
+import { format } from "date-fns"; // Import do formatowania dat
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/DatePicker.scss";
 import "../styles/Search_form.scss";
@@ -97,7 +99,15 @@ function Search_form(props) {
   useEffect(() => {
     if (props.initialData) {
       setSearchData({
-        dateRange: props.initialData.dateRange || [null, null],
+        dateRange:
+          props.initialData.dateRange &&
+          props.initialData.dateRange[0] &&
+          props.initialData.dateRange[1]
+            ? [
+                new Date(props.initialData.dateRange[0]),
+                new Date(props.initialData.dateRange[1]),
+              ]
+            : [null, null],
         location: props.initialData.location || "",
         guests: props.initialData.guests || 1,
       });
@@ -107,8 +117,18 @@ function Search_form(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Formatowanie zakresu dat
+    let formattedDateRange = [null, null];
+    if (searchData.dateRange[0] && searchData.dateRange[1]) {
+      formattedDateRange = [
+        format(searchData.dateRange[0], "yyyy-MM-dd"),
+        format(searchData.dateRange[1], "yyyy-MM-dd"),
+      ];
+    }
+
     const searchParams = {
-      dateRange: searchData.dateRange,
+      dateRange: formattedDateRange,
       location: searchData.location,
       guests: searchData.guests,
       categories: selectedCategories,
