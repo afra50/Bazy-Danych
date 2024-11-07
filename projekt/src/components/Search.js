@@ -1,8 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Search.scss";
 import Search_form from "./Search_form";
 
 function Search() {
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = (searchParams) => {
+    navigate("/searchpage", { state: { searchParams } });
+  };
+
   return (
     <section className="search">
       <div className="main_writing">
@@ -11,7 +18,7 @@ function Search() {
           Wyszukaj idealne miejsce na wypoczynek – szybko i łatwo.
         </span>
       </div>
-      <Search_form></Search_form>
+      <Search_form onSubmit={handleSearchSubmit}></Search_form>
     </section>
   );
 }

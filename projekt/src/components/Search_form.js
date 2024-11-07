@@ -101,23 +101,31 @@ function Search_form(props) {
       limit: 9,
     };
 
-    fetch("http://localhost:5000/api/search", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(searchParams),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Wywołujemy funkcję przekazaną przez props, aby zaktualizować wyniki
-        if (props.onSearchResults) {
-          props.onSearchResults(data, true, searchParams);
-        }
+    if (props.onSubmit) {
+      // Jeśli przekazano onSubmit, używamy go do obsługi wyszukiwania (np. przekierowania)
+      props.onSubmit(searchParams);
+    } else {
+      // Domyślne zachowanie: wykonujemy wyszukiwanie
+      fetch("http://localhost:5000/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchParams),
       })
-      .catch((error) => {
-        console.error("Błąd podczas wysyłania zapytania wyszukiwania:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          if (props.onSearchResults) {
+            props.onSearchResults(data, true, searchParams);
+          }
+        })
+        .catch((error) => {
+          console.error(
+            "Błąd podczas wysyłania zapytania wyszukiwania:",
+            error
+          );
+        });
+    }
   };
 
   return (

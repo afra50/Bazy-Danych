@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "../../styles/pages/Search_page.scss";
 import Search_form from "../Search_form";
 import "../../styles/App.scss";
@@ -8,16 +9,48 @@ function Search_page() {
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const [searchParams, setSearchParams] = useState({});
-  const [totalResults, setTotalResults] = useState(0); // Nowy stan
-  const resultsPerPage = 9;
+  const [totalResults, setTotalResults] = useState(0);
+  const resultsPerPage = 10;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    // Jeśli przekazano searchParams przez nawigację, wykonujemy wyszukiwanie
+    if (location.state && location.state.searchParams) {
+      const initialSearchParams = location.state.searchParams;
+      setSearchParams(initialSearchParams);
+      performSearch(initialSearchParams);
+    }
+  }, [location.state]);
+
+  const performSearch = (params) => {
+    fetch("http://localhost:5000/api/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(params),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { total, results } = data;
+        setSearchResults(results);
+        setCurrentPage(1);
+        setHasMore(results.length === resultsPerPage);
+        setTotalResults(total);
+      })
+      .catch((error) => {
+        console.error("Błąd podczas pobierania wyników:", error);
+      });
+  };
 
   const handleSearchResults = (data, isNewSearch, params) => {
-    const { total, results } = data; // Pobieramy 'total' i 'results' z odpowiedzi
+    const { total, results } = data;
     if (isNewSearch) {
       setSearchResults(results);
       setCurrentPage(1);
       setSearchParams(params);
-      setTotalResults(total); // Ustawiamy łączną liczbę wyników
+      setTotalResults(total);
     } else {
       setSearchResults((prevResults) => [...prevResults, ...results]);
     }
@@ -53,7 +86,6 @@ function Search_page() {
         const { results } = data;
         setSearchResults((prevResults) => [...prevResults, ...results]);
         setHasMore(results.length === resultsPerPage);
-        // Nie aktualizujemy 'totalResults', ponieważ pozostaje takie samo
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
@@ -68,7 +100,7 @@ function Search_page() {
       </span>
       <Search_form onSearchResults={handleSearchResults} />
       {totalResults > 0 && (
-        <p className="total-results">Znaleziono: {totalResults} </p>
+        <p className="total-results">Znaleziono {totalResults} domków</p>
       )}
       <div className="wrapper">
         {searchResults.map((domek) => (
