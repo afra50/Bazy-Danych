@@ -1,3 +1,4 @@
+// Search_page.js
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../../styles/pages/Search_page.scss";
@@ -10,12 +11,11 @@ function Search_page() {
   const [hasMore, setHasMore] = useState(false);
   const [searchParams, setSearchParams] = useState({});
   const [totalResults, setTotalResults] = useState(0);
-  const resultsPerPage = 10;
+  const resultsPerPage = 9;
 
   const location = useLocation();
 
   useEffect(() => {
-    // Jeśli przekazano searchParams przez nawigację, wykonujemy wyszukiwanie
     if (location.state && location.state.searchParams) {
       const initialSearchParams = location.state.searchParams;
       setSearchParams(initialSearchParams);
@@ -86,6 +86,7 @@ function Search_page() {
         const { results } = data;
         setSearchResults((prevResults) => [...prevResults, ...results]);
         setHasMore(results.length === resultsPerPage);
+        // 'totalResults' pozostaje niezmienione, ponieważ jest już ustawione przy pierwszym wyszukiwaniu
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
@@ -98,9 +99,12 @@ function Search_page() {
         <i className="fa-solid fa-chevron-left"></i>
         <a href="/">Wróć do strony głównej</a>
       </span>
-      <Search_form onSearchResults={handleSearchResults} />
+      <Search_form
+        onSearchResults={handleSearchResults}
+        initialData={searchParams} // Przekazujemy initialData do Search_form
+      />
       {totalResults > 0 && (
-        <p className="total-results">Znaleziono {totalResults} domków</p>
+        <p className="total-results">Znaleziono: {totalResults} </p>
       )}
       <div className="wrapper">
         {searchResults.map((domek) => (
@@ -125,6 +129,13 @@ function Search_page() {
         <button className="load-more" onClick={loadMoreResults}>
           Pokaż więcej
         </button>
+      )}
+      {totalResults === 0 && (
+        <p className="no-results">
+          Niestety nie mamy domków spełniających kryteria. Spróbuj zmienić
+          kryteria wyszukiwania.
+          <i class="fa-regular fa-face-frown"></i>
+        </p>
       )}
     </main>
   );

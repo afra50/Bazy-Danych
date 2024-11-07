@@ -18,7 +18,7 @@ function Search() {
           Wyszukaj idealne miejsce na wypoczynek – szybko i łatwo.
         </span>
       </div>
-      <Search_form onSubmit={handleSearchSubmit}></Search_form>
+      <Search_form onSubmit={handleSearchSubmit} />
     </section>
   );
 }

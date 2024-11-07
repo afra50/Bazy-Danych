@@ -50,6 +50,22 @@
     color: $primary-color;
   }
 
+  .no-results {
+    font-family: $font-primary;
+    color: $primary-color;
+    background-color: $almost-white;
+    text-align: center;
+    padding: 2rem;
+    width: 80%;
+    border-radius: 1rem;
+    i {
+      display: block;
+      justify-self: center;
+      margin-top: 2rem;
+      font-size: 5rem;
+    }
+  }
+
   .wrapper {
     display: grid;
     margin-top: 1.5rem;

@@ -6,14 +6,17 @@ import "../styles/DatePicker.scss";
 import "../styles/Search_form.scss";
 
 function Search_form(props) {
+  // Inicjalizacja stanu z obsługą initialData
   const [searchData, setSearchData] = useState({
-    dateRange: [null, null], // Zakres dat
-    location: "", // Lokalizacja
-    guests: 1, // Początkowa liczba gości ustawiona na 1
+    dateRange: props.initialData?.dateRange || [null, null], // Zakres dat
+    location: props.initialData?.location || "", // Lokalizacja
+    guests: props.initialData?.guests || 1, // Początkowa liczba gości ustawiona na 1
   });
 
-  const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/ zamykaniem listy krajobrazu
-  const [selectedCategories, setSelectedCategories] = useState([]); // Zaznaczone kategorie
+  const [isCategoryOpen, setCategoryOpen] = useState(false); // Sterowanie otwieraniem/zamykaniem listy kategorii
+  const [selectedCategories, setSelectedCategories] = useState(
+    props.initialData?.categories || []
+  ); // Zaznaczone kategorie
   const [isDatePickerOpen, setDatePickerOpen] = useState(false); // Stan do otwierania i zamykania DatePicker
   const dropdownRef = useRef(null); // Ref dla dropdown menu
 
@@ -51,7 +54,7 @@ function Search_form(props) {
     }));
   };
 
-  // Obsługa zmian w checkboxach krajobrazu
+  // Obsługa zmian w checkboxach kategorii
   const handleCategoryChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -90,6 +93,18 @@ function Search_form(props) {
     };
   }, []);
 
+  // Aktualizacja stanu, gdy initialData się zmienia
+  useEffect(() => {
+    if (props.initialData) {
+      setSearchData({
+        dateRange: props.initialData.dateRange || [null, null],
+        location: props.initialData.location || "",
+        guests: props.initialData.guests || 1,
+      });
+      setSelectedCategories(props.initialData.categories || []);
+    }
+  }, [props.initialData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const searchParams = {
@@ -98,7 +113,7 @@ function Search_form(props) {
       guests: searchData.guests,
       categories: selectedCategories,
       page: 1,
-      limit: 9,
+      limit: 9, // Ustalona liczba wyników na stronę (dla spójności)
     };
 
     if (props.onSubmit) {
