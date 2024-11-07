@@ -7,6 +7,7 @@ const searchDomki = (req, res) => {
     location,
     guests,
     categories,
+    sort,
     page = 1,
     limit = 9,
   } = req.body;
@@ -52,7 +53,32 @@ const searchDomki = (req, res) => {
       )
     `;
     // Dodanie parametrów dla obu podzapytań
-    params.push(endDate, startDate, endDate, startDate);
+    params.push(
+      endDate,
+      startDate, // dla dostepnosc_domku
+      endDate,
+      startDate // dla rezerwacje
+    );
+  }
+
+  // Definicja klauzuli ORDER BY na podstawie parametru sort
+  let orderByClause = "ORDER BY RAND()"; // Domyślne sortowanie losowe
+
+  if (sort) {
+    switch (sort) {
+      case "price_asc":
+        orderByClause = "ORDER BY d.cena_za_noc ASC";
+        break;
+      case "price_desc":
+        orderByClause = "ORDER BY d.cena_za_noc DESC";
+        break;
+      case "most_relevant":
+        // Zakładamy, że masz pole 'recommended' typu BOOLEAN lub podobne
+        orderByClause = "ORDER BY d.polecany DESC, RAND()";
+        break;
+      default:
+        orderByClause = "ORDER BY RAND()";
+    }
   }
 
   // Zapytanie o łączną liczbę wyników
@@ -65,8 +91,8 @@ const searchDomki = (req, res) => {
     }
     const total = countResults[0].total;
 
-    // Zapytanie o wyniki z paginacją
-    const dataQuery = `SELECT d.* ${baseQuery} LIMIT ? OFFSET ?`;
+    // Zapytanie o wyniki z paginacją i sortowaniem
+    const dataQuery = `SELECT d.* ${baseQuery} ${orderByClause} LIMIT ? OFFSET ?`;
     const dataParams = [...params, limit, offset];
 
     db.query(dataQuery, dataParams, (err, dataResults) => {

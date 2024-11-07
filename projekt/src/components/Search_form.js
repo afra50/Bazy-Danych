@@ -110,6 +110,7 @@ function Search_form(props) {
             : [null, null],
         location: props.initialData.location || "",
         guests: props.initialData.guests || 1,
+        sort: props.initialData.sort || "random",
       });
       setSelectedCategories(props.initialData.categories || []);
     }
@@ -132,6 +133,7 @@ function Search_form(props) {
       location: searchData.location,
       guests: searchData.guests,
       categories: selectedCategories,
+      sort: searchData.sort, // Dodajemy opcję sortowania do parametrów wyszukiwania
       page: 1,
       limit: 9, // Ustalona liczba wyników na stronę (dla spójności)
     };

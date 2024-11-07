@@ -138,17 +138,16 @@
     width: 14vw;
     height: 7vh;
     font-family: "Bree Serif", serif;
-    background-color: #494547;
-    color: #e6e6e6;
+    background-color: $primary-color;
+    color: $white;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s ease;
+    transition: background-color 0.3s;
     font-size: 1rem;
     margin-top: 1.5rem;
     &:hover {
       background-color: $hover-color;
-      color: $white;
     }
   }
 }

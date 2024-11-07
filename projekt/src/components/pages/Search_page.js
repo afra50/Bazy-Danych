@@ -9,27 +9,36 @@ function Search_page() {
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
-  const [searchParams, setSearchParams] = useState({});
+  const [searchParams, setSearchParams] = useState({
+    dateRange: [null, null],
+    location: "",
+    guests: 1,
+    categories: [],
+  });
+  const [sort, setSort] = useState("random"); // Dodany stan sortowania
   const [totalResults, setTotalResults] = useState(0);
   const resultsPerPage = 9;
 
-  const location = useLocation();
+  const locationState = useLocation();
 
   useEffect(() => {
-    if (location.state && location.state.searchParams) {
-      const initialSearchParams = location.state.searchParams;
+    if (locationState.state && locationState.state.searchParams) {
+      const initialSearchParams = locationState.state.searchParams;
       setSearchParams(initialSearchParams);
-      performSearch(initialSearchParams);
+      performSearch(initialSearchParams, sort);
     }
-  }, [location.state]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [locationState.state]);
 
-  const performSearch = (params) => {
+  const performSearch = (params, currentSort) => {
+    const combinedParams = { ...params, sort: currentSort };
+
     fetch("http://localhost:5000/api/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(params),
+      body: JSON.stringify(combinedParams),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -65,11 +74,13 @@ function Search_page() {
     if (currentPage > 1) {
       fetchMoreResults();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const fetchMoreResults = () => {
     const params = {
       ...searchParams,
+      sort: sort, // Uwzględnij sortowanie
       page: currentPage,
       limit: resultsPerPage,
     };
@@ -93,20 +104,48 @@ function Search_page() {
       });
   };
 
+  // Funkcja do obsługi zmiany sortowania
+  const handleSortChange = (e) => {
+    const selectedSort = e.target.value;
+    setSort(selectedSort);
+    setCurrentPage(1);
+    performSearch(searchParams, selectedSort);
+  };
+
   return (
     <main className="search_page">
       <span className="back">
         <i className="fa-solid fa-chevron-left"></i>
         <a href="/">Wróć do strony głównej</a>
       </span>
+      {/* Formularz wyszukiwania */}
       <Search_form
         onSearchResults={handleSearchResults}
-        initialData={searchParams}
+        initialData={searchParams} // Przekazujemy initialData do Search_form
       />
-      <hr></hr>
+
+      {/* Opcje sortowania */}
+      <div className="sort_options">
+        <label htmlFor="sort_select">Sortuj według:</label>
+        <select
+          id="sort_select"
+          value={sort}
+          onChange={handleSortChange}
+          className="sort_select"
+        >
+          <option value="random">Losowo</option>
+          <option value="price_asc">Cena: rosnąco</option>
+          <option value="price_desc">Cena: malejąco</option>
+          <option value="most_relevant">Najtrafniejsze</option>
+        </select>
+      </div>
+
+      {/* Wyświetlanie liczby wyników */}
       {totalResults > 0 && (
-        <p className="total-results">Znaleziono: {totalResults} </p>
+        <p className="total-results">Znaleziono: {totalResults} domków</p>
       )}
+
+      {/* Lista wyników */}
       <div className="wrapper">
         {searchResults.map((domek) => (
           <div className="card" key={domek.id_domku}>
@@ -126,11 +165,15 @@ function Search_page() {
           </div>
         ))}
       </div>
+
+      {/* Przyciski paginacji */}
       {hasMore && searchResults.length > 0 && (
         <button className="load-more" onClick={loadMoreResults}>
           Pokaż więcej
         </button>
       )}
+
+      {/* Komunikat brak wyników */}
       {totalResults === 0 && (
         <p className="no-results">
           Niestety nie mamy domków spełniających kryteria. Spróbuj zmienić

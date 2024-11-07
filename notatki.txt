@@ -16,15 +16,22 @@
 - komentarze
 - obsluga komunikatow i errorow
 - przekierowanie po rejestracji
+- strzałka dla powrotu nie jest klikalna
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)
-- wojewodztwa
+> wojewodztwa + ew. teren, np. bieszczady
+> więcej filtrów, np. wyposazenie
 
 5. POLECANE
-- placeholder dla braku zdjecia
 - linki z domkow, kursor pointer
 
 6. HOME_PAGE
-- klikalne dropdown menu mimo ze ukryte
 - karuzela z kategoriami
+
+7. WYSZUKIWARKA
+- odnosniki do domkow
+- efekty
+- sortowanie losowe niewidoczne
+> po wpisywaniu czegos w czeckboxach robi sie czrny kolor
+> podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami
