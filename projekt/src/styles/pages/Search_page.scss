@@ -43,9 +43,16 @@
     }
   }
 
+  .total-results {
+    margin: 0;
+    width: 80%;
+    font-family: $font-primary;
+    color: $primary-color;
+  }
+
   .wrapper {
     display: grid;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     width: 80%;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2.5rem;

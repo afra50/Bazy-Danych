@@ -1,32 +1,59 @@
 const db = require("../models/db");
 
 const searchDomki = (req, res) => {
-  const { dateRange, location, guests, categories } = req.body;
+  let {
+    dateRange,
+    location,
+    guests,
+    categories,
+    page = 1,
+    limit = 9,
+  } = req.body;
 
-  // Budowanie zapytania SQL na podstawie otrzymanych kryteriów
-  let query = "SELECT * FROM domki WHERE liczba_osob >= ?";
+  // Upewnij się, że 'page' i 'limit' są liczbami całkowitymi
+  page = parseInt(page);
+  limit = parseInt(limit);
+
+  const offset = (page - 1) * limit;
+
+  // Budowanie podstawy zapytania SQL
+  let baseQuery = "FROM domki WHERE liczba_osob >= ?";
   const params = [guests];
 
   if (location) {
-    query += " AND lokalizacja LIKE ?";
+    baseQuery += " AND lokalizacja LIKE ?";
     params.push(`%${location}%`);
   }
 
   if (categories && categories.length > 0) {
-    query += " AND kategoria IN (?)";
-    params.push(categories);
+    baseQuery += ` AND kategoria IN (${categories.map(() => "?").join(",")})`;
+    params.push(...categories);
   }
 
-  // Dodatkowe filtrowanie po dacie może wymagać złożonej logiki
-  // np. sprawdzanie dostępności w określonym przedziale dat
-  // Tutaj pozostawiam to jako prosty przykład
+  // Zapytanie o łączną liczbę wyników
+  const countQuery = `SELECT COUNT(*) as total ${baseQuery}`;
 
-  db.query(query, params, (err, results) => {
+  db.query(countQuery, params, (err, countResults) => {
     if (err) {
-      console.error("Błąd przy wyszukiwaniu domków:", err);
+      console.error("Błąd przy zliczaniu domków:", err);
       return res.status(500).json({ error: "Błąd serwera" });
     }
-    res.json(results);
+    const total = countResults[0].total;
+
+    // Zapytanie o wyniki z paginacją
+    const dataQuery = `SELECT * ${baseQuery} LIMIT ${limit} OFFSET ${offset}`;
+
+    db.query(dataQuery, params, (err, dataResults) => {
+      if (err) {
+        console.error("Błąd przy wyszukiwaniu domków:", err);
+        return res.status(500).json({ error: "Błąd serwera" });
+      }
+      // Zwracamy łączną liczbę wyników i dane
+      res.json({
+        total,
+        results: dataResults,
+      });
+    });
   });
 };
 

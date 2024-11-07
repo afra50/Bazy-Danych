@@ -97,9 +97,10 @@ function Search_form(props) {
       location: searchData.location,
       guests: searchData.guests,
       categories: selectedCategories,
+      page: 1,
+      limit: 9,
     };
 
-    // Wysyłamy żądanie do backendu
     fetch("http://localhost:5000/api/search", {
       method: "POST",
       headers: {
@@ -111,7 +112,7 @@ function Search_form(props) {
       .then((data) => {
         // Wywołujemy funkcję przekazaną przez props, aby zaktualizować wyniki
         if (props.onSearchResults) {
-          props.onSearchResults(data);
+          props.onSearchResults(data, true, searchParams);
         }
       })
       .catch((error) => {
