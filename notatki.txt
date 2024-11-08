@@ -32,5 +32,6 @@
 7. WYSZUKIWARKA
 - odnosniki do domkow
 - efekty
-> po wpisywaniu czegos w czeckboxach robi sie czrny kolor
+- zablokowanie mozliwosci wpisywania czegos w sortuj
+- po wpisywaniu czegos w czeckboxach robi sie czrny kolor
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami

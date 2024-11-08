@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Recommended.scss";
 
 function Recommended() {
@@ -30,7 +31,21 @@ function Recommended() {
           </div>
         ))}
       </div>
-      <a href="/searchpage">Zobacz więcej miejsc</a>
+      <Link
+        to={{
+          pathname: "/searchpage",
+          state: {
+            searchParams: {
+              dateRange: [null, null],
+              location: "",
+              guests: 1,
+              categories: [],
+            },
+          },
+        }}
+      >
+        Zobacz więcej miejsc
+      </Link>
     </section>
   );
 }

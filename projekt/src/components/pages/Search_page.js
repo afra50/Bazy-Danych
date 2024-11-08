@@ -18,6 +18,7 @@ function Search_page() {
   });
   const [sort, setSort] = useState("most_relevant");
   const [totalResults, setTotalResults] = useState(0);
+  const [searchPerformed, setSearchPerformed] = useState(false); // Nowy stan
   const resultsPerPage = 9;
 
   const locationState = useLocation();
@@ -27,6 +28,10 @@ function Search_page() {
       const initialSearchParams = locationState.state.searchParams;
       setSearchParams(initialSearchParams);
       performSearch(initialSearchParams, sort);
+    } else {
+      // Opcjonalnie wykonaj domyślne wyszukiwanie lub pozostaw puste
+      // W tym przypadku wykonamy wyszukiwanie z domyślnymi parametrami
+      performSearch(searchParams, sort);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationState.state]);
@@ -48,9 +53,11 @@ function Search_page() {
         setCurrentPage(1);
         setHasMore(results.length === resultsPerPage);
         setTotalResults(total);
+        setSearchPerformed(true); // Ustawienie na true po wykonaniu wyszukiwania
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
+        setSearchPerformed(true); // Ustawienie na true nawet przy błędzie
       });
   };
 
@@ -65,6 +72,7 @@ function Search_page() {
       setSearchResults((prevResults) => [...prevResults, ...results]);
     }
     setHasMore(results.length === resultsPerPage);
+    setSearchPerformed(true); // Ustawienie na true po otrzymaniu wyników
   };
 
   const loadMoreResults = () => {
@@ -98,9 +106,11 @@ function Search_page() {
         const { results } = data;
         setSearchResults((prevResults) => [...prevResults, ...results]);
         setHasMore(results.length === resultsPerPage);
+        setSearchPerformed(true); // Ustawienie na true po otrzymaniu wyników
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
+        setSearchPerformed(true); // Ustawienie na true nawet przy błędzie
       });
   };
 
@@ -137,19 +147,44 @@ function Search_page() {
       backgroundColor: state.isSelected
         ? "#007bff"
         : state.isFocused
-        ? "#e9ecef"
+        ? "#0056b3"
         : "#fff",
       color: state.isSelected ? "#fff" : "#495057",
       fontFamily: "Arial, sans-serif",
       fontSize: "1rem",
+      padding: "0.5rem",
+      textAlign: "left", // Wyrównanie tekstu do lewej strony
+      cursor: "pointer",
       "&:hover": {
-        backgroundColor: "#e9ecef",
-        color: "#495057",
+        backgroundColor: "#0056b3", // $hover-color
+        color: "#fff", // Biały tekst
+      },
+      "&--is-focused": {
+        backgroundColor: "#0056b3", // $hover-color
+        color: "#fff", // Biały tekst
+      },
+      "&--is-selected": {
+        backgroundColor: "#007bff", // $primary-color
+        color: "#fff", // Biały tekst
       },
     }),
     menu: (provided) => ({
       ...provided,
       zIndex: 9999,
+      border: "1px solid #007bff",
+      borderRadius: "4px",
+      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: "#007bff", // $primary-color
+    }),
+    dropdownIndicator: (provided) => ({
+      ...provided,
+      color: "#007bff", // $primary-color
+      "&:hover": {
+        color: "#fff", // Biały kolor przy hover
+      },
     }),
   };
 
@@ -216,7 +251,7 @@ function Search_page() {
       )}
 
       {/* Komunikat brak wyników */}
-      {totalResults === 0 && (
+      {searchPerformed && totalResults === 0 && (
         <p className="no-results">
           Niestety nie mamy domków spełniających kryteria. Spróbuj zmienić
           kryteria wyszukiwania.

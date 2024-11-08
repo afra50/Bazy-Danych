@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/Home_description.scss";
 
 function Home_description() {
@@ -18,7 +19,21 @@ function Home_description() {
           która otula Cię niczym najcieplejszy koc – to doświadczenia, które
           budują wspomnienia.
         </p>
-        <a href="/searchpage">Poznaj miejsca pełne magii</a>
+        <Link
+          to={{
+            pathname: "/searchpage",
+            state: {
+              searchParams: {
+                dateRange: [null, null],
+                location: "",
+                guests: 1,
+                categories: [],
+              },
+            },
+          }}
+        >
+          Poznaj miejsca pełne magii
+        </Link>
       </div>
     </section>
   );
