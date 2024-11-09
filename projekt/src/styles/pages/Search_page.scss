@@ -12,8 +12,7 @@
     width: 100%;
     padding: 1.5rem 0 0 1rem;
     color: $primary-color;
-   // margin-top: 1.5rem;
-  //  margin-left: auto;
+ 
 
     &:hover {
       color: $hover-color;
@@ -290,6 +289,7 @@
     transition: background-color 0.3s;
     font-size: 1rem;
     margin-top: 1.5rem;
+    margin-left: 9.4rem;
 
     &:hover {
       background-color: $hover-color;
