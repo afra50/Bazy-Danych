@@ -70,3 +70,26 @@ exports.uploadOwnerPhoto = (req, res) => {
     res.status(200).send("Zdjęcie zaktualizowane pomyślnie");
   });
 };
+
+// Pobieranie rezerwacji o statusie "Oczekująca" dla domków danego właściciela
+exports.getWaitingReservationsForOwner = (req, res) => {
+  const ownerId = req.params.ownerId;
+
+  const sql = `
+    SELECT rezerwacje.id_rezerwacji, rezerwacje.id_domku, rezerwacje.id_klienta,
+           rezerwacje.data_od, rezerwacje.data_do, rezerwacje.status,
+           rezerwacje.data_dokonania_rezerwacji
+    FROM rezerwacje
+    JOIN domki ON rezerwacje.id_domku = domki.id_domku
+    WHERE rezerwacje.status = 'Oczekująca' AND domki.id_wlasciciela = ?
+  `;
+
+  db.query(sql, [ownerId], (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    res.status(200).json(results);
+  });
+};

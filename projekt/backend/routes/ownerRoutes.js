@@ -9,6 +9,11 @@ router.get("/profile/:id", ownerController.getOwnerProfile);
 router.put("/profile/:id", ownerController.updateOwnerDescription);
 router.put("/profile/update/:id", ownerController.updateOwnerData);
 
+router.get(
+  "/:ownerId/waiting-reservations",
+  ownerController.getWaitingReservationsForOwner
+);
+
 // Obsługa przesyłania zdjęcia z weryfikacją błędów
 router.post("/upload/:id", (req, res) => {
   // Użyj multer z konfiguracją upload.single i przechwyć błędy
