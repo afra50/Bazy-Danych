@@ -1,0 +1,78 @@
+@import "../../Variables.scss";
+
+.reservations {
+  .back {
+    float: none;
+    display: block;
+    width: 100%;
+    padding: 1rem 0 0 0.5rem;
+    color: $primary-color;
+
+    &:hover {
+      color: $hover-color;
+    }
+
+    a {
+      font-family: $font-primary;
+      color: $primary-color;
+
+      &:hover {
+        color: $hover-color;
+      }
+    }
+  }
+
+  .reservations_header {
+    font-size: 3rem;
+    margin: 1rem 0;
+    font-family: $font-primary;
+    color: $primary-color;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .owner_other_pages {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8vw;
+    a {
+      text-decoration: none;
+      color: $primary-color;
+      font-family: $font-primary;
+      padding: 0.5rem 1rem;
+      border: 1px solid $light-color;
+      border-radius: 0.5rem;
+      font-size: 0.8rem;
+      background-color: $white;
+      transition: 0.3s background-color ease;
+      &:hover {
+        background-color: $very-light-color;
+      }
+    }
+  }
+  .waiting_confirmed {
+    background-image: url("../../../assets/images/reservations.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 2rem 0;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 0;
+    }
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+}

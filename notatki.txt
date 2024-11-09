@@ -17,6 +17,7 @@
 - obsluga komunikatow i errorow
 - przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
+- ikonki i obrazki dla ozdoby
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)
@@ -30,8 +31,6 @@
 - karuzela z kategoriami
 
 7. WYSZUKIWARKA
-- odnosniki do domkow
+- odnosniki do domkow, kursor pointer
 - efekty
-- zablokowanie mozliwosci wpisywania czegos w sortuj
-- po wpisywaniu czegos w czeckboxach robi sie czrny kolor
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami

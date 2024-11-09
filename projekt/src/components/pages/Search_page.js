@@ -212,7 +212,8 @@ function Search_page() {
             options={sortOptions}
             classNamePrefix="react-select"
             placeholder="Wybierz opcję"
-            styles={customStyles} // Przekazujemy customStyles
+            styles={customStyles}
+            isSearchable={false}
           />
         </div>
 

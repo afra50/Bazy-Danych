@@ -9,6 +9,7 @@ import SignIn from "./pages/Sign_in";
 import SignInAsOwner from "./pages/Sign_in_owners";
 import Profile from "./pages/owner/Profile";
 import My_offers from "./pages/owner/My_offers";
+import Reservations from "./pages/owner/Reservations";
 import MyReservations from "./pages/client/My_reservation";
 import Private_owner_route from "./Private_owner_route";
 import { AuthProvider } from "./Auth_context";
@@ -45,7 +46,11 @@ function App() {
               />
               <Route
                 path="/owner/reservations"
-                element={<Private_owner_route></Private_owner_route>}
+                element={
+                  <Private_owner_route>
+                    <Reservations></Reservations>
+                  </Private_owner_route>
+                }
               />
               <Route
                 path="/client/reservations"
