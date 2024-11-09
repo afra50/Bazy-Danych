@@ -47,14 +47,14 @@
         height: 100%;
         background-color: rgba(0, 0, 0, 0.2);
         transition: opacity 0.3s ease;
-        opacity: 0; 
+        opacity: 0;
       }
-    
+
       &:hover::after {
-        opacity: 1; 
+        opacity: 1;
       }
       &:hover img {
-        transform: scale(1.4); 
+        transform: scale(1.05);
       }
 
       img {
@@ -62,11 +62,8 @@
         height: 35vh;
         object-fit: cover;
         display: block;
-        transition: transform 0.9s ease;
-
-       
+        transition: transform 1s ease;
       }
-      
 
       .category {
         position: absolute;
