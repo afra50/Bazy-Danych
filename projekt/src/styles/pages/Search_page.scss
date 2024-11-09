@@ -10,8 +10,10 @@
     float: none;
     display: block;
     width: 100%;
-    padding: 1rem 0 0 2rem;
+    padding: 1.5rem 0 0 1rem;
     color: $primary-color;
+   // margin-top: 1.5rem;
+  //  margin-left: auto;
 
     &:hover {
       color: $hover-color;
@@ -20,9 +22,12 @@
     a {
       font-family: $font-primary;
       color: $primary-color;
+    
+      
 
       &:hover {
         color: $hover-color;
+       
       }
     }
   }
@@ -33,6 +38,7 @@
     width: 80vw;
     margin: 1.5rem auto;
     font-family: $font-primary;
+    margin-top: 4rem;
 
     .form_groups {
       .form_group {
@@ -57,8 +63,10 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-    margin-top: 1.5rem;
+   // margin-top: 300rem;
     align-items: center;
+    margin: auto;
+    margin-top: 1.5rem;
 
     .sort_options {
       text-align: right;
@@ -67,7 +75,7 @@
       justify-content: flex-end;
 
       label {
-        margin-right: 0.5rem;
+        margin-right: 1rem;
         font-family: $font-primary;
         color: $primary-color;
       }
@@ -174,6 +182,7 @@
       justify-self: center;
       margin-top: 2rem;
       font-size: 5rem;
+//margin-left:8rem;
     }
   }
 
@@ -181,8 +190,10 @@
     display: grid;
     margin-top: 1.5rem;
     width: 80%;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2.5rem;
+    margin: auto; 
+    margin-top: 2rem;
   }
 
   .card {
@@ -196,13 +207,41 @@
       position: relative;
       width: 100%;
       height: 220px;
+      
+      overflow: hidden;
+      
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient( circle,
+      rgba(134, 160, 171, 0) 30%,
+      rgba(13, 13, 14, 0.5) 120%
+    ); // Vignette effect
+      transition: opacity 0.9s ease 0.3s;
+        opacity: 0;
+      }
+      &:hover::after {
+        opacity: 1;
+      }
+      &:hover img {
+        transform: scale(1.15);
+      }
+
+
 
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+        transition: transform 1s ease;
       }
+
+
 
       .category {
         font-family: $font-primary;
