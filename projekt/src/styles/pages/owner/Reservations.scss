@@ -1,4 +1,5 @@
 @import "../../Variables.scss";
+@import "../../App.scss";
 
 .reservations {
   background-image: url("../../../assets/images/reservations.jpg");
@@ -7,6 +8,8 @@
   background-position: center;
   position: relative;
   padding: 2rem 0;
+  display: grid;
+  justify-items: center;
 
   &::before {
     content: "";
@@ -15,7 +18,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7); // Przyciemnienie tła
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 0;
   }
 
@@ -28,7 +31,7 @@
     float: none;
     display: block;
     width: 100%;
-    padding: 1rem 0 0 0.5rem;
+    margin-left: 2rem;
     a {
       font-family: $font-primary;
     }
@@ -54,10 +57,10 @@
       text-decoration: none;
       color: $primary-color;
       font-family: $font-primary;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 2rem;
       border: 1px solid $light-color;
       border-radius: 0.5rem;
-      font-size: 0.8rem;
+      font-size: 1rem;
       background-color: $white;
       transition: 0.3s background-color ease, 0.3s color ease;
 
@@ -69,14 +72,10 @@
   }
 
   .waiting_confirmed {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
     padding: 2rem;
     background-color: $white;
     border-radius: 8px;
-    max-width: 80%;
-    margin: 0 auto;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 85%;
+    align-self: center;
   }
 }

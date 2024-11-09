@@ -8,11 +8,16 @@ const upload = require("../middleware/upload");
 router.get("/profile/:id", ownerController.getOwnerProfile);
 router.put("/profile/:id", ownerController.updateOwnerDescription);
 router.put("/profile/update/:id", ownerController.updateOwnerData);
-
 router.get(
   "/:ownerId/waiting-reservations",
   ownerController.getWaitingReservationsForOwner
 );
+router.get(
+  "/:ownerId/confirmed-reservations",
+  ownerController.getConfirmedReservationsForOwner
+);
+router.patch("/confirm-reservation/:id", ownerController.confirmReservation);
+router.patch("/reject-reservation/:id", ownerController.rejectReservation);
 
 // Obsługa przesyłania zdjęcia z weryfikacją błędów
 router.post("/upload/:id", (req, res) => {

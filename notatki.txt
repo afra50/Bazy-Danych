@@ -18,6 +18,8 @@
 - przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
 - ikonki i obrazki dla ozdoby
+> trzymanie sesji przez token/ciasteczka a nie sessionstorage
+> czyszczenie bazy danych
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)

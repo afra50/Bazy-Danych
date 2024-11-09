@@ -76,12 +76,21 @@ exports.getWaitingReservationsForOwner = (req, res) => {
   const ownerId = req.params.ownerId;
 
   const sql = `
-    SELECT rezerwacje.id_rezerwacji, rezerwacje.id_domku, rezerwacje.id_klienta,
-           rezerwacje.data_od, rezerwacje.data_do, rezerwacje.status,
-           rezerwacje.data_dokonania_rezerwacji
+    SELECT 
+      rezerwacje.id_rezerwacji, 
+      rezerwacje.data_od, 
+      rezerwacje.data_do, 
+      rezerwacje.data_dokonania_rezerwacji,
+      domki.nazwa AS nazwa_domku,
+      klienci.imie AS imie_klienta,
+      klienci.nazwisko AS nazwisko_klienta,
+      klienci.telefon AS telefon_klienta,
+      klienci.email AS email_klienta
     FROM rezerwacje
     JOIN domki ON rezerwacje.id_domku = domki.id_domku
-    WHERE rezerwacje.status = 'Oczekująca' AND domki.id_wlasciciela = ?
+    JOIN klienci ON rezerwacje.id_klienta = klienci.id_klienta
+    WHERE rezerwacje.status = 'Oczekująca' 
+      AND domki.id_wlasciciela = ?
   `;
 
   db.query(sql, [ownerId], (err, results) => {
@@ -91,5 +100,83 @@ exports.getWaitingReservationsForOwner = (req, res) => {
     }
 
     res.status(200).json(results);
+  });
+};
+
+// Pobieranie rezerwacji o statusie "Potwierdzona" dla domków danego właściciela
+exports.getConfirmedReservationsForOwner = (req, res) => {
+  const ownerId = req.params.ownerId;
+
+  const sql = `
+    SELECT 
+      rezerwacje.id_rezerwacji, 
+      rezerwacje.data_od, 
+      rezerwacje.data_do, 
+      rezerwacje.data_dokonania_rezerwacji,
+      rezerwacje.data_potwierdzenia,
+      domki.nazwa AS nazwa_domku,
+      klienci.imie AS imie_klienta,
+      klienci.nazwisko AS nazwisko_klienta
+    FROM rezerwacje
+    JOIN domki ON rezerwacje.id_domku = domki.id_domku
+    JOIN klienci ON rezerwacje.id_klienta = klienci.id_klienta
+    WHERE rezerwacje.status = 'Potwierdzona' 
+      AND domki.id_wlasciciela = ?
+  `;
+
+  db.query(sql, [ownerId], (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    res.status(200).json(results);
+  });
+};
+
+// Aktualizacja statusu rezerwacji na "Potwierdzona"
+exports.confirmReservation = (req, res) => {
+  const reservationId = req.params.id;
+  const today = new Date().toISOString().slice(0, 10); // dzisiejsza data w formacie YYYY-MM-DD
+
+  const sql = `
+    UPDATE rezerwacje 
+    SET status = 'Potwierdzona', data_potwierdzenia = ? 
+    WHERE id_rezerwacji = ?`;
+
+  db.query(sql, [today, reservationId], (err, result) => {
+    if (err) {
+      console.error("Błąd podczas potwierdzania rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+    if (result.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ error: "Rezerwacja nie została znaleziona" });
+    }
+    res.status(200).json({ message: "Rezerwacja potwierdzona pomyślnie" });
+  });
+};
+
+// Aktualizacja statusu rezerwacji na "Odrzucona"
+exports.rejectReservation = (req, res) => {
+  const reservationId = req.params.id;
+
+  const sql = `
+    UPDATE rezerwacje 
+    SET status = 'Odrzucona'
+    WHERE id_rezerwacji = ?`;
+
+  db.query(sql, [reservationId], (err, result) => {
+    if (err) {
+      console.error("Błąd podczas odrzucania rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+    if (result.affectedRows === 0) {
+      return res
+        .status(404)
+        .json({ error: "Rezerwacja nie została znaleziona" });
+    }
+    res.status(200).json({ message: "Rezerwacja potwierdzona pomyślnie" });
   });
 };
