@@ -116,7 +116,9 @@ exports.getConfirmedReservationsForOwner = (req, res) => {
       rezerwacje.data_potwierdzenia,
       domki.nazwa AS nazwa_domku,
       klienci.imie AS imie_klienta,
-      klienci.nazwisko AS nazwisko_klienta
+      klienci.nazwisko AS nazwisko_klienta,
+      klienci.telefon AS telefon_klienta,
+      klienci.email AS email_klienta
     FROM rezerwacje
     JOIN domki ON rezerwacje.id_domku = domki.id_domku
     JOIN klienci ON rezerwacje.id_klienta = klienci.id_klienta
@@ -177,6 +179,6 @@ exports.rejectReservation = (req, res) => {
         .status(404)
         .json({ error: "Rezerwacja nie została znaleziona" });
     }
-    res.status(200).json({ message: "Rezerwacja potwierdzona pomyślnie" });
+    res.status(200).json({ message: "Rezerwacja odrzucona pomyślnie" });
   });
 };

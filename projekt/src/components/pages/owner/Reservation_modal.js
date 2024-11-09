@@ -12,39 +12,33 @@ function ReservationModal({ reservation, onClose, onConfirm, onReject }) {
         </button>
 
         {/* Nazwa domku na samej górze */}
-        <h4>
-          <em>{reservation.nazwa_domku}</em>
-        </h4>
+        <h4>{reservation.nazwa_domku}</h4>
 
         {/* Reszta szczegółów w modal-body */}
         <div className="modal-body">
           <p>
-            <strong>Klient:</strong>{" "}
-            <em>
-              {reservation.imie_klienta} {reservation.nazwisko_klienta}
-            </em>
+            <strong>Klient:</strong> {reservation.imie_klienta}{" "}
+            {reservation.nazwisko_klienta}
           </p>
           <p>
-            <strong>Telefon:</strong> <em>{reservation.telefon_klienta}</em>
+            <strong>Telefon:</strong> {reservation.telefon_klienta}
           </p>
           <p>
-            <strong>Email:</strong> <em>{reservation.email_klienta}</em>
+            <strong>Email:</strong> {reservation.email_klienta}
           </p>
           <p>
             <strong>Data dokonania rezerwacji:</strong>{" "}
-            <em>
-              {new Date(
-                reservation.data_dokonania_rezerwacji
-              ).toLocaleDateString()}
-            </em>
+            {new Date(
+              reservation.data_dokonania_rezerwacji
+            ).toLocaleDateString()}
           </p>
           <p>
-            <strong>Data od:</strong>{" "}
-            <em>{new Date(reservation.data_od).toLocaleDateString()}</em>
+            <strong>Data przyjazdu:</strong>{" "}
+            {new Date(reservation.data_od).toLocaleDateString()}
           </p>
           <p>
-            <strong>Data do:</strong>{" "}
-            <em>{new Date(reservation.data_do).toLocaleDateString()}</em>
+            <strong>Data wyjazdu:</strong>{" "}
+            {new Date(reservation.data_do).toLocaleDateString()}
           </p>
         </div>
 
@@ -54,7 +48,7 @@ function ReservationModal({ reservation, onClose, onConfirm, onReject }) {
             Potwierdź
           </button>
           <button onClick={onReject} className="reject-button">
-            Odrzuć
+            Odrzuć rezerwację
           </button>
         </div>
       </div>

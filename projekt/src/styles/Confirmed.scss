@@ -22,7 +22,7 @@
       font-size: 7rem;
       justify-self: center;
       margin: 1rem 0;
-      color: $primary-color;
+      color: $light-color;
     }
   }
 
@@ -34,18 +34,17 @@
   }
 
   .reservation-item {
-    cursor: pointer;
     padding: 1.5rem;
-    background-image: url("../assets/images/lightbackground.png");
+    background-image: url("../assets/images/check.svg");
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-size: 10rem;
+    background-position-x: right;
+    background-position-y: -35px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
-      transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
 
@@ -60,7 +59,8 @@
     .reservation-dates,
     .reservation-client,
     .reservation-date,
-    .reservation-confirm-date {
+    .reservation-confirm-date,
+    .contact {
       font-family: $font-primary;
       font-size: 0.9rem;
       margin: 0.5rem 0;
@@ -81,6 +81,25 @@
     .reservation-date {
       font-size: 0.8rem;
       color: $dark-color;
+    }
+
+    .contact {
+      color: $dark-color;
+    }
+    button {
+      font-family: $font-primary;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      background-color: $secondary-color;
+      color: $primary-color;
+      border: none;
+      border-radius: 0.3rem;
+      transition: 0.5s background-color ease, 0.5s color ease;
+      &:hover {
+        background-color: $hover-color;
+        color: $white;
+      }
     }
   }
 }

@@ -22,7 +22,7 @@
       font-size: 7rem;
       justify-self: center;
       margin: 1rem 0;
-      color: $primary-color;
+      color: $light-color;
     }
   }
 
@@ -44,16 +44,15 @@
     cursor: pointer;
     background-color: $white;
     padding: 1.5rem;
-    background-image: url("../assets/images/lightbackground.png");
+    background-image: url("../assets/images/question.svg");
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-size: 5rem;
+    background-position-x: right;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
-      transform: translateY(-3px);
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
     }
 
