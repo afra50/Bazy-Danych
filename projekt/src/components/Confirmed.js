@@ -6,14 +6,10 @@ function Confirmed() {
   const ownerId = sessionStorage.getItem("ownerId");
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [notification, setNotification] = useState(""); // Dodany stan dla powiadomienia
 
+  // Pobieranie potwierdzonych rezerwacji
   useEffect(() => {
-    if (!ownerId) {
-      console.error("Nie znaleziono ID właściciela w sessionStorage");
-      setLoading(false);
-      return;
-    }
-
     const fetchConfirmedReservations = async () => {
       try {
         const response = await axios.get(
@@ -37,15 +33,42 @@ function Confirmed() {
     fetchConfirmedReservations();
   }, [ownerId]);
 
+  // Funkcja anulowania rezerwacji
+  const handleCancelReservation = async (reservationId) => {
+    try {
+      await axios.patch(
+        `http://localhost:5000/api/owner/reject-reservation/${reservationId}`
+      );
+      // Aktualizacja stanu rezerwacji
+      setReservations((prevReservations) =>
+        prevReservations.filter(
+          (reservation) => reservation.id_rezerwacji !== reservationId
+        )
+      );
+      // Ustawienie powiadomienia
+      setNotification("Rezerwacja została odrzucona");
+
+      // Ukrycie powiadomienia po 3 sekundach
+      setTimeout(() => setNotification(""), 3000);
+    } catch (error) {
+      console.error("Błąd podczas odrzucania rezerwacji:", error);
+    }
+  };
+
   return (
     <section className="confirmed">
       <h3>Potwierdzone</h3>
+
+      {/* Powiadomienie */}
+      {notification && <div className="notification">{notification}</div>}
+
       {loading ? (
         <p>Ładowanie...</p>
       ) : reservations.length === 0 ? (
         <p className="no_reservations">
           <i className="fa-regular fa-calendar-xmark"></i>
-          Brak aktualnych potwierdzonych rezerwacji.<br></br>
+          Brak aktualnych potwierdzonych rezerwacji.
+          <br />
           Gdy potwierdzisz jakąś rezerwację, pojawi się ona tutaj.
         </p>
       ) : (
@@ -55,6 +78,10 @@ function Confirmed() {
               <h4 className="reservation-title">{reservation.nazwa_domku}</h4>
               <p className="reservation-client">
                 {reservation.imie_klienta} {reservation.nazwisko_klienta}
+              </p>
+              <p className="contact">
+                Kontakt: {reservation.telefon_klienta}, <br />
+                E-mail: {reservation.email_klienta}
               </p>
               <p className="reservation-dates">
                 Termin: {new Date(reservation.data_od).toLocaleDateString()} -{" "}
@@ -70,6 +97,14 @@ function Confirmed() {
                   reservation.data_dokonania_rezerwacji
                 ).toLocaleDateString()}
               </p>
+              <button
+                type="button"
+                onClick={() =>
+                  handleCancelReservation(reservation.id_rezerwacji)
+                }
+              >
+                Odrzuć rezerwację
+              </button>
             </div>
           ))}
         </div>

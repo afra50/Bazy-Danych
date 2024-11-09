@@ -14,7 +14,7 @@
 3. CALY SERWIS
 - responsywnosc
 - komentarze
-- obsluga komunikatow i errorow
+- obsluga notification i errorow
 - przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
 - ikonki i obrazki dla ozdoby
