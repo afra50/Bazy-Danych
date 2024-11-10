@@ -12,7 +12,6 @@
     width: 100%;
     padding: 1.5rem 0 0 1rem;
     color: $primary-color;
- 
 
     &:hover {
       color: $hover-color;
@@ -21,12 +20,9 @@
     a {
       font-family: $font-primary;
       color: $primary-color;
-    
-      
 
       &:hover {
         color: $hover-color;
-       
       }
     }
   }
@@ -62,7 +58,6 @@
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
-   // margin-top: 300rem;
     align-items: center;
     margin: auto;
     margin-top: 1.5rem;
@@ -79,7 +74,6 @@
         color: $primary-color;
       }
 
-      // Stylizacja komponentu react-select
       .react-select__control {
         background-color: $white;
         border: 1px solid $light-color;
@@ -181,7 +175,6 @@
       justify-self: center;
       margin-top: 2rem;
       font-size: 5rem;
-//margin-left:8rem;
     }
   }
 
@@ -191,88 +184,94 @@
     width: 80%;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2.5rem;
-    margin: auto; 
+    margin: auto;
     margin-top: 2rem;
   }
+  .card-link {
+    text-decoration: none;
+    color: inherit;
 
-  .card {
-    background-color: $white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    padding-bottom: 1rem;
-
-    .image-wrapper {
-      position: relative;
-      width: 100%;
-      height: 220px;
-      
+    .card {
+      background-color: $white;
+      border-radius: 8px;
       overflow: hidden;
-      
-      &::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
+      padding-bottom: 1rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: 0.3s box-shadow ease;
+
+      &:hover {
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .image-wrapper {
+        position: relative;
         width: 100%;
-        height: 100%;
-        background: radial-gradient( circle,
-      rgba(134, 160, 171, 0) 30%,
-      rgba(13, 13, 14, 0.5) 120%
-    ); // Vignette effect
-      transition: opacity 0.9s ease 0.3s;
-        opacity: 0;
+        height: 220px;
+
+        overflow: hidden;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(
+            circle,
+            rgba(134, 160, 171, 0) 30%,
+            rgba(13, 13, 14, 0.5) 120%
+          ); // Vignette effect
+          transition: opacity 1s ease;
+          opacity: 0;
+        }
+        &:hover::after {
+          opacity: 1;
+        }
+        &:hover img {
+          transform: scale(1.15);
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 1s ease;
+        }
+
+        .category {
+          font-family: $font-primary;
+          position: absolute;
+          top: 10px;
+          left: 10px;
+          background-color: $white;
+          color: $primary-color;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          font-size: 0.85rem;
+        }
       }
-      &:hover::after {
-        opacity: 1;
-      }
-      &:hover img {
-        transform: scale(1.15);
-      }
 
-
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 1s ease;
-      }
-
-
-
-      .category {
+      h2 {
         font-family: $font-primary;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: $white;
+        font-size: 1.4rem;
+        margin: 1rem 1rem 0.5rem;
         color: $primary-color;
-        padding: 0.5rem 1rem;
-        border-radius: 4px;
-        font-size: 0.85rem;
+        font-weight: 400;
       }
-    }
 
-    h2 {
-      font-family: $font-primary;
-      font-size: 1.4rem;
-      margin: 1rem 1rem 0.5rem;
-      color: $primary-color;
-      font-weight: 400;
-    }
+      p {
+        font-family: $font-primary;
+        font-size: 0.8rem;
+        margin: 0 1rem 0.5rem;
+        color: $dark-color;
 
-    p {
-      font-family: $font-primary;
-      font-size: 0.8rem;
-      margin: 0 1rem 0.5rem;
-      color: $dark-color;
-
-      em {
-        font-size: 0.9rem;
-        color: $primary-color;
-        font-style: normal;
+        em {
+          font-size: 0.9rem;
+          color: $primary-color;
+          font-style: normal;
+        }
       }
     }
   }
@@ -289,7 +288,6 @@
     transition: background-color 0.3s;
     font-size: 1rem;
     margin-top: 1.5rem;
-    margin-left: 9.4rem;
 
     &:hover {
       background-color: $hover-color;

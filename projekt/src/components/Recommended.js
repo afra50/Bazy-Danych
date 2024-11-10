@@ -15,35 +15,29 @@ function Recommended() {
   return (
     <section className="recommended">
       <h1>Polecane domki</h1>
-      <hr></hr>
+      <hr />
       <div className="wrapper">
         {domki.map((domek) => (
-          <div className="card" key={domek.id}>
-            <div className="image-wrapper">
-              <img
-                src={`http://localhost:5000/domki/${domek.id_domku}/${domek.id_domku}_1.jpg`}
-                alt={domek.nazwa}
-              />
-              <span className="category">{domek.kategoria}</span>
+          <Link
+            to={`/houses/${domek.id_domku}`}
+            key={domek.id_domku}
+            className="card-link"
+          >
+            <div className="card">
+              <div className="image-wrapper">
+                <img
+                  src={`http://localhost:5000/domki/${domek.id_domku}/${domek.id_domku}_1.jpg`}
+                  alt={domek.nazwa}
+                />
+                <span className="category">{domek.kategoria}</span>
+              </div>
+              <h2>{domek.nazwa}</h2>
+              <p>{domek.lokalizacja}</p>
             </div>
-            <h2>{domek.nazwa}</h2>
-            <p>{domek.lokalizacja}</p>
-          </div>
+          </Link>
         ))}
       </div>
-      <Link
-        to={{
-          pathname: "/searchpage",
-          state: {
-            searchParams: {
-              dateRange: [null, null],
-              location: "",
-              guests: 1,
-              categories: [],
-            },
-          },
-        }}
-      >
+      <Link to="/searchpage" className="more-places-link">
         Zobacz więcej miejsc
       </Link>
     </section>

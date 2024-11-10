@@ -1,7 +1,7 @@
 // Search_page.js
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "../../styles/pages/Search_page.scss";
 import Search_form from "../Search_form";
 import "../../styles/App.scss";
@@ -18,7 +18,7 @@ function Search_page() {
   });
   const [sort, setSort] = useState("most_relevant");
   const [totalResults, setTotalResults] = useState(0);
-  const [searchPerformed, setSearchPerformed] = useState(false); // Nowy stan
+  const [searchPerformed, setSearchPerformed] = useState(false);
   const resultsPerPage = 9;
 
   const locationState = useLocation();
@@ -226,21 +226,27 @@ function Search_page() {
       {/* Lista wyników */}
       <div className="wrapper">
         {searchResults.map((domek) => (
-          <div className="card" key={domek.id_domku}>
-            <div className="image-wrapper">
-              <img
-                src={`http://localhost:5000/domki/${domek.id_domku}/${domek.id_domku}_1.jpg`}
-                alt={domek.nazwa}
-              />
-              <span className="category">{domek.kategoria}</span>
+          <Link
+            to={`/houses/${domek.id_domku}`}
+            key={domek.id_domku}
+            className="card-link"
+          >
+            <div className="card" key={domek.id_domku}>
+              <div className="image-wrapper">
+                <img
+                  src={`http://localhost:5000/domki/${domek.id_domku}/${domek.id_domku}_1.jpg`}
+                  alt={domek.nazwa}
+                />
+                <span className="category">{domek.kategoria}</span>
+              </div>
+              <h2>{domek.nazwa}</h2>
+              <p>{domek.lokalizacja}</p>
+              <p>Liczba osób: {domek.liczba_osob}</p>
+              <p>
+                Cena: <em>{domek.cena_za_noc} zł</em> /noc
+              </p>
             </div>
-            <h2>{domek.nazwa}</h2>
-            <p>{domek.lokalizacja}</p>
-            <p>Liczba osób: {domek.liczba_osob}</p>
-            <p>
-              Cena: <em>{domek.cena_za_noc} zł</em> /noc
-            </p>
-          </div>
+          </Link>
         ))}
       </div>
 

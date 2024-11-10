@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authRoutes");
 const ownerRoutes = require("./routes/ownerRoutes");
 const recommendedRoutes = require("./routes/recommendedRoutes");
 const searchRoutes = require("./routes/searchRoutes");
+const housesRoutes = require("./routes/housesRoutes");
 
 const app = express();
 const port = 5000;
@@ -28,6 +29,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/owner", ownerRoutes);
 app.use("/api/recommended", recommendedRoutes);
 app.use("/api/search", searchRoutes);
+app.use("/api/houses", housesRoutes);
 
 // Obsługa błędów multer
 app.use((err, req, res, next) => {

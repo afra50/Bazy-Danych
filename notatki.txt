@@ -26,13 +26,8 @@
 > wojewodztwa + ew. teren, np. bieszczady
 > więcej filtrów, np. wyposazenie
 
-5. POLECANE
-- linki z domkow, kursor pointer
-
 6. HOME_PAGE
 - karuzela z kategoriami
 
 7. WYSZUKIWARKA
-- odnosniki do domkow, kursor pointer
-- efekty
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami

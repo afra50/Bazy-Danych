@@ -15,6 +15,7 @@ import Private_owner_route from "./Private_owner_route";
 import { AuthProvider } from "./Auth_context";
 import Private_client_route from "./Private_client_route";
 import Search_page from "./pages/Search_page";
+import House from "./pages/House";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
                 }
               />
               <Route path="/searchpage" element={<Search_page></Search_page>} />
+              <Route path="/houses/:id_domku" element={<House />} />
             </Routes>
           </main>
           <Footer />
