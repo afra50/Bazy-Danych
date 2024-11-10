@@ -2,7 +2,6 @@
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
-// Animacja fade-in tylko na opacity
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -58,11 +57,9 @@
       z-index: 2;
       pointer-events: none;
 
-      // Dodaj animację pojawiania się
       opacity: 0;
       animation: fadeIn 1.5s ease-out forwards;
 
-      // Tło z efektem stopniowego pojawiania się
       &::before {
         content: "";
         position: absolute;
