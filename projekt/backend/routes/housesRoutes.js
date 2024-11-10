@@ -3,5 +3,6 @@ const router = express.Router();
 const housesController = require("../controllers/housesController");
 
 router.get("/:id", housesController.getHouseById);
+router.get("/:id/images", housesController.getHouseImages);
 
 module.exports = router;

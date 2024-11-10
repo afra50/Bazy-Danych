@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const path = require("path");
+const multer = require("multer");
 
 // Import tras
 const authRoutes = require("./routes/authRoutes");

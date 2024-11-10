@@ -1,16 +1,165 @@
 @import "../Variables.scss";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+// Animacja fade-in tylko na opacity
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .house-details {
-  padding: 2rem;
+  padding: 0 2rem 2rem 2rem;
   text-align: center;
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+  .image-slider {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: 2rem;
+
+    .back {
+      position: absolute;
+      z-index: 3;
+      left: 0;
+      font-family: $font-primary;
+      color: $almost-white;
+      margin-top: 1rem;
+      margin-left: 1rem;
+
+      a {
+        color: $almost-white;
+      }
+    }
+
+    .slider-title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $secondary-color;
+      text-align: center;
+      font-size: 2.5rem;
+      letter-spacing: 0.6rem;
+      word-spacing: 1rem;
+      font-family: $font-primary;
+      font-weight: 400;
+      z-index: 2;
+      pointer-events: none;
+
+      // Dodaj animację pojawiania się
+      opacity: 0;
+      animation: fadeIn 1.5s ease-out forwards;
+
+      // Tło z efektem stopniowego pojawiania się
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: -1;
+        opacity: 0;
+        animation: fadeIn 1.5s ease-out forwards;
+      }
+    }
+
+    .slick-slider {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .slick-dots {
+      bottom: -30px;
+
+      li {
+        margin: 0 5px;
+
+        button:before {
+          font-size: 12px;
+          color: $primary-color;
+        }
+
+        &.slick-active button:before {
+          color: darken($primary-color, 10%);
+        }
+      }
+    }
+
+    .slick-prev,
+    .slick-next {
+      width: 40px;
+      height: 40px;
+      z-index: 2;
+
+      &:before {
+        font-size: 40px;
+        color: $white;
+      }
+
+      &:hover:before,
+      &:focus:hover:before,
+      &:active:hover:before {
+        color: darken($white, 10%);
+      }
+
+      &:focus:before,
+      &:active:before {
+        color: $white;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .slick-prev {
+      left: 20px;
+    }
+
+    .slick-next {
+      right: 40px;
+    }
+
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      height: 500px;
+
+      img {
+        width: 100%;
+        height: 101%;
+        object-fit: cover;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      }
+    }
   }
 
   .details {
-    margin-top: 1rem;
+    margin-top: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
     text-align: left;
+    color: $dark-color;
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+    }
   }
 }
