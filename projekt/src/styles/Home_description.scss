@@ -12,6 +12,13 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  opacity: 0; // Komponent ukryty do momentu scrollowania
+  transition: opacity 1.5s ease; // Płynne pojawienie się
+
+  &.visible {
+    opacity: 1; // Pokazujemy komponent, gdy klasa "visible" zostanie dodana przez JS
+  }
+
   h1 {
     width: 35vw;
     font-size: 4.5rem;
@@ -20,19 +27,34 @@
     margin: 0;
     margin-right: 3rem;
     font-weight: 400;
+    transform: translateX(-100%); // Start poza ekranem po lewej
+    transition: transform 1.5s ease-out, opacity 1.5s ease-out; // Przejście do stanu docelowego
+
+    &.animate {
+      animation: slideAndFadeIn 1.5s ease-out forwards; // Włączamy animację przesuwania i zanikania
+    }
+
     em {
       color: $dark-color;
     }
   }
+
   div {
     width: 30vw;
     font-family: $font-primary;
+    opacity: 0; // Div ukryty do momentu animacji
+
+    &.animate {
+      animation: fadeInOnly 1.5s ease-out forwards; // Uruchamiamy animację zanikania
+    }
+
     p {
       color: $primary-color;
       margin: 0;
       word-spacing: 0.2rem;
       line-height: 1.7rem;
     }
+
     a {
       text-decoration: none;
       margin-top: 3rem;
@@ -47,9 +69,32 @@
       box-shadow: none;
       cursor: pointer;
       transition: background-color 0.3s ease;
+
       &:hover {
         background-color: $hover-color;
       }
     }
+  }
+}
+
+// Definiujemy kluczowe klatki animacji dla przesuwania i zanikania
+@keyframes slideAndFadeIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// Definiujemy animację dla płynnego pojawiania się
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
