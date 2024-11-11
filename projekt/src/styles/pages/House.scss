@@ -35,6 +35,11 @@
 
       a {
         color: $almost-white;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -146,17 +151,128 @@
   }
 
   .details {
-    margin-top: 2rem;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    color: $dark-color;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 0.8rem;
-      line-height: 1.6;
+    .details-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1200px;
+      margin: 0 auto;
+      margin-top: 1.5rem;
+
+      .house_description {
+        flex: 1 1 60%;
+        text-align: left;
+
+        h1 {
+          color: $primary-color;
+          font-family: $font-primary;
+          font-weight: 400;
+          font-size: 3rem;
+          margin-bottom: 1rem;
+          margin-top: 0;
+        }
+
+        em {
+          display: block;
+          font-style: italic;
+          margin-bottom: 1.5rem;
+          font-size: 1.2rem;
+
+          p {
+            margin: 0.2rem 0;
+            font-family: $font-primary;
+            color: $dark-color;
+          }
+        }
+
+        p {
+          font-family: $font-primary;
+          font-size: 1.1rem;
+          line-height: 1.6;
+        }
+      }
+
+      .to_reservation {
+        flex: 1 1 35%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        .price {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 1rem;
+          color: $primary-color;
+        }
+
+        .calendar-placeholder {
+          width: 100%;
+          height: 200px; // Wysokość placeholdera, dostosuj według potrzeb
+          background-color: #f0f0f0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 1rem;
+          border: 1px dashed #ccc;
+          border-radius: 4px;
+        }
+
+        .reserve-button {
+          padding: 0.75rem 1.5rem;
+          background-color: $primary-color;
+          color: $white;
+          border: none;
+          border-radius: 4px;
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: darken($primary-color, 10%);
+          }
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+          }
+        }
+      }
+    }
+  }
+
+  // Responsywność
+  @media (max-width: 768px) {
+    .details {
+      padding: 1rem;
+
+      .details-container {
+        flex-direction: column;
+        max-width: 100%;
+      }
+
+      .house_description,
+      .to_reservation {
+        flex: 1 1 100%;
+      }
+
+      .house_description {
+        h1 {
+          font-size: 2.5rem;
+        }
+      }
     }
   }
 }
