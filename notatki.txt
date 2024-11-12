@@ -14,8 +14,8 @@
 3. CALY SERWIS
 - responsywnosc
 - komentarze
-- obsluga notification i errorow
-- przekierowanie po rejestracji
+> notification + errory
+> przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
 - ikonki i obrazki dla ozdoby
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
@@ -25,6 +25,7 @@
 > kilka kategorii (na homepage tez zmiany)
 > wojewodztwa + ew. teren, np. bieszczady
 > więcej filtrów, np. wyposazenie
+> regulaminy
 - powrot ze strony domku powraca do wyszukiwarki z zapisanym stanem
 
 6. HOME_PAGE

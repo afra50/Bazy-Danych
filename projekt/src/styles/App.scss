@@ -39,6 +39,40 @@ body {
   }
 }
 
+.notification {
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background-color: $primary-color;
+  color: $secondary-color;
+  padding: 1rem;
+  border-radius: 5px;
+  font-family: $font-primary;
+  font-size: 1rem !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  animation: fade-in-out 4s ease;
+
+  @keyframes fade-in-out {
+    0% {
+      opacity: 0 !important;
+      transform: translateY(-10px) translateX(-50%);
+    }
+    10% {
+      opacity: 1 !important;
+      transform: translateY(0) translateX(-50%);
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px) translateX(-50%);
+    }
+  }
+}
+
 .back {
   float: left;
   color: $very-light-color;

@@ -57,15 +57,12 @@ function SignIn() {
 
         if (response.ok) {
           sessionStorage.setItem("role", "client");
-
-          alert("Zalogowano pomyślnie");
           window.location.href = "/";
         } else {
-          alert("Błąd podczas logowania");
+          console.error("Błąd podczas logowania");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
-        alert("Wystąpił problem z logowaniem");
       }
     }
   };

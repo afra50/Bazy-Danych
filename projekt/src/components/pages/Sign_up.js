@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../styles/pages/Sign.scss";
 
 function SignUp() {
@@ -12,8 +12,9 @@ function SignUp() {
   });
 
   const [errors, setErrors] = useState({});
+  const [notification, setNotification] = useState(""); // Notification state
 
-  // Obsługa zmian w formularzu
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -21,16 +22,15 @@ function SignUp() {
       [name]: value,
     });
 
-    // Usunięcie błędu, gdy użytkownik zaczyna wpisywać poprawne dane
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "", // Usuwa błąd dla tego pola
+        [name]: "", // Clear error for this field
       });
     }
   };
 
-  // Walidacja formularza
+  // Form validation
   const validateForm = () => {
     const newErrors = {};
 
@@ -74,7 +74,7 @@ function SignUp() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Obsługa wysyłania formularza
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -87,26 +87,39 @@ function SignUp() {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData), // formData zawiera dane z formularza
+            body: JSON.stringify(formData),
           }
         );
 
         if (response.ok) {
-          alert("Rejestracja zakończona sukcesem");
+          setNotification("Rejestracja zakończona sukcesem");
+        } else if (response.status === 409) {
+          setNotification("Konto z tym adresem e-mail już istnieje");
         } else {
-          alert("Błąd podczas rejestracji");
+          setNotification("Błąd podczas rejestracji");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
-        alert("Wystąpił problem z rejestracją");
+        setNotification("Wystąpił problem z rejestracją");
       }
     }
   };
+
+  // Ukrycie powiadomienia po kilku sekundach
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(""), 3000);
+      return () => clearTimeout(timer); // Sprzątanie timera
+    }
+  }, [notification]);
 
   return (
     <div className="sign_container">
       <div className="sign-form">
         <h2>Załóż konto</h2>
+        {notification && (
+          <div className="notification">{notification}</div> // Notification message
+        )}
         <form onSubmit={handleSubmit}>
           {/* Imię */}
           <div className="form-group">

@@ -73,11 +73,10 @@ function SignInAsOwner() {
           navigate(from, { replace: true });
         } else {
           const errorData = await response.json();
-          alert(errorData.error || "Błąd podczas logowania");
+          console.error(errorData.error || "Błąd podczas logowania");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
-        alert("Wystąpił problem z logowaniem");
       }
     }
   };

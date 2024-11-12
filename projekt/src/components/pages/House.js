@@ -69,7 +69,13 @@ function House() {
       <div className="details">
         <div className="details-container">
           <div className="house_description">
-            <h1>{domek.nazwa}</h1>
+            <h1>
+              {domek.nazwa}
+              <span className="guests">
+                {domek.liczba_osob}
+                <i class="fa-solid fa-user-group"></i>
+              </span>
+            </h1>
             <em>
               <p>{domek.lokalizacja},</p>
               <p>{domek.kategoria}</p>
@@ -77,7 +83,9 @@ function House() {
             <p>{domek.opis}</p>
           </div>
           <div className="to_reservation">
-            <p className="price">Cena za noc: {domek.cena_za_noc} zł</p>
+            <p className="price">
+              <em>{domek.cena_za_noc} zł</em> /noc
+            </p>
             {/* Placeholder na kalendarz */}
             <div className="calendar-placeholder">
               {/* Kalendarz zostanie dodany później */}
@@ -87,6 +95,8 @@ function House() {
           </div>
         </div>
       </div>
+      <hr></hr>
+      <div className="owner-details"></div>
     </section>
   );
 }

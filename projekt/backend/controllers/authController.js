@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
 
-// Rejestracja klienta
+// controllers/authController.js
 exports.register = async (req, res) => {
   const { imie, nazwisko, telefon, email, haslo } = req.body;
 
@@ -12,23 +12,36 @@ exports.register = async (req, res) => {
   }
 
   try {
-    // Szyfrowanie hasła
-    const hashedPassword = await bcrypt.hash(haslo, 10);
-
-    // Zapytanie SQL do dodania klienta
-    const sql = `INSERT INTO klienci (imie, nazwisko, telefon, email, haslo, data_rejestracji) VALUES (?, ?, ?, ?, ?, NOW())`;
-    db.query(
-      sql,
-      [imie, nazwisko, telefon, email, hashedPassword],
-      (err, result) => {
-        if (err) {
-          console.error("Błąd podczas wstawiania danych:", err);
-          return res.status(500).send("Błąd serwera");
-        }
-
-        res.status(201).send("Rejestracja zakończona sukcesem");
+    // Sprawdzenie, czy użytkownik o podanym adresie e-mail już istnieje
+    const checkEmailSql = `SELECT * FROM klienci WHERE email = ?`;
+    db.query(checkEmailSql, [email], async (err, results) => {
+      if (err) {
+        console.error("Błąd podczas sprawdzania adresu e-mail:", err);
+        return res.status(500).send("Błąd serwera");
       }
-    );
+
+      if (results.length > 0) {
+        return res.status(409).send("Konto z tym adresem e-mail już istnieje"); // Kod 409 dla konfliktu
+      }
+
+      // Szyfrowanie hasła
+      const hashedPassword = await bcrypt.hash(haslo, 10);
+
+      // Zapytanie SQL do dodania klienta
+      const sql = `INSERT INTO klienci (imie, nazwisko, telefon, email, haslo, data_rejestracji) VALUES (?, ?, ?, ?, ?, NOW())`;
+      db.query(
+        sql,
+        [imie, nazwisko, telefon, email, hashedPassword],
+        (err, result) => {
+          if (err) {
+            console.error("Błąd podczas wstawiania danych:", err);
+            return res.status(500).send("Błąd serwera");
+          }
+
+          res.status(201).send("Rejestracja zakończona sukcesem");
+        }
+      );
+    });
   } catch (error) {
     console.error("Błąd podczas szyfrowania hasła:", error);
     res.status(500).send("Błąd serwera podczas rejestracji");
