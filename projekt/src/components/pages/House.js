@@ -196,6 +196,7 @@ function House() {
             <p className="price">
               <em>{domek.cena_za_noc} zł</em> /noc
             </p>
+            <span className="access">Sprawdź dostępność</span>
             {/* Kalendarz dostępności */}
             <div className="calendar">
               <Calendar

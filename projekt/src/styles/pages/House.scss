@@ -231,15 +231,21 @@
           color: $primary-color;
           em {
             font-style: normal;
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: $primary-color;
           }
+        }
+        .access {
+          letter-spacing: 0.1rem;
+          font-family: $font-primary;
+          font-size: 1.5rem;
+          color: $primary-color;
         }
 
         .calendar {
           width: 100%;
           max-width: 100%;
-          margin-bottom: 1rem;
+          margin: 1rem 0;
 
           /* Stylizacja react-calendar */
           .react-calendar {
