@@ -15,6 +15,7 @@
 - responsywnosc
 - komentarze
 > notification + errory
+> zabezpieczenia js i to co sie da
 > przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
 - ikonki i obrazki dla ozdoby
@@ -33,3 +34,5 @@
 
 7. WYSZUKIWARKA
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami
+
+react calendar + fs do sprawka
