@@ -405,11 +405,11 @@
             /* Targeting disabled buttons via attribute selector */
             button[disabled] {
               cursor: default;
-              background-color: $light-color;
+              background-color: $almost-white;
               color: $dark-color;
 
               &:hover {
-                background-color: $light-color;
+                background-color: $almost-white;
                 color: $dark-color;
               }
             }
@@ -436,14 +436,6 @@
           }
         }
       }
-    }
-
-    hr {
-      width: 50vw;
-      margin-top: 2.5rem;
-      background-color: $light-color;
-      border: none;
-      height: 0.5px;
     }
 
     // Responsywność
@@ -482,5 +474,12 @@
         }
       }
     }
+  }
+  hr {
+    width: 50vw;
+    margin-top: 2.5rem;
+    background-color: $light-color;
+    border: none;
+    height: 0.5px;
   }
 }

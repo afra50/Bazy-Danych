@@ -143,10 +143,7 @@ function House() {
         setSelectedRange(null);
       } else {
         setSelectedRange(range);
-        // Przekierowanie do formularza rezerwacji z przekazaniem obu dat
-        navigate(
-          `/rezerwacja/${id_domku}?start=${start.toISOString()}&end=${end.toISOString()}`
-        );
+        // Usunięto automatyczne przekierowanie
       }
     } else {
       // Częściowy wybór (tylko start date)
