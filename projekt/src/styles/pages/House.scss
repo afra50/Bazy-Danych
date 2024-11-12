@@ -1,3 +1,4 @@
+// House.scss
 @import "../Variables.scss";
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
@@ -160,15 +161,16 @@
     justify-content: center;
 
     .details-container {
-      display: grid;
+      display: flex;
       gap: 3rem;
-      grid-template-columns: 1.5fr 1fr;
+      flex-direction: row;
+      align-items: flex-start;
       width: 90vw;
       margin: 0 auto;
       margin-top: 1.5rem;
-      align-items: flex-end;
 
       .house_description {
+        flex: 2;
         text-align: left;
 
         h1 {
@@ -212,6 +214,7 @@
       }
 
       .to_reservation {
+        flex: 1;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -219,7 +222,7 @@
         padding-top: 0;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         border-radius: 1rem;
-        max-width: 100%; // Ustawienie maksymalnej szerokości
+        max-width: 100%;
 
         .price {
           font-size: 1rem;
@@ -233,25 +236,193 @@
           }
         }
 
-        .calendar-placeholder {
+        .calendar {
           width: 100%;
-          height: 200px;
-          background-color: #f0f0f0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-bottom: 1rem;
-          border: 1px dashed #ccc;
-          border-radius: 4px;
           max-width: 100%;
+          margin-bottom: 1rem;
+
+          /* Stylizacja react-calendar */
+          .react-calendar {
+            width: 100%;
+            max-width: 100%;
+            background: $white;
+            border: none;
+            font-family: $font-primary;
+            line-height: 1.2em;
+
+            /* Nagłówki dni tygodnia */
+            .react-calendar__navigation {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0.5rem;
+              background-color: $primary-color;
+              color: $white;
+              margin-bottom: 0;
+
+              button {
+                font-family: $font-primary;
+                background-color: $primary-color;
+                border: none;
+                color: $white;
+                font-size: 1rem;
+                cursor: pointer;
+
+                &:hover {
+                  color: lighten($primary-color, 20%);
+                }
+
+                /* Remove the &:disabled styles from here */
+
+                &:focus {
+                  outline: none;
+                }
+              }
+
+              /* Adjusted selectors for disabled navigation buttons */
+              .react-calendar__navigation__prev-button[disabled],
+              .react-calendar__navigation__next-button[disabled] {
+                cursor: default;
+                background-color: $primary-color;
+              }
+
+              /* Ensure the month label retains the desired styles even when disabled */
+              .react-calendar__navigation__label {
+                font-size: 1.25rem;
+                font-weight: bold;
+                background-color: $primary-color;
+                color: $white;
+                padding: 0.5rem;
+                border-radius: 4px;
+                text-align: center;
+                flex: 1;
+
+                &[disabled] {
+                  background-color: $primary-color;
+                  color: $white;
+                  cursor: default;
+                }
+              }
+
+              /* Hide the year navigation buttons */
+              .react-calendar__navigation__prev2-button,
+              .react-calendar__navigation__next2-button {
+                display: none;
+              }
+            }
+
+            /* Nazwy dni tygodnia */
+            .react-calendar__month-view__weekdays {
+              text-align: center;
+              padding: 0.5rem 0;
+              background-color: $dark-color;
+              color: $white;
+              margin-bottom: 1rem;
+              abbr {
+                text-decoration: none;
+                font-weight: 400;
+              }
+            }
+
+            /* Komórki dni */
+            .react-calendar__month-view__days__day {
+              color: $primary-color;
+              font-family: $font-primary;
+              height: 3rem;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0.2rem;
+              cursor: pointer;
+              transition: background-color 0.3s ease, color 0.3s ease;
+
+              &:hover {
+                background-color: $primary-color;
+                color: $white;
+              }
+
+              &--weekend {
+                color: $primary-color;
+              }
+
+              &.react-calendar__tile--disabled {
+                background-color: $light-color;
+                color: $dark-color;
+                cursor: not-allowed !important;
+
+                &:hover {
+                  background-color: $light-color;
+                  color: $dark-color;
+                }
+              }
+
+              /* Dni z poprzedniego i następnego miesiąca */
+              &.react-calendar__tile--neighboringMonth {
+                background-color: lighten($light-color, 20%);
+                color: $dark-color;
+                cursor: not-allowed !important;
+
+                &:hover {
+                  background-color: lighten($light-color, 20%);
+                  color: $dark-color;
+                }
+              }
+            }
+
+            .react-calendar__tile--range {
+              background-color: $primary-color;
+              color: $white;
+            }
+
+            .react-calendar__tile--rangeStart,
+            .react-calendar__tile--rangeEnd {
+              background-color: $primary-color;
+              color: $white;
+            }
+
+            .react-calendar__tile--range:hover {
+              background-color: $primary-color;
+            }
+
+            /* Dni aktywne (wybrane) */
+            .react-calendar__tile--active {
+              background-color: $primary-color;
+              color: $white;
+            }
+
+            /* Dni aktualne */
+            .react-calendar__tile--now {
+              background-color: $primary-color;
+              color: $secondary-color;
+              transition: background-color 0.3s ease, color 0.3s ease;
+
+              &:hover {
+                background-color: $hover-color;
+                color: $white;
+              }
+            }
+
+            /* Targeting disabled buttons via attribute selector */
+            button[disabled] {
+              cursor: default;
+              background-color: $light-color;
+              color: $dark-color;
+
+              &:hover {
+                background-color: $light-color;
+                color: $dark-color;
+              }
+            }
+          }
         }
 
         .reserve-button {
+          font-family: $font-primary;
+          width: 100%;
           padding: 0.75rem 1.5rem;
           background-color: $primary-color;
           color: $white;
           border: none;
-          border-radius: 4px;
           font-size: 1rem;
           cursor: pointer;
           transition: background-color 0.3s ease;
@@ -262,36 +433,51 @@
 
           &:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
           }
         }
       }
     }
-  }
 
-  hr {
-    width: 50vw;
-    margin-top: 2.5rem;
-    background-color: $light-color;
-    border: none;
-    height: 0.5px;
-  }
+    hr {
+      width: 50vw;
+      margin-top: 2.5rem;
+      background-color: $light-color;
+      border: none;
+      height: 0.5px;
+    }
 
-  // Responsywność
-  @media (max-width: 768px) {
-    .details {
-      .details-container {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+    // Responsywność
+    @media (max-width: 768px) {
+      .details {
+        .details-container {
+          flex-direction: column;
+          gap: 1.5rem;
 
-        .house_description,
-        .to_reservation {
-          width: 100%;
-        }
+          .house_description,
+          .to_reservation {
+            width: 100%;
+          }
 
-        .house_description {
-          h1 {
-            font-size: 2.5rem;
+          .house_description {
+            h1 {
+              font-size: 2.5rem;
+            }
+          }
+
+          .to_reservation {
+            .calendar {
+              .react-calendar {
+                font-size: 0.8rem;
+
+                .react-calendar__month-view__weekdays {
+                  font-size: 0.8rem;
+                }
+
+                .react-calendar__tile--now {
+                  border: 1px solid $primary-color;
+                }
+              }
+            }
           }
         }
       }

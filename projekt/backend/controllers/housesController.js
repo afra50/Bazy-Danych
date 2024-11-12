@@ -43,3 +43,32 @@ exports.getHouseImages = (req, res) => {
     res.status(200).json(images);
   });
 };
+
+// Pobieranie dostępności domku
+exports.getHouseAvailability = (req, res) => {
+  const houseId = req.params.id;
+
+  const sqlReservations = `SELECT data_od, data_do FROM rezerwacje WHERE id_domku = ?`;
+  const sqlUnavailable = `SELECT data_od, data_do FROM dostepnosc_domkow WHERE id_domku = ?`;
+
+  // Pobieranie rezerwacji
+  db.query(sqlReservations, [houseId], (err, reservations) => {
+    if (err) {
+      console.error("Błąd przy pobieraniu rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    // Pobieranie dodatkowej niedostępności
+    db.query(sqlUnavailable, [houseId], (err, unavailable) => {
+      if (err) {
+        console.error("Błąd przy pobieraniu niedostępności:", err);
+        return res.status(500).json({ error: "Błąd serwera" });
+      }
+
+      // Łączenie obu zestawów danych
+      const allUnavailable = [...reservations, ...unavailable];
+
+      res.status(200).json(allUnavailable);
+    });
+  });
+};
