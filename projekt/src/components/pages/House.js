@@ -60,7 +60,7 @@ function House() {
   // Efekt do automatycznego ukrywania powiadomienia po 3 sekundach
   useEffect(() => {
     if (notification) {
-      const timer = setTimeout(() => setNotification(""), 3000);
+      const timer = setTimeout(() => setNotification(""), 5000);
       return () => clearTimeout(timer); // Sprzątanie timera
     }
   }, [notification]);
@@ -148,11 +148,10 @@ function House() {
 
       if (hasUnavailable) {
         // Zamiast alertu ustaw powiadomienie
-        setNotification("Wybierz inne daty.");
+        setNotification("Termin niedostępny - wybierz inny przedział.");
         setSelectedRange(null);
       } else {
         setSelectedRange(range);
-        // Usunięto automatyczne przekierowanie
       }
     } else {
       // Częściowy wybór (tylko start date)
@@ -244,7 +243,7 @@ function House() {
         </div>
       </div>
       <hr />
-      <Owner_details />
+      <Owner_details houseId={id_domku} />
 
       {/* Renderowanie powiadomienia */}
       {notification && <div className="notification">{notification}</div>}

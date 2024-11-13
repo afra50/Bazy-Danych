@@ -1,1 +1,48 @@
 @import "./Variables.scss";
+
+.owner_section {
+  font-family: $font-primary;
+  color: $primary-color;
+  width: 75vw;
+  margin: 0 auto;
+  h2 {
+    font-weight: 400;
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+  .owner_name {
+    font-size: 1.5rem;
+  }
+  .owner_description {
+    word-spacing: 0.25rem;
+    letter-spacing: 0.05rem;
+    font-size: 0.95rem;
+    line-height: 1.5rem;
+  }
+  .owner_contact {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+    padding: 1rem 0;
+    border: 1px solid $very-light-color;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 1.5rem;
+    .contact_title {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    div {
+      span {
+        margin: 0 0.1rem;
+        font-size: 0.9rem;
+      }
+      em {
+        span {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}

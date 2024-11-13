@@ -72,3 +72,31 @@ exports.getHouseAvailability = (req, res) => {
     });
   });
 };
+
+// Pobieranie danych właściciela
+exports.getOwnerDetails = (req, res) => {
+  const houseId = req.params.id;
+
+  const sql = `
+    SELECT w.imie, w.opis, w.email, w.telefon, w.zdjecie 
+    FROM wlasciciele w
+    JOIN domki d ON d.id_wlasciciela = w.id_wlasciciela
+    WHERE d.id_domku = ?`;
+
+  db.query(sql, [houseId], (err, result) => {
+    if (err) {
+      console.error("Błąd przy pobieraniu danych właściciela:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Właściciel nie znaleziony" });
+    }
+
+    // Dodaj ścieżkę obrazu
+    const owner = result[0];
+    owner.zdjecie = `http://localhost:5000${owner.zdjecie}`;
+
+    res.status(200).json(owner);
+  });
+};
