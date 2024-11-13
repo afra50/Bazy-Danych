@@ -228,12 +228,13 @@ function House() {
               onClick={() => {
                 if (selectedRange && selectedRange.length === 2) {
                   const [start, end] = selectedRange;
+                  console.log("Przekazywanie dat:", start, end); // Logowanie
                   navigate(
                     `/rezerwacja/${id_domku}?start=${start.toISOString()}&end=${end.toISOString()}`
                   );
                 } else {
-                  // Zamiast alertu ustaw powiadomienie
-                  setNotification("Proszę wybrać przedział dat rezerwacji.");
+                  console.log("Brak wybranego przedziału dat");
+                  navigate(`/rezerwacja/${id_domku}`);
                 }
               }}
             >
@@ -244,7 +245,7 @@ function House() {
       </div>
       <hr />
       <Owner_details houseId={id_domku} />
-
+      <hr />
       {/* Renderowanie powiadomienia */}
       {notification && <div className="notification">{notification}</div>}
     </section>

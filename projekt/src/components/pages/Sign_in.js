@@ -1,4 +1,7 @@
+// src/components/pages/SignIn.js
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../Auth_context"; // Upewnij się, że ścieżka jest poprawna
 import "../../styles/pages/Sign.scss";
 
 function SignIn() {
@@ -8,6 +11,13 @@ function SignIn() {
   });
 
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { login } = useAuth(); // Użycie funkcji logowania z kontekstu
+
+  // Przechwycenie docelowej ścieżki (jeśli istnieje)
+  const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,13 +66,22 @@ function SignIn() {
         });
 
         if (response.ok) {
-          sessionStorage.setItem("role", "client");
-          window.location.href = "/";
+          const data = await response.json(); // Parsowanie odpowiedzi jako JSON
+          console.log("Dane z logowania:", data); // Debugowanie
+
+          // Ustawienie roli i clientId w sessionStorage oraz w kontekście
+          login("client", data); // Przekazanie roli i danych klienta do funkcji login
+
+          // Przekierowanie na poprzednią stronę lub stronę główną
+          navigate(from, { replace: true });
         } else {
-          console.error("Błąd podczas logowania");
+          const errorMessage = await response.text();
+          console.error("Błąd podczas logowania:", errorMessage);
+          setErrors({ form: errorMessage || "Błąd podczas logowania" });
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
+        setErrors({ form: "Błąd podczas wysyłania danych" });
       }
     }
   };
@@ -105,6 +124,9 @@ function SignIn() {
               {errors.haslo}
             </span>
           </div>
+
+          {/* Informacja o błędzie logowania */}
+          {errors.form && <p className="error">{errors.form}</p>}
 
           <div className="to_sign">
             <span>Nie masz konta?</span>

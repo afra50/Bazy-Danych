@@ -2,7 +2,7 @@
 const bcrypt = require("bcrypt");
 const db = require("../models/db");
 
-// controllers/authController.js
+// Rejestracja
 exports.register = async (req, res) => {
   const { imie, nazwisko, telefon, email, haslo } = req.body;
 
@@ -79,7 +79,17 @@ exports.login = (req, res) => {
       return res.status(400).send("Błędne hasło");
     }
 
-    res.status(200).send("Zalogowano pomyślnie");
+    // Wykluczenie hasła z odpowiedzi
+    const { haslo: _, ...userData } = user;
+
+    // Wysłanie danych klienta jako JSON
+    res.status(200).json({
+      id_klienta: userData.id_klienta,
+      imie: userData.imie,
+      nazwisko: userData.nazwisko,
+      email: userData.email,
+      telefon: userData.telefon,
+    });
   });
 };
 

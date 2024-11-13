@@ -8,9 +8,11 @@ const multer = require("multer");
 // Import tras
 const authRoutes = require("./routes/authRoutes");
 const ownerRoutes = require("./routes/ownerRoutes");
+const clientRoutes = require("./routes/clientRoutes");
 const recommendedRoutes = require("./routes/recommendedRoutes");
 const searchRoutes = require("./routes/searchRoutes");
 const housesRoutes = require("./routes/housesRoutes");
+const reservationRoutes = require("./routes/reservationRoutes");
 
 const app = express();
 const port = 5000;
@@ -28,9 +30,11 @@ app.use("/domki", express.static(path.join(__dirname, "domki")));
 // Użycie tras
 app.use("/api/auth", authRoutes);
 app.use("/api/owner", ownerRoutes);
+app.use("/api/clients", clientRoutes);
 app.use("/api/recommended", recommendedRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/houses", housesRoutes);
+app.use("/api", reservationRoutes);
 
 // Obsługa błędów multer
 app.use((err, req, res, next) => {

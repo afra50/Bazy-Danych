@@ -16,6 +16,7 @@ import { AuthProvider } from "./Auth_context";
 import Private_client_route from "./Private_client_route";
 import Search_page from "./pages/Search_page";
 import House from "./pages/House";
+import Reservation_form from "./pages/Reservation_form";
 
 function App() {
   return (
@@ -63,6 +64,14 @@ function App() {
               />
               <Route path="/searchpage" element={<Search_page></Search_page>} />
               <Route path="/houses/:id_domku" element={<House />} />
+              <Route
+                path="/rezerwacja/:id_domku"
+                element={
+                  <Private_client_route>
+                    <Reservation_form />
+                  </Private_client_route>
+                }
+              />
             </Routes>
           </main>
           <Footer />

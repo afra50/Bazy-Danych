@@ -18,7 +18,7 @@
 > zabezpieczenia js i to co sie da
 > przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
-- ikonki i obrazki dla ozdoby
+> ikonki i obrazki dla ozdoby
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
 > czyszczenie bazy danych
 
@@ -35,4 +35,14 @@
 7. WYSZUKIWARKA
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami
 
-react calendar + fs do sprawka
+8. LOGOWANIE
+> info o blednym hasle/email 
+
+9. REZERWACJA
+> przejscie do rezerwacji bez logowania pozniej logowanie nie zapisuje dat
+
+react calendar + fs + bazy zdjec do sprawka
+React Context API
+React Hooks
+Web Storage API (sessionStorage)
+

@@ -7,21 +7,25 @@ function Owner_details({ houseId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Zakładając, że REACT_APP_API_URL jest ustawiony w pliku .env
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const defaultImagePath = "/uploads/default_profile.png"; // Ścieżka do domyślnego obrazu
+
   useEffect(() => {
     if (!houseId) return; // Jeśli brak ID, nie wysyłaj żądania
 
-    // Zaktualizowany URL z nową ścieżką
     axios
-      .get(`http://localhost:5000/api/houses/${houseId}/owner`)
+      .get(`${API_URL}/api/houses/${houseId}/owner`)
       .then((response) => {
         setOwner(response.data); // Ustaw dane właściciela
         setLoading(false);
       })
       .catch((err) => {
+        console.error(err);
         setError("Nie udało się pobrać danych właściciela."); // Obsługa błędów
         setLoading(false);
       });
-  }, [houseId]);
+  }, [houseId, API_URL]);
 
   if (loading) {
     return <p>Ładowanie danych właściciela...</p>;
@@ -31,18 +35,33 @@ function Owner_details({ houseId }) {
     return <p>{error}</p>;
   }
 
+  // Funkcja do sprawdzania, czy URL obrazu jest prawidłowy
+  const isValidImageUrl = (url) => {
+    if (!url) return false;
+    // Sprawdź, czy URL nie zawiera "null" lub innych nieprawidłowych fragmentów
+    return !url.toLowerCase().includes("null");
+  };
+
+  const imageUrl = isValidImageUrl(owner.zdjecie)
+    ? owner.zdjecie
+    : `${API_URL}${defaultImagePath}`;
+
+  const handleImageError = (e) => {
+    e.target.src = `${API_URL}${defaultImagePath}`;
+  };
+
   return (
     <div className="owner_section">
       <h2>Gospodarz</h2>
       <img
-        src={owner.zdjecie}
+        src={imageUrl}
         alt={`Zdjęcie właściciela: ${owner.imie}`}
         style={{ width: "150px", borderRadius: "50%" }}
+        onError={handleImageError} // Obsługa błędów ładowania obrazu
       />
       <p className="owner_name">{owner.imie}</p>
-      <p className="owner_description">{owner.opis}</p>
       <p className="owner_contact">
-        <span className="contact_title">Skontaktuj się z gospodarzem</span>
+        <span className="contact_title">Skontaktuj się</span>
         <div>
           <span>Telefon: </span>
           <em>
@@ -56,6 +75,7 @@ function Owner_details({ houseId }) {
           </em>
         </div>
       </p>
+      <p className="owner_description">{owner.opis}</p>
     </div>
   );
 }
