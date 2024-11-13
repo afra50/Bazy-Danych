@@ -5,6 +5,7 @@ import Slider from "react-slick";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/pages/House.scss";
+import Owner_details from "../Owner_details";
 
 function House() {
   const { id_domku } = useParams();
@@ -12,9 +13,10 @@ function House() {
   const [domek, setDomek] = useState(null);
   const [images, setImages] = useState([]);
   const [unavailableRanges, setUnavailableRanges] = useState([]);
-  const [selectedRange, setSelectedRange] = useState(null); // Zmieniono na selectedRange
+  const [selectedRange, setSelectedRange] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
+  const [notification, setNotification] = useState(""); // Dodany stan powiadomienia
 
   // Obliczenie maksymalnej daty (ostatni dzień piątego pełnego miesiąca w przód)
   const today = new Date();
@@ -54,6 +56,14 @@ function House() {
 
     fetchHouseData();
   }, [id_domku]);
+
+  // Efekt do automatycznego ukrywania powiadomienia po 3 sekundach
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(""), 3000);
+      return () => clearTimeout(timer); // Sprzątanie timera
+    }
+  }, [notification]);
 
   if (loading) {
     return <p>Ładowanie...</p>;
@@ -137,9 +147,8 @@ function House() {
       );
 
       if (hasUnavailable) {
-        alert(
-          "Wybrany przedział zawiera niedostępne daty. Proszę wybrać inny przedział."
-        );
+        // Zamiast alertu ustaw powiadomienie
+        setNotification("Wybierz inne daty.");
         setSelectedRange(null);
       } else {
         setSelectedRange(range);
@@ -224,7 +233,8 @@ function House() {
                     `/rezerwacja/${id_domku}?start=${start.toISOString()}&end=${end.toISOString()}`
                   );
                 } else {
-                  alert("Proszę wybrać przedział dat rezerwacji.");
+                  // Zamiast alertu ustaw powiadomienie
+                  setNotification("Proszę wybrać przedział dat rezerwacji.");
                 }
               }}
             >
@@ -233,8 +243,11 @@ function House() {
           </div>
         </div>
       </div>
-      <hr></hr>
-      <div className="owner-details"></div>
+      <hr />
+      <Owner_details />
+
+      {/* Renderowanie powiadomienia */}
+      {notification && <div className="notification">{notification}</div>}
     </section>
   );
 }
