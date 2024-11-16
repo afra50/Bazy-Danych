@@ -67,9 +67,8 @@ function SignIn() {
 
         if (response.ok) {
           const data = await response.json(); // Parsowanie odpowiedzi jako JSON
-          console.log("Dane z logowania:", data); // Debugowanie
 
-          // Ustawienie roli i clientId w sessionStorage oraz w kontekście
+          // Ustawienie roli i danych użytkownika w sessionStorage oraz w kontekście
           login("client", data); // Przekazanie roli i danych klienta do funkcji login
 
           // Przekierowanie na poprzednią stronę lub stronę główną
