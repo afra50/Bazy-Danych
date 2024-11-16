@@ -1,3 +1,4 @@
+// src/components/pages/SignInAsOwner.js
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../Auth_context";
@@ -67,16 +68,21 @@ function SignInAsOwner() {
 
         if (response.ok) {
           const data = await response.json(); // Otrzymujemy dane właściciela w formacie JSON
-          sessionStorage.setItem("role", "owner");
-          sessionStorage.setItem("ownerId", data.id_wlasciciela); // Zapisujemy ID właściciela
-          login("owner");
+          console.log("Dane z logowania jako właściciel:", data); // Debugowanie
+
+          // Ustawienie roli i danych użytkownika w sessionStorage oraz w kontekście
+          login("owner", data); // Przekazanie roli i danych właściciela do funkcji login
+
+          // Przekierowanie na poprzednią stronę lub stronę główną
           navigate(from, { replace: true });
         } else {
           const errorData = await response.json();
           console.error(errorData.error || "Błąd podczas logowania");
+          setErrors({ form: errorData.error || "Błąd podczas logowania" });
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
+        setErrors({ form: "Błąd podczas wysyłania danych" });
       }
     }
   };
@@ -119,6 +125,9 @@ function SignInAsOwner() {
               {errors.haslo}
             </span>
           </div>
+
+          {/* Informacja o błędzie logowania */}
+          {errors.form && <p className="error">{errors.form}</p>}
 
           <div className="to_sign">
             <span>Nie masz konta?</span>

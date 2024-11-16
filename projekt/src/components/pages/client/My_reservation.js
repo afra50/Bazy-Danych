@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/App.scss";
 
 function MyReservations() {
-  const clientId = sessionStorage.getItem("clientId");  
-
+  const clientId = sessionStorage.getItem("clientId");
   const [reservations, setReservations] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!clientId) {
-      setError("Brak zalogowanego klienta.");  
+      setError("Brak zalogowanego klienta.");
       return;
     }
 
-    
     fetch(`http://localhost:5000/api/clients/${clientId}/reservations`)
       .then((res) => {
         if (!res.ok) {
@@ -22,14 +20,13 @@ function MyReservations() {
         return res.json();
       })
       .then((data) => {
-        console.log("Otrzymane dane:", data);  
-        setReservations(data);  
+        setReservations(data);
       })
       .catch((err) => {
         console.error("Błąd podczas pobierania rezerwacji klienta:", err);
         setError("Błąd podczas pobierania rezerwacji.");
       });
-  }, [clientId]);  // Używamy clientId jako zależności, aby wykonać zapytanie po zmianie clientId
+  }, [clientId]); // Używamy clientId jako zależności, aby wykonać zapytanie po zmianie clientId
 
   if (error) {
     return (
