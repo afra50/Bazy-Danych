@@ -1,97 +1,115 @@
 @import "../Variables.scss";
-@import "../DatePicker.scss";
 
 .reservation-container {
-  padding: 20px;
-  max-width: 1200px;
+  color: $primary-color;
+  font-family: $font-primary;
   margin: 0 auto;
-
-  h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
-    color: #333;
-  }
 
   .reservation-content {
     display: flex;
-    gap: 40px;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
+    flex-wrap: nowrap;
+    gap: 0;
 
     .house-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      flex: 0 0 60%;
+      position: relative;
+      overflow: hidden;
 
       img {
         width: 100%;
-        height: auto;
-        max-width: 500px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.4);
       }
 
-      p {
+      .overlay {
+        position: absolute;
+        bottom: 50%;
+        left: 0;
+        width: 100%;
+        color: $secondary-color;
+        padding: 4rem 0;
         text-align: center;
-        color: #666;
-        font-size: 16px;
+        font-size: 2rem;
+        background: rgba(0, 0, 0, 0.6);
       }
     }
 
     .reservation-form {
-      flex: 1;
+      flex: 0 0 35%;
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      background: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+
+      .form-title {
+        text-align: center;
+        font-size: 1.6rem;
+        width: 75%;
+        font-weight: 400;
+        margin: 0;
+      }
 
       .form-group {
         display: flex;
         flex-direction: column;
+        width: 75%;
 
         label {
-          margin-bottom: 5px;
-          font-weight: bold;
-          color: #555;
+          font-weight: 400;
+          margin-bottom: 0.3rem;
+          color: $primary-color;
         }
 
         input {
-          padding: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          font-size: 16px;
+          padding: 0.7rem;
+          border: 1px solid $light-color;
+          border-radius: 0.5rem;
+          font-family: $font-primary;
 
           &.disabled-input {
-            background-color: #e9ecef;
-            cursor: not-allowed;
+            background-color: $almost-white;
+            cursor: text;
           }
+        }
+        .react-datepicker-wrapper {
+          div {
+            input {
+              width: 95%;
+              color: $primary-color;
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+      .infotip {
+        flex-direction: row;
+        align-items: center;
+        span {
+          font-size: 0.7rem;
+          width: 75%;
+          margin-left: 0.7rem;
         }
       }
 
       .submit-button {
-        padding: 12px;
-        background-color: #28a745;
-        color: white;
+        font-family: $font-primary;
+        font-size: 1rem;
+        color: $secondary-color;
+        border-radius: 0.5rem;
         border: none;
-        border-radius: 4px;
+        background-color: $primary-color;
+        box-shadow: none;
         cursor: pointer;
-        font-size: 18px;
         transition: background-color 0.3s ease;
-
+        width: 75%;
+        padding: 1rem 2rem;
+        margin-top: 1rem;
         &:hover {
-          background-color: #218838;
-        }
-
-        &:disabled {
-          background-color: #6c757d;
-          cursor: not-allowed;
+          background-color: $hover-color;
         }
       }
     }
