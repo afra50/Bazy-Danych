@@ -13,10 +13,9 @@ function SignUp() {
   });
 
   const [errors, setErrors] = useState({});
-  const [notification, setNotification] = useState(""); // Notification state
-  const navigate = useNavigate(); // Hook for navigation
+  const [notification, setNotification] = useState("");
+  const navigate = useNavigate();
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -27,12 +26,11 @@ function SignUp() {
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "", // Clear error for this field
+        [name]: "",
       });
     }
   };
 
-  // Form validation
   const validateForm = () => {
     const newErrors = {};
 
@@ -76,7 +74,6 @@ function SignUp() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -96,7 +93,6 @@ function SignUp() {
         if (response.ok) {
           setNotification("Rejestracja zakończona sukcesem!");
 
-          // Redirect after 3 seconds
           setTimeout(() => {
             navigate("/SignIn");
           }, 3000);
@@ -112,11 +108,10 @@ function SignUp() {
     }
   };
 
-  // Ukrycie powiadomienia po kilku sekundach
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 3000);
-      return () => clearTimeout(timer); // Cleanup timer
+      return () => clearTimeout(timer);
     }
   }, [notification]);
 
@@ -124,9 +119,7 @@ function SignUp() {
     <div className="sign_container">
       <div className="sign-form">
         <h2>Załóż konto</h2>
-        {notification && (
-          <div className="notification">{notification}</div> // Notification message
-        )}
+        {notification && <div className="notification">{notification}</div>}
         <form onSubmit={handleSubmit}>
           {/* Imię */}
           <div className="form-group">

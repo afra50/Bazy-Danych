@@ -14,9 +14,8 @@ function SignInAsOwner() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth(); // Użycie funkcji logowania z kontekstu
+  const { login } = useAuth();
 
-  // Przechwycenie docelowej ścieżki (jeśli istnieje)
   const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) => {
@@ -34,7 +33,6 @@ function SignInAsOwner() {
     }
   };
 
-  // Walidacja formularza
   const validateForm = () => {
     const newErrors = {};
 
@@ -52,11 +50,10 @@ function SignInAsOwner() {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Automatyczne usuwanie powiadomienia po 3 sekundach
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 3000);
-      return () => clearTimeout(timer); // Sprzątanie timera
+      return () => clearTimeout(timer);
     }
   }, [notification]);
 
@@ -77,12 +74,10 @@ function SignInAsOwner() {
         );
 
         if (response.ok) {
-          const data = await response.json(); // Otrzymujemy dane właściciela w formacie JSON
+          const data = await response.json();
 
-          // Ustawienie roli i danych użytkownika w sessionStorage oraz w kontekście
-          login("owner", data); // Przekazanie roli i danych właściciela do funkcji login
+          login("owner", data);
 
-          // Przekierowanie na poprzednią stronę lub stronę główną
           navigate(from, { replace: true });
         } else if (response.status === 401) {
           setNotification("Błędne hasło lub e-mail");

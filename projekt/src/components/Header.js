@@ -33,13 +33,18 @@ function Header() {
                     </a>
                   </li>
                   <li>
-                    <a href="/owner/offers">
+                    <a href="/owner/myoffers">
                       <i className="fa-solid fa-house"></i> Moje oferty
                     </a>
                   </li>
                   <li>
                     <a href="/owner/reservations">
                       <i className="fa-solid fa-note-sticky"></i> Rezerwacje
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/owner/settings">
+                      <i class="fa-solid fa-gear"></i> Ustawienia
                     </a>
                   </li>
                 </>

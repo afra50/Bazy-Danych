@@ -17,6 +17,7 @@ import Private_client_route from "./Private_client_route";
 import Search_page from "./pages/Search_page";
 import House from "./pages/House";
 import Reservation_form from "./pages/Reservation_form";
+import Owner_settings from "./pages/owner/Owner_settings";
 
 function App() {
   return (
@@ -51,6 +52,14 @@ function App() {
                 element={
                   <Private_owner_route>
                     <Reservations></Reservations>
+                  </Private_owner_route>
+                }
+              />
+              <Route
+                path="/owner/settings"
+                element={
+                  <Private_owner_route>
+                    <Owner_settings />
                   </Private_owner_route>
                 }
               />
