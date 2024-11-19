@@ -45,17 +45,17 @@
           display: inline-block;
   
           &.potwierdzona {
-            background-color: #6abb6c; /* Zielone tło */
+            background-color: #94b595; /* Zielone tło */
             color: white;
           }
   
           &.odrzucona {
-            background-color: #e0726a; /* Czerwone tło */
+            background-color: #c8b5b4; /* Czerwone tło */
             color: white;
           }
   
           &.oczekująca {
-            background-color: #e3d5aa; /* Żółte tło */
+            background-color: #d3ccb5; /* Żółte tło */
             color: black;
           }
         }
