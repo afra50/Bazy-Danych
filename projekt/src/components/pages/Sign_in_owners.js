@@ -1,6 +1,6 @@
 // src/components/pages/SignInAsOwner.js
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../Auth_context";
 import "../../styles/pages/Sign.scss";
 
@@ -10,6 +10,8 @@ function SignInAsOwner() {
     haslo: "",
   });
   const [errors, setErrors] = useState({});
+  const [notification, setNotification] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth(); // Użycie funkcji logowania z kontekstu
@@ -50,6 +52,14 @@ function SignInAsOwner() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Automatyczne usuwanie powiadomienia po 3 sekundach
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(""), 3000);
+      return () => clearTimeout(timer); // Sprzątanie timera
+    }
+  }, [notification]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,21 +78,21 @@ function SignInAsOwner() {
 
         if (response.ok) {
           const data = await response.json(); // Otrzymujemy dane właściciela w formacie JSON
-          console.log("Dane z logowania jako właściciel:", data); // Debugowanie
 
           // Ustawienie roli i danych użytkownika w sessionStorage oraz w kontekście
           login("owner", data); // Przekazanie roli i danych właściciela do funkcji login
 
           // Przekierowanie na poprzednią stronę lub stronę główną
           navigate(from, { replace: true });
+        } else if (response.status === 401) {
+          setNotification("Błędne hasło lub e-mail");
         } else {
-          const errorData = await response.json();
-          console.error(errorData.error || "Błąd podczas logowania");
-          setErrors({ form: errorData.error || "Błąd podczas logowania" });
+          const errorData = await response.text();
+          setNotification(errorData || "Błąd podczas logowania");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
-        setErrors({ form: "Błąd podczas wysyłania danych" });
+        setNotification("Wystąpił problem z logowaniem");
       }
     }
   };
@@ -91,6 +101,10 @@ function SignInAsOwner() {
     <div className="sign_container">
       <div className="sign-form">
         <h2>Zaloguj się jako gospodarz</h2>
+
+        {/* Renderowanie powiadomienia */}
+        {notification && <div className="notification">{notification}</div>}
+
         <form onSubmit={handleSubmit}>
           {/* Email */}
           <div className="form-group">
@@ -131,16 +145,16 @@ function SignInAsOwner() {
 
           <div className="to_sign">
             <span>Nie masz konta?</span>
-            <a href="/SignUp">Zarejestruj się</a>
+            <Link to="/SignUp">Zarejestruj się</Link>
           </div>
           <button type="submit" className="btn-submit">
             Zaloguj się
           </button>
         </form>
         <p>Lub</p>
-        <a href="/SignIn" className="toSignAsOther">
+        <Link to="/SignIn" className="toSignAsOther">
           Zaloguj się jako klient
-        </a>
+        </Link>
       </div>
     </div>
   );

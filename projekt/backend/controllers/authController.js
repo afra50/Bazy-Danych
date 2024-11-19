@@ -21,13 +21,11 @@ exports.register = async (req, res) => {
       }
 
       if (results.length > 0) {
-        return res.status(409).send("Konto z tym adresem e-mail już istnieje"); // Kod 409 dla konfliktu
+        return res.status(409).send("Konto z tym adresem e-mail już istnieje");
       }
 
-      // Szyfrowanie hasła
       const hashedPassword = await bcrypt.hash(haslo, 10);
 
-      // Zapytanie SQL do dodania klienta
       const sql = `INSERT INTO klienci (imie, nazwisko, telefon, email, haslo, data_rejestracji) VALUES (?, ?, ?, ?, ?, NOW())`;
       db.query(
         sql,
@@ -52,7 +50,6 @@ exports.register = async (req, res) => {
 exports.login = (req, res) => {
   const { email, haslo } = req.body;
 
-  // Walidacja pól
   if (!email || !haslo) {
     return res.status(400).send("E-mail i hasło są wymagane");
   }
@@ -66,9 +63,7 @@ exports.login = (req, res) => {
     }
 
     if (results.length === 0) {
-      return res
-        .status(400)
-        .send("Nie znaleziono użytkownika o podanym adresie e-mail");
+      return res.status(401).send("Błędne hasło lub e-mail");
     }
 
     const user = results[0];
@@ -76,13 +71,11 @@ exports.login = (req, res) => {
     // Porównanie hasła
     const isMatch = await bcrypt.compare(haslo, user.haslo);
     if (!isMatch) {
-      return res.status(400).send("Błędne hasło");
+      return res.status(401).send("Błędne hasło lub e-mail");
     }
 
-    // Wykluczenie hasła z odpowiedzi
     const { haslo: _, ...userData } = user;
 
-    // Wysłanie danych klienta jako JSON
     res.status(200).json({
       id_klienta: userData.id_klienta,
       imie: userData.imie,
@@ -97,7 +90,6 @@ exports.login = (req, res) => {
 exports.loginOwner = (req, res) => {
   const { email, haslo } = req.body;
 
-  // Walidacja pól
   if (!email || !haslo) {
     return res.status(400).json({ error: "E-mail i hasło są wymagane" });
   }
@@ -111,16 +103,13 @@ exports.loginOwner = (req, res) => {
     }
 
     if (results.length === 0) {
-      return res
-        .status(400)
-        .json({ error: "Nie znaleziono właściciela o podanym adresie e-mail" });
+      return res.status(401).json({ error: "Błędne hasło lub e-mail" });
     }
 
     const owner = results[0];
 
-    // Porównanie hasła (bez szyfrowania)
     if (haslo !== owner.haslo) {
-      return res.status(400).json({ error: "Błędne hasło" });
+      return res.status(401).json({ error: "Błędne hasło lub e-mail" });
     }
 
     res.status(200).json({

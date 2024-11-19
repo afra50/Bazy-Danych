@@ -1,6 +1,6 @@
 // src/components/pages/SignIn.js
-import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../Auth_context"; // Upewnij się, że ścieżka jest poprawna
 import "../../styles/pages/Sign.scss";
 
@@ -11,12 +11,12 @@ function SignIn() {
   });
 
   const [errors, setErrors] = useState({});
+  const [notification, setNotification] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { login } = useAuth(); // Użycie funkcji logowania z kontekstu
+  const { login } = useAuth();
 
-  // Przechwycenie docelowej ścieżki (jeśli istnieje)
   const from = location.state?.from?.pathname || "/";
 
   const handleChange = (e) => {
@@ -52,6 +52,13 @@ function SignIn() {
     return Object.keys(newErrors).length === 0;
   };
 
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(""), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -66,21 +73,20 @@ function SignIn() {
         });
 
         if (response.ok) {
-          const data = await response.json(); // Parsowanie odpowiedzi jako JSON
+          const data = await response.json();
 
-          // Ustawienie roli i danych użytkownika w sessionStorage oraz w kontekście
-          login("client", data); // Przekazanie roli i danych klienta do funkcji login
+          login("client", data);
 
-          // Przekierowanie na poprzednią stronę lub stronę główną
           navigate(from, { replace: true });
+        } else if (response.status === 401) {
+          setNotification("Błędne hasło lub e-mail");
         } else {
           const errorMessage = await response.text();
-          console.error("Błąd podczas logowania:", errorMessage);
-          setErrors({ form: errorMessage || "Błąd podczas logowania" });
+          setNotification(errorMessage || "Błąd podczas logowania");
         }
       } catch (error) {
         console.error("Błąd podczas wysyłania danych:", error);
-        setErrors({ form: "Błąd podczas wysyłania danych" });
+        setNotification("Wystąpił problem z logowaniem");
       }
     }
   };
@@ -89,6 +95,10 @@ function SignIn() {
     <div className="sign_container">
       <div className="sign-form">
         <h2>Zaloguj się jako klient</h2>
+
+        {/* Renderowanie powiadomienia */}
+        {notification && <div className="notification">{notification}</div>}
+
         <form onSubmit={handleSubmit}>
           {/* Email */}
           <div className="form-group">
@@ -124,21 +134,18 @@ function SignIn() {
             </span>
           </div>
 
-          {/* Informacja o błędzie logowania */}
-          {errors.form && <p className="error">{errors.form}</p>}
-
           <div className="to_sign">
             <span>Nie masz konta?</span>
-            <a href="/SignUp">Zarejestruj się</a>
+            <Link to="/SignUp">Zarejestruj się</Link>
           </div>
           <button type="submit" className="btn-submit">
             Zaloguj się
           </button>
         </form>
         <p>Lub</p>
-        <a href="/SignInAsOwner" className="toSignAsOther">
+        <Link to="/SignInAsOwner" className="toSignAsOther">
           Zaloguj się jako gospodarz
-        </a>
+        </Link>
       </div>
     </div>
   );
