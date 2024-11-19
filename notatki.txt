@@ -37,7 +37,7 @@
 > podpowiadanie miast, jakies domyslne + zgodnie z wpisanymi literami
 
 8. LOGOWANIE
-> info o blednym hasle/email 
+- info o blednym hasle/email 
 
 9. REZERWACJA
 > przejscie do rezerwacji bez logowania -> logowanie nie zapisuje dat

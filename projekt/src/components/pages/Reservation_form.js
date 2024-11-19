@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import {
+  useParams,
+  useSearchParams,
+  useNavigate,
+  Link,
+} from "react-router-dom";
 import DatePicker from "react-datepicker";
 import { pl } from "date-fns/locale";
 import { format, parseISO } from "date-fns";
@@ -242,6 +247,10 @@ function Reservation_form() {
     <div className="reservation-container">
       <div className="reservation-content">
         <div className="house-image">
+          <span className="back">
+            <i className="fa-solid fa-chevron-left"></i>
+            <Link to={`/houses/${id_domku}`}>Wróć</Link>
+          </span>
           {images.length > 0 ? (
             <>
               <img src={images[0]} alt="Domek" />
