@@ -6,6 +6,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/pages/House.scss";
 import Owner_details from "../Owner_details";
+import { format } from "date-fns"; // Dodany import
 
 function House() {
   const { id_domku } = useParams();
@@ -57,7 +58,7 @@ function House() {
     fetchHouseData();
   }, [id_domku]);
 
-  // Efekt do automatycznego ukrywania powiadomienia po 3 sekundach
+  // Efekt do automatycznego ukrywania powiadomienia po 5 sekundach
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 5000);
@@ -230,7 +231,10 @@ function House() {
                   const [start, end] = selectedRange;
                   console.log("Przekazywanie dat:", start, end); // Logowanie
                   navigate(
-                    `/rezerwacja/${id_domku}?start=${start.toISOString()}&end=${end.toISOString()}`
+                    `/rezerwacja/${id_domku}?start=${format(
+                      start,
+                      "yyyy-MM-dd"
+                    )}&end=${format(end, "yyyy-MM-dd")}`
                   );
                 } else {
                   console.log("Brak wybranego przedziału dat");

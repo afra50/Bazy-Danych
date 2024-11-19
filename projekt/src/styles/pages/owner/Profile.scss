@@ -304,6 +304,12 @@
         gap: 3vh;
         width: 80%;
 
+        .buttons {
+          height: auto;
+          width: auto;
+          margin-top: 0;
+        }
+
         div {
           display: flex;
           flex-direction: column;
