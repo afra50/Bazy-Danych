@@ -17,8 +17,7 @@
 - komentarze
 - notification + errory
 > zabezpieczenia js i to co sie da
-- przekierowanie po rejestracji
-- strzałka dla powrotu nie jest klikalna
+> strzałka dla powrotu nie jest klikalna
 > ikonki i obrazki dla ozdoby
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
 > czyszczenie bazy danych
@@ -28,7 +27,6 @@
 > wojewodztwa + ew. teren, np. bieszczady
 > więcej filtrów, np. wyposazenie
 > regulaminy
-- powrot ze strony domku powraca do wyszukiwarki z zapisanym stanem
 
 6. HOME_PAGE
 - karuzela z kategoriami
@@ -41,6 +39,9 @@
 
 9. REZERWACJA
 > przejscie do rezerwacji bez logowania -> logowanie nie zapisuje dat
+> edycja danych
+> numer rezerwacji
+> ekran potwierdzenia
 
 react calendar + fs + bazy zdjec do sprawka
 React Context API

@@ -10,12 +10,19 @@ function Search_page() {
   const [searchResults, setSearchResults] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
-  const [searchParams, setSearchParams] = useState({
-    dateRange: [null, null],
-    location: "",
-    guests: 1,
-    categories: [],
+
+  const [searchParams, setSearchParams] = useState(() => {
+    const savedParams = sessionStorage.getItem("searchParams");
+    return savedParams
+      ? JSON.parse(savedParams)
+      : {
+          dateRange: [null, null],
+          location: "",
+          guests: 1,
+          categories: [],
+        };
   });
+
   const [sort, setSort] = useState("most_relevant");
   const [totalResults, setTotalResults] = useState(0);
   const [searchPerformed, setSearchPerformed] = useState(false);
@@ -29,15 +36,14 @@ function Search_page() {
       setSearchParams(initialSearchParams);
       performSearch(initialSearchParams, sort);
     } else {
-      // Opcjonalnie wykonaj domyślne wyszukiwanie lub pozostaw puste
-      // W tym przypadku wykonamy wyszukiwanie z domyślnymi parametrami
       performSearch(searchParams, sort);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locationState.state]);
 
   const performSearch = (params, currentSort) => {
     const combinedParams = { ...params, sort: currentSort };
+
+    sessionStorage.setItem("searchParams", JSON.stringify(params));
 
     fetch("http://localhost:5000/api/search", {
       method: "POST",
@@ -53,11 +59,11 @@ function Search_page() {
         setCurrentPage(1);
         setHasMore(results.length === resultsPerPage);
         setTotalResults(total);
-        setSearchPerformed(true); // Ustawienie na true po wykonaniu wyszukiwania
+        setSearchPerformed(true);
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
-        setSearchPerformed(true); // Ustawienie na true nawet przy błędzie
+        setSearchPerformed(true);
       });
   };
 
@@ -68,11 +74,13 @@ function Search_page() {
       setCurrentPage(1);
       setSearchParams(params);
       setTotalResults(total);
+
+      sessionStorage.setItem("searchParams", JSON.stringify(params));
     } else {
       setSearchResults((prevResults) => [...prevResults, ...results]);
     }
     setHasMore(results.length === resultsPerPage);
-    setSearchPerformed(true); // Ustawienie na true po otrzymaniu wyników
+    setSearchPerformed(true);
   };
 
   const loadMoreResults = () => {
@@ -83,13 +91,12 @@ function Search_page() {
     if (currentPage > 1) {
       fetchMoreResults();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage]);
 
   const fetchMoreResults = () => {
     const params = {
       ...searchParams,
-      sort: sort, // Uwzględnij sortowanie
+      sort: sort,
       page: currentPage,
       limit: resultsPerPage,
     };
@@ -106,11 +113,11 @@ function Search_page() {
         const { results } = data;
         setSearchResults((prevResults) => [...prevResults, ...results]);
         setHasMore(results.length === resultsPerPage);
-        setSearchPerformed(true); // Ustawienie na true po otrzymaniu wyników
+        setSearchPerformed(true);
       })
       .catch((error) => {
         console.error("Błąd podczas pobierania wyników:", error);
-        setSearchPerformed(true); // Ustawienie na true nawet przy błędzie
+        setSearchPerformed(true);
       });
   };
 
@@ -129,7 +136,6 @@ function Search_page() {
     performSearch(searchParams, selectedSort);
   };
 
-  // Obiekt customStyles dla react-select
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -153,19 +159,19 @@ function Search_page() {
       fontFamily: "Arial, sans-serif",
       fontSize: "1rem",
       padding: "0.5rem",
-      textAlign: "left", // Wyrównanie tekstu do lewej strony
+      textAlign: "left",
       cursor: "pointer",
       "&:hover": {
-        backgroundColor: "#0056b3", // $hover-color
-        color: "#fff", // Biały tekst
+        backgroundColor: "#0056b3",
+        color: "#fff",
       },
       "&--is-focused": {
-        backgroundColor: "#0056b3", // $hover-color
-        color: "#fff", // Biały tekst
+        backgroundColor: "#0056b3",
+        color: "#fff",
       },
       "&--is-selected": {
-        backgroundColor: "#007bff", // $primary-color
-        color: "#fff", // Biały tekst
+        backgroundColor: "#007bff",
+        color: "#fff",
       },
     }),
     menu: (provided) => ({
@@ -177,29 +183,30 @@ function Search_page() {
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: "#007bff", // $primary-color
+      color: "#007bff",
     }),
     dropdownIndicator: (provided) => ({
       ...provided,
-      color: "#007bff", // $primary-color
+      color: "#007bff",
       "&:hover": {
-        color: "#fff", // Biały kolor przy hover
+        color: "#fff",
       },
     }),
   };
 
   return (
     <main className="search_page">
-      <span className="back">
+      <Link to="/" className="back">
         <i className="fa-solid fa-chevron-left"></i>
-        <a href="/">Wróć do strony głównej</a>
-      </span>
+        Wróć do strony głównej
+      </Link>
+
       {/* Formularz wyszukiwania */}
       <Search_form
         onSearchResults={handleSearchResults}
-        initialData={searchParams} // Przekazujemy initialData do Search_form
+        initialData={searchParams}
       />
-      <hr></hr>
+      <hr />
 
       <div className="sort_and_results">
         {/* Opcje sortowania */}
@@ -231,7 +238,7 @@ function Search_page() {
             key={domek.id_domku}
             className="card-link"
           >
-            <div className="card" key={domek.id_domku}>
+            <div className="card">
               <div className="image-wrapper">
                 <img
                   src={`http://localhost:5000/domki/${domek.id_domku}/${domek.id_domku}_1.jpg`}

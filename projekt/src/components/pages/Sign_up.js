@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/pages/Sign.scss";
 
 function SignUp() {
@@ -13,6 +14,7 @@ function SignUp() {
 
   const [errors, setErrors] = useState({});
   const [notification, setNotification] = useState(""); // Notification state
+  const navigate = useNavigate(); // Hook for navigation
 
   // Handle input changes
   const handleChange = (e) => {
@@ -92,7 +94,12 @@ function SignUp() {
         );
 
         if (response.ok) {
-          setNotification("Rejestracja zakończona sukcesem");
+          setNotification("Rejestracja zakończona sukcesem!");
+
+          // Redirect after 3 seconds
+          setTimeout(() => {
+            navigate("/SignIn");
+          }, 3000);
         } else if (response.status === 409) {
           setNotification("Konto z tym adresem e-mail już istnieje");
         } else {
@@ -109,7 +116,7 @@ function SignUp() {
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 3000);
-      return () => clearTimeout(timer); // Sprzątanie timera
+      return () => clearTimeout(timer); // Cleanup timer
     }
   }, [notification]);
 

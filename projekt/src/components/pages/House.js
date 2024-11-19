@@ -6,7 +6,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "../../styles/pages/House.scss";
 import Owner_details from "../Owner_details";
-import { format } from "date-fns"; // Dodany import
+import { format } from "date-fns";
 
 function House() {
   const { id_domku } = useParams();
@@ -17,14 +17,13 @@ function House() {
   const [selectedRange, setSelectedRange] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeStartDate, setActiveStartDate] = useState(new Date());
-  const [notification, setNotification] = useState(""); // Dodany stan powiadomienia
+  const [notification, setNotification] = useState("");
 
-  // Obliczenie maksymalnej daty (ostatni dzień piątego pełnego miesiąca w przód)
   const today = new Date();
-  const maxMonth = today.getMonth() + 5; // Miesiące są indeksowane od 0
+  const maxMonth = today.getMonth() + 5;
   const maxYear = today.getFullYear() + Math.floor(maxMonth / 12);
   const adjustedMaxMonth = maxMonth % 12;
-  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0); // Dzień 0 następnego miesiąca to ostatni dzień bieżącego miesiąca
+  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0);
 
   useEffect(() => {
     // Funkcja do pobierania danych domku
@@ -62,7 +61,7 @@ function House() {
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 5000);
-      return () => clearTimeout(timer); // Sprzątanie timera
+      return () => clearTimeout(timer);
     }
   }, [notification]);
 
@@ -92,7 +91,6 @@ function House() {
     return unavailableRanges.some((range) => {
       const start = new Date(range.data_od);
       const end = new Date(range.data_do);
-      // Ustaw czas na początku dnia dla dokładniejszego porównania
       start.setHours(0, 0, 0, 0);
       end.setHours(23, 59, 59, 999);
       return date >= start && date <= end;
@@ -102,7 +100,6 @@ function House() {
   // Funkcja do wyłączania niedostępnych dat w kalendarzu
   const tileDisabled = ({ date, view }) => {
     if (view !== "month") return false;
-    // Wyłącz daty przed minDate i po maxDate oraz niedostępne daty
     const minDate = new Date();
     return date < minDate || date > maxDate || isDateUnavailable(date);
   };
@@ -139,23 +136,19 @@ function House() {
     if (range.length === 2) {
       const [start, end] = range;
 
-      // Uzyskaj wszystkie daty w wybranym przedziale
       const datesInRange = getDatesInRange(start, end);
 
-      // Sprawdź, czy którakolwiek data w przedziale jest niedostępna
       const hasUnavailable = datesInRange.some((date) =>
         isDateUnavailable(date)
       );
 
       if (hasUnavailable) {
-        // Zamiast alertu ustaw powiadomienie
         setNotification("Termin niedostępny - wybierz inny przedział.");
         setSelectedRange(null);
       } else {
         setSelectedRange(range);
       }
     } else {
-      // Częściowy wybór (tylko start date)
       setSelectedRange(range);
     }
   };
@@ -212,15 +205,15 @@ function House() {
                 onChange={handleDateChange}
                 selectRange={true}
                 tileDisabled={tileDisabled}
-                minDate={today} // Wyłącza daty w przeszłości
-                maxDate={maxDate} // Ustawia maksymalną dostępną datę
+                minDate={today}
+                maxDate={maxDate}
                 view="month"
                 minDetail="month"
                 maxDetail="month"
                 activeStartDate={activeStartDate}
                 onActiveStartDateChange={onActiveStartDateChange}
-                prev2Label={null} // Ukrywa przyciski przesuwania o rok wstecz
-                next2Label={null} // Ukrywa przyciski przesuwania o rok w przód
+                prev2Label={null}
+                next2Label={null}
                 showNeighboringMonth={false}
               />
             </div>
@@ -229,7 +222,7 @@ function House() {
               onClick={() => {
                 if (selectedRange && selectedRange.length === 2) {
                   const [start, end] = selectedRange;
-                  console.log("Przekazywanie dat:", start, end); // Logowanie
+                  console.log("Przekazywanie dat:", start, end);
                   navigate(
                     `/rezerwacja/${id_domku}?start=${format(
                       start,
