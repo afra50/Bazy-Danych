@@ -1,79 +1,131 @@
 @import "../../Variables.scss";
-
-.reservation{
+.reservations-content {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: $font-primary;
-    color: $primary-color;
-  //  padding: 1rem 4rem 1rem 8rem;
-    width: 100%;
-    h1{
-        font-size: 2rem;
-        font-weight: bold;
-        padding-bottom: 0.5rem;
-        color: $primary-color;
-        text-align: center;
-        width: 100%;
-        position: relative;
-    
+    flex-wrap: wrap;  
+    justify-content: space-between;  
+    gap: 20px;  
+  }
 
-        &::after {
-            content: ''; 
-            display: block;
-            width: 80%; 
-            height: 0.2rem; 
-            margin: 0 auto; 
-            background: linear-gradient(to right, transparent, #ccc, transparent); 
-            position: absolute;
-            bottom: -0.3rem; 
-            left: 10%; 
+  
+  .reservation-item {
+    background-color: white;
+    background-color: white;
+    padding: 1.25rem; 
+    margin-bottom: 1rem; 
+    border-radius: 0.625rem; 
+    border:none; // 0.125rem solid #ccc; /* Jasnoszara obwódka */
+    box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    position: relative;
+    //animation: glow-border 2s infinite; /* Animacja świecenia */
+    transition: all 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+    h3 {
+      font-size: 1.8rem;
+      color: #444;
+      margin-bottom: 1rem;
+      text-align: center;
+      margin-top: 0.5rem;
     }
   
-}
-.reservation-content {
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-}
+    .elements {
+      font-family: Arial, sans-serif !important;
+  
+      p {
+        font-size: 1.2rem;
+        color: #333;
+        margin: 0.5rem 0;
+  
+        &.status {
+          font-weight: bold;
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          text-align: center;
+          display: inline-block;
+  
+          &.potwierdzona {
+            background-color: #6abb6c; /* Zielone tło */
+            color: white;
+          }
+  
+          &.odrzucona {
+            background-color: #e0726a; /* Czerwone tło */
+            color: white;
+          }
+  
+          &.oczekująca {
+            background-color: #e3d5aa; /* Żółte tło */
+            color: black;
+          }
+        }
+      }
+      .elements {
+        font-family: Arial, sans-serif;
+    
+        p1 {
+          font-size: 1.2rem;
+          color: #333;
+          margin: 0.5rem 0;
+        }
+      }
+    
+    }
+    &.highlight-potwierdzona {
+        background-color: #e8f5e9; 
+        border: 2px solid #4caf50; 
+      }
+    
+      &.highlight-odrzucona {
+        background-color: #ffebee; 
+        border: 2px solid #e5aca8; 
+      }
+    
+      &.highlight-oczekująca {
+        background-color: #fff8e1; 
+        border: 2px solid #d9c791; 
+      }
+    
+      
+      &:hover {
+        transform: scale(1.05); /* Powiększenie elementu */
+        box-shadow: 0 8rem 16rem rgba(0, 0, 0, 0.5);
+      }
+    
+    }
+  
 
-.reservation-option{
-    position: relative; 
+  .reservations-content {
     display: flex;
     flex-direction: column; 
-    width: 15rem; 
-    
-    margin-left: 2rem; 
-    padding: 1rem; 
-    background-color: #f0f0f0d7; 
-    border-radius: 1rem; 
-
-
-    h2{
-        font-weight: 900;
-        margin-bottom: 0.5rem;
-        font-size: 1.2rem;
-
-    }
-
-    
-     a {
-            text-decoration: none;
-            display: block;
-            color: $primary-color;
-            margin-bottom: 0.2rem;
-            transition: transform 0.3s ease, color 0.3s ease;
-            &:hover {
-              text-decoration: underline;
-              transform: scale(1.1); 
-              color: darken($primary-color, 30%); 
-            }
-        }
-
-
-        
-
-    
+    gap: 20px;              
+    width: 100%;            
+    padding: 0 2rem;     
+    box-sizing: border-box; 
 }
-    
+
+.reservation-item {
+    background-color: white; 
+    padding: 2rem;                 
+    border-radius: 10px;           
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    width: 100%;                   
+    max-width: 1200px;              
+    margin: 0 auto;                 
+    box-sizing: border-box;         
 }
+.reservations h1 {
+
+    font-size: 2.5rem;
+    margin: auto;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+    color: $very-light-color;
+    font-family: $font-primary;
+    margin-bottom: 2rem;
+    margin-top: 0;
+}
+
+    

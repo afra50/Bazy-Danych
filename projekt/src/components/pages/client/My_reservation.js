@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../../../styles/App.scss";
+import "../../../styles/App.scss"; 
+import "../../../styles/pages/client/My_reservation.scss";
+
 
 function MyReservations() {
   const clientId = sessionStorage.getItem("clientId");
@@ -26,13 +28,15 @@ function MyReservations() {
         console.error("Błąd podczas pobierania rezerwacji klienta:", err);
         setError("Błąd podczas pobierania rezerwacji.");
       });
-  }, [clientId]); // Używamy clientId jako zależności, aby wykonać zapytanie po zmianie clientId
+  }, [clientId]);
 
   if (error) {
     return (
       <div className="reservations">
         <h1>Moje Rezerwacje</h1>
-        <p>{error}</p>
+        <div className="reservation-wrapper">
+          <p>{error}</p>
+        </div>
       </div>
     );
   }
@@ -43,12 +47,17 @@ function MyReservations() {
       <div className="reservations-content">
         {reservations.length > 0 ? (
           reservations.map((reservation) => (
-            <div key={reservation.id_rezerwacji} className="reservation-item">
-              <h3>Rezerwacja #{reservation.id_rezerwacji}</h3>
-              <p>Domek: {reservation.nazwa_domku}</p>
-              <p>Od: {new Date(reservation.data_od).toLocaleDateString()}</p>
-              <p>Do: {new Date(reservation.data_do).toLocaleDateString()}</p>
-              <p>Status: {reservation.status}</p>
+            <div key={reservation.id_rezerwacji} className={`reservation-item highlight-${reservation.status.toLowerCase()}`}
+            >
+              <h3>Rezerwacja numer {reservation.id_rezerwacji}</h3>
+              <div className="elements">
+                <p>Domek: {reservation.nazwa_domku}</p>
+                <p>Od: {new Date(reservation.data_od).toLocaleDateString()}</p>
+                <p>Do: {new Date(reservation.data_do).toLocaleDateString()}</p>
+                <p className={`status ${reservation.status.toLowerCase()}`}>
+                  Status: {reservation.status}
+                </p>
+              </div>
             </div>
           ))
         ) : (
@@ -57,6 +66,7 @@ function MyReservations() {
       </div>
     </div>
   );
+  
 }
 
 export default MyReservations;
