@@ -1,4 +1,3 @@
-// Search_form.js
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import { pl } from "date-fns/locale";
@@ -21,6 +20,13 @@ function Search_form(props) {
   ); // Zaznaczone kategorie
   const [isDatePickerOpen, setDatePickerOpen] = useState(false); // Stan do otwierania i zamykania DatePicker
   const dropdownRef = useRef(null); // Ref dla dropdown menu
+
+  // Obliczanie maksymalnej daty (ostatni dzień piątego pełnego miesiąca w przód)
+  const today = new Date();
+  const maxMonth = today.getMonth() + 5; // Miesiące są indeksowane od 0
+  const maxYear = today.getFullYear() + Math.floor(maxMonth / 12);
+  const adjustedMaxMonth = maxMonth % 12;
+  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0); // Dzień 0 następnego miesiąca to ostatni dzień bieżącego miesiąca
 
   // Obsługa zmiany zakresu dat
   const handleDateChange = (dates) => {
@@ -178,6 +184,7 @@ function Search_form(props) {
             endDate={searchData.dateRange[1]} // Koniec zakresu
             selectsRange // Umożliwia wybór zakresu dat
             minDate={new Date().setHours(0, 0, 0, 0)} // Minimalna data to dzisiaj
+            maxDate={maxDate} // Maksymalna data (5 miesięcy w przód)
             dateFormat="dd/MM/yyyy"
             className="date_input"
             placeholderText="Wybierz datę"

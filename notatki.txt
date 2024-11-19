@@ -2,14 +2,15 @@
 - zmiana hasla (+ szyfrowanie)
 - usuwanie konta
 - walidacja zmiany danych
-> na przyszlosc w zakladce profil wyswietlone oferty i rezerwacje ale nie wszystkie (+ odnosnik)
+- moje oferty
+> edycja ofert
 
 2. KLIENT 
 - zmiana hasła
 - mój profil + zmiana danych
 - usuwanie konta
 - walidacja zmiany danych
-> w zakladce profil wyswietlone rezerwacje ale nie wszystkie (+ odnosnik)
+- moje rezerwacje + anulowanie z usunieciem z bazy 
 
 3. CALY SERWIS
 - responsywnosc
@@ -39,7 +40,8 @@
 > info o blednym hasle/email 
 
 9. REZERWACJA
-> przejscie do rezerwacji bez logowania pozniej logowanie nie zapisuje dat
+> przejscie do rezerwacji bez logowania -> logowanie nie zapisuje dat
+- kalednarz w formularzu nie pokazuje niedostepnych dat
 
 react calendar + fs + bazy zdjec do sprawka
 React Context API
