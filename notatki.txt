@@ -15,9 +15,9 @@
 3. CALY SERWIS
 - responsywnosc
 - komentarze
-> notification + errory
+- notification + errory
 > zabezpieczenia js i to co sie da
-> przekierowanie po rejestracji
+- przekierowanie po rejestracji
 - strzałka dla powrotu nie jest klikalna
 > ikonki i obrazki dla ozdoby
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
@@ -41,7 +41,6 @@
 
 9. REZERWACJA
 > przejscie do rezerwacji bez logowania -> logowanie nie zapisuje dat
-- kalednarz w formularzu nie pokazuje niedostepnych dat
 
 react calendar + fs + bazy zdjec do sprawka
 React Context API

@@ -193,6 +193,7 @@ function Search_form(props) {
             onCalendarOpen={() => setDatePickerOpen(true)}
             onCalendarClose={() => setDatePickerOpen(false)}
             calendarClassName={isDatePickerOpen ? "open" : ""}
+            onKeyDown={(e) => e.preventDefault()}
           />
         </div>
 

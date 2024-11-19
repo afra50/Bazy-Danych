@@ -22,6 +22,7 @@ function Reservation_form() {
   });
 
   const [houseName, setHouseName] = useState("");
+  const [unavailableDates, setUnavailableDates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [id_klienta, setIdKlienta] = useState(null);
   const [images, setImages] = useState([]);
@@ -63,11 +64,7 @@ function Reservation_form() {
             phone: data.telefon || "",
           });
         } else {
-          const errorData = await response.json();
-          console.error(
-            "Błąd podczas pobierania danych klienta:",
-            errorData.error
-          );
+          console.error("Błąd podczas pobierania danych klienta");
         }
       } catch (error) {
         console.error("Błąd podczas pobierania danych klienta:", error);
@@ -92,6 +89,34 @@ function Reservation_form() {
       }
     };
 
+    const fetchUnavailableDates = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/houses/${id_domku}/availability`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          const formattedUnavailableDates = data.reduce((dates, range) => {
+            const start = new Date(range.data_od);
+            const end = new Date(range.data_do);
+            let currentDate = new Date(start);
+
+            while (currentDate <= end) {
+              dates.push(new Date(currentDate));
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            return dates;
+          }, []);
+          setUnavailableDates(formattedUnavailableDates);
+        } else {
+          console.error("Błąd podczas pobierania dostępności");
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania dostępności:", error);
+      }
+    };
+
     const fetchHouseImages = async () => {
       try {
         const response = await fetch(
@@ -101,11 +126,7 @@ function Reservation_form() {
           const data = await response.json();
           setImages(data);
         } else {
-          const errorData = await response.json();
-          console.error(
-            "Błąd podczas pobierania zdjęć domku:",
-            errorData.error
-          );
+          console.error("Błąd podczas pobierania zdjęć domku");
         }
       } catch (error) {
         console.error("Błąd podczas pobierania zdjęć domku:", error);
@@ -116,6 +137,7 @@ function Reservation_form() {
 
     fetchClientData();
     fetchHouseData();
+    fetchUnavailableDates();
     fetchHouseImages();
 
     if (startRaw && endRaw) {
@@ -133,6 +155,35 @@ function Reservation_form() {
       return () => clearTimeout(timer);
     }
   }, [notification]);
+
+  const handleDateChange = (dates) => {
+    const [start, end] = dates || [null, null];
+
+    if (start && end) {
+      // Check if any selected date falls into unavailable dates
+      const selectedRange = [];
+      let currentDate = new Date(start);
+      while (currentDate <= end) {
+        selectedRange.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      const hasUnavailableDate = selectedRange.some((date) =>
+        unavailableDates.some(
+          (unavailableDate) =>
+            date.toDateString() === unavailableDate.toDateString()
+        )
+      );
+
+      if (hasUnavailableDate) {
+        setNotification("Wybrany przedział jest niedostępny.");
+        setDateRange([null, null]);
+        return;
+      }
+    }
+
+    setDateRange(dates);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -160,8 +211,6 @@ function Reservation_form() {
       start: formattedStartDate,
       end: formattedEndDate,
     };
-
-    console.log("Dane do wysłania:", reservationData);
 
     try {
       const response = await fetch("http://localhost:5000/api/reservations", {
@@ -196,7 +245,7 @@ function Reservation_form() {
           {images.length > 0 ? (
             <>
               <img src={images[0]} alt="Domek" />
-              <div className="overlay">{houseName}</div> {/* Nazwa domku */}
+              <div className="overlay">{houseName}</div>
             </>
           ) : (
             <p>Brak dostępnych zdjęć domku.</p>
@@ -241,12 +290,6 @@ function Reservation_form() {
               className="disabled-input"
             />
           </div>
-          <div className="form-group infotip">
-            <i class="fa-solid fa-circle-info"></i>
-            <span>
-              Aby zmienić dane rezerwacji, zaktualizuj je w swoim Profilu.
-            </span>
-          </div>
 
           <input type="hidden" name="id_domku" value={id_domku} />
           <input type="hidden" name="id_klienta" value={id_klienta} />
@@ -255,12 +298,13 @@ function Reservation_form() {
             <label>Wybrane daty:</label>
             <DatePicker
               selected={dateRange[0]}
-              onChange={(dates) => setDateRange(dates)}
+              onChange={handleDateChange}
               startDate={dateRange[0]}
               endDate={dateRange[1]}
               selectsRange
               minDate={today}
               maxDate={maxDate}
+              excludeDates={unavailableDates}
               dateFormat="dd/MM/yyyy"
               className="date_input"
               placeholderText="Wybierz przedział dat"
@@ -270,6 +314,7 @@ function Reservation_form() {
               onCalendarClose={() => setDatePickerOpen(false)}
               calendarClassName={isDatePickerOpen ? "open" : ""}
               popperPlacement="bottom-start"
+              onKeyDown={(e) => e.preventDefault()}
             />
           </div>
 
