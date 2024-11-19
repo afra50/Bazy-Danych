@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
+import { pl } from "date-fns/locale";
+import { format, parseISO } from "date-fns";
+import "react-datepicker/dist/react-datepicker.css";
 import "../../styles/pages/Reservation_form.scss";
 
 function Reservation_form() {
   const { id_domku } = useParams();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
-  const startDateRaw = searchParams.get("start");
-  const endDateRaw = searchParams.get("end");
+  const startRaw = searchParams.get("start");
+  const endRaw = searchParams.get("end");
 
   const [clientData, setClientData] = useState({
     firstName: "",
@@ -16,19 +21,24 @@ function Reservation_form() {
     phone: "",
   });
 
+  const [houseName, setHouseName] = useState("");
   const [loading, setLoading] = useState(true);
+  const [id_klienta, setIdKlienta] = useState(null);
+  const [images, setImages] = useState([]);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [houseLoading, setHouseLoading] = useState(true);
+  const [isDatePickerOpen, setDatePickerOpen] = useState(false);
+  const [notification, setNotification] = useState("");
 
-  // Formatuj daty w formacie YYYY-MM-DD
+  const today = new Date();
+  const maxMonth = today.getMonth() + 5;
+  const maxYear = today.getFullYear() + Math.floor(maxMonth / 12);
+  const adjustedMaxMonth = maxMonth % 12;
+  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0);
+
   const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, "0");
-    const day = String(d.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    return format(date, "yyyy-MM-dd");
   };
-
-  const startDate = startDateRaw ? formatDate(startDateRaw) : "";
-  const endDate = endDateRaw ? formatDate(endDateRaw) : "";
 
   useEffect(() => {
     const fetchClientData = async () => {
@@ -38,15 +48,16 @@ function Reservation_form() {
         return;
       }
 
+      setIdKlienta(clientId);
+
       try {
         const response = await fetch(
           `http://localhost:5000/api/clients/${clientId}`
         );
         if (response.ok) {
           const data = await response.json();
-          // Mapowanie danych API do struktury stanu komponentu
           setClientData({
-            firstName: data.imie || "", // Dopasowanie nazwy klucza
+            firstName: data.imie || "",
             lastName: data.nazwisko || "",
             email: data.email || "",
             phone: data.telefon || "",
@@ -65,23 +76,92 @@ function Reservation_form() {
       }
     };
 
+    const fetchHouseData = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/houses/${id_domku}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setHouseName(data.nazwa);
+        } else {
+          console.error("Błąd podczas pobierania danych domku");
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania danych domku:", error);
+      }
+    };
+
+    const fetchHouseImages = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/houses/${id_domku}/images`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setImages(data);
+        } else {
+          const errorData = await response.json();
+          console.error(
+            "Błąd podczas pobierania zdjęć domku:",
+            errorData.error
+          );
+        }
+      } catch (error) {
+        console.error("Błąd podczas pobierania zdjęć domku:", error);
+      } finally {
+        setHouseLoading(false);
+      }
+    };
+
     fetchClientData();
-  }, []);
+    fetchHouseData();
+    fetchHouseImages();
+
+    if (startRaw && endRaw) {
+      const parsedStart = parseISO(startRaw);
+      const parsedEnd = parseISO(endRaw);
+      if (!isNaN(parsedStart) && !isNaN(parsedEnd)) {
+        setDateRange([parsedStart, parsedEnd]);
+      }
+    }
+  }, [id_domku, startRaw, endRaw]);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(""), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData(event.target);
+    if (!id_klienta) {
+      alert(
+        "Nie jesteś zalogowany/a. Proszę się zalogować przed dokonaniem rezerwacji."
+      );
+      return;
+    }
+
+    const [start, end] = dateRange;
+
+    if (!start || !end) {
+      setNotification("Proszę wybrać przedział dat.");
+      return;
+    }
+
+    const formattedStartDate = formatDate(start);
+    const formattedEndDate = formatDate(end);
 
     const reservationData = {
       id_domku,
-      start: formData.get("start"),
-      end: formData.get("end"),
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
+      id_klienta,
+      start: formattedStartDate,
+      end: formattedEndDate,
     };
+
+    console.log("Dane do wysłania:", reservationData);
 
     try {
       const response = await fetch("http://localhost:5000/api/reservations", {
@@ -91,99 +171,115 @@ function Reservation_form() {
       });
 
       if (response.ok) {
-        alert("Rezerwacja została pomyślnie złożona!");
+        setNotification("Rezerwacja została pomyślnie złożona!");
+        setTimeout(() => {
+          navigate("/client/reservations");
+        }, 3000);
       } else {
         const errorData = await response.json();
-        alert(errorData.error || "Wystąpił problem z rezerwacją.");
+        setNotification(errorData.error || "Wystąpił problem z rezerwacją.");
       }
     } catch (error) {
       console.error("Błąd podczas składania rezerwacji:", error);
-      alert("Nie udało się złożyć rezerwacji.");
+      setNotification("Nie udało się złożyć rezerwacji.");
     }
   };
 
-  if (loading) {
+  if (loading || houseLoading) {
     return <p>Ładowanie danych...</p>;
   }
 
   return (
     <div className="reservation-container">
-      <h1>Formularz rezerwacji dla domku {id_domku}</h1>
-      <form onSubmit={handleSubmit} className="reservation-form">
-        <div className="form-group">
-          <label>Data początkowa:</label>
-          <input
-            type="date"
-            name="start"
-            defaultValue={startDate}
-            required={!startDate}
-          />
+      <div className="reservation-content">
+        <div className="house-image">
+          {images.length > 0 ? (
+            <>
+              <img src={images[0]} alt="Domek" />
+              <div className="overlay">{houseName}</div> {/* Nazwa domku */}
+            </>
+          ) : (
+            <p>Brak dostępnych zdjęć domku.</p>
+          )}
         </div>
-        <div className="form-group">
-          <label>Data końcowa:</label>
-          <input
-            type="date"
-            name="end"
-            defaultValue={endDate}
-            required={!endDate}
-          />
-        </div>
-        <div className="form-group">
-          <label>Imię:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={clientData.firstName}
-            onChange={(e) =>
-              setClientData({ ...clientData, firstName: e.target.value })
-            }
-            placeholder="Wprowadź imię"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Nazwisko:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={clientData.lastName}
-            onChange={(e) =>
-              setClientData({ ...clientData, lastName: e.target.value })
-            }
-            placeholder="Wprowadź nazwisko"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={clientData.email}
-            onChange={(e) =>
-              setClientData({ ...clientData, email: e.target.value })
-            }
-            placeholder="Wprowadź adres e-mail"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Telefon:</label>
-          <input
-            type="tel"
-            name="phone"
-            value={clientData.phone}
-            onChange={(e) =>
-              setClientData({ ...clientData, phone: e.target.value })
-            }
-            placeholder="Wprowadź numer telefonu"
-            required
-          />
-        </div>
-        <button type="submit" className="submit-button">
-          Złóż rezerwację
-        </button>
-      </form>
+
+        <form onSubmit={handleSubmit} className="reservation-form">
+          <h1 className="form-title">Nowa Rezerwacja</h1>
+          <div className="form-group">
+            <label>Imię:</label>
+            <input
+              type="text"
+              value={clientData.firstName}
+              disabled
+              className="disabled-input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Nazwisko:</label>
+            <input
+              type="text"
+              value={clientData.lastName}
+              disabled
+              className="disabled-input"
+            />
+          </div>
+          <div className="form-group">
+            <label>E-mail:</label>
+            <input
+              type="email"
+              value={clientData.email}
+              disabled
+              className="disabled-input"
+            />
+          </div>
+          <div className="form-group">
+            <label>Telefon:</label>
+            <input
+              type="tel"
+              value={clientData.phone}
+              disabled
+              className="disabled-input"
+            />
+          </div>
+          <div className="form-group infotip">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>
+              Aby zmienić dane rezerwacji, zaktualizuj je w swoim Profilu.
+            </span>
+          </div>
+
+          <input type="hidden" name="id_domku" value={id_domku} />
+          <input type="hidden" name="id_klienta" value={id_klienta} />
+
+          <div className="form-group">
+            <label>Wybrane daty:</label>
+            <DatePicker
+              selected={dateRange[0]}
+              onChange={(dates) => setDateRange(dates)}
+              startDate={dateRange[0]}
+              endDate={dateRange[1]}
+              selectsRange
+              minDate={today}
+              maxDate={maxDate}
+              dateFormat="dd/MM/yyyy"
+              className="date_input"
+              placeholderText="Wybierz przedział dat"
+              isClearable={true}
+              locale={pl}
+              onCalendarOpen={() => setDatePickerOpen(true)}
+              onCalendarClose={() => setDatePickerOpen(false)}
+              calendarClassName={isDatePickerOpen ? "open" : ""}
+              popperPlacement="bottom-start"
+            />
+          </div>
+
+          <button type="submit" className="submit-button">
+            Złóż rezerwację
+          </button>
+        </form>
+      </div>
+
+      {notification && <div className="notification">{notification}</div>}
     </div>
   );
 }

@@ -1,0 +1,117 @@
+@import "../Variables.scss";
+
+.reservation-container {
+  color: $primary-color;
+  font-family: $font-primary;
+  margin: 0 auto;
+
+  .reservation-content {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0;
+
+    .house-image {
+      flex: 0 0 60%;
+      position: relative;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.4);
+      }
+
+      .overlay {
+        position: absolute;
+        bottom: 50%;
+        left: 0;
+        width: 100%;
+        color: $secondary-color;
+        padding: 4rem 0;
+        text-align: center;
+        font-size: 2rem;
+        background: rgba(0, 0, 0, 0.6);
+      }
+    }
+
+    .reservation-form {
+      flex: 0 0 35%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+
+      .form-title {
+        text-align: center;
+        font-size: 1.6rem;
+        width: 75%;
+        font-weight: 400;
+        margin: 0;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+
+        label {
+          font-weight: 400;
+          margin-bottom: 0.3rem;
+          color: $primary-color;
+        }
+
+        input {
+          padding: 0.7rem;
+          border: 1px solid $light-color;
+          border-radius: 0.5rem;
+          font-family: $font-primary;
+
+          &.disabled-input {
+            background-color: $almost-white;
+            cursor: text;
+          }
+        }
+        .react-datepicker-wrapper {
+          div {
+            input {
+              width: 95%;
+              color: $primary-color;
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+        }
+      }
+      .infotip {
+        flex-direction: row;
+        align-items: center;
+        span {
+          font-size: 0.7rem;
+          width: 75%;
+          margin-left: 0.7rem;
+        }
+      }
+
+      .submit-button {
+        font-family: $font-primary;
+        font-size: 1rem;
+        color: $secondary-color;
+        border-radius: 0.5rem;
+        border: none;
+        background-color: $primary-color;
+        box-shadow: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 75%;
+        padding: 1rem 2rem;
+        margin-top: 1rem;
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+    }
+  }
+}
