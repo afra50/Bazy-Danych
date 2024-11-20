@@ -1,0 +1,126 @@
+@import "../../Variables.scss";
+
+.owner_settings {
+  font-family: $font-primary;
+  color: $primary-color;
+  padding: 2rem;
+
+  .back {
+    position: absolute;
+    z-index: 3;
+    left: 0;
+    font-family: $font-primary;
+    color: $primary-color;
+    margin-top: 1rem;
+    margin-left: 1rem;
+
+    a {
+      color: $primary-color;
+
+      &:hover {
+        color: $hover-color;
+      }
+    }
+  }
+
+  h1 {
+    text-align: center;
+    font-weight: 400;
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  hr {
+    width: 75vw;
+    height: 0.5px;
+    background-color: $light-color;
+    border: none;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+
+    .password_section,
+    .delete_account {
+      padding: 1.5rem;
+      width: 35%;
+    }
+
+    .password_section {
+      h2 {
+        margin-bottom: 1.5rem;
+        font-weight: 400;
+      }
+
+      .password_form {
+        .form-group {
+          margin-bottom: 1.2rem;
+
+          label {
+            display: block;
+            margin-bottom: 0.5rem;
+          }
+
+          input {
+            font-family: $font-primary;
+            width: 75%;
+            padding: 0.8rem;
+            border: 1px solid $light-color;
+            border-radius: 5px;
+            font-size: 1rem;
+            &:focus {
+              border-color: $dark-color;
+              outline: none;
+            }
+          }
+        }
+
+        .change_password_btn {
+          padding: 0.8rem 1.5rem;
+          background-color: $primary-color;
+          color: $secondary-color;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          font-family: $font-primary;
+
+          &:hover {
+            background-color: $hover-color;
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .delete_account {
+      h2 {
+        margin-bottom: 1rem;
+        font-weight: 400;
+      }
+
+      p {
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: $dark-color;
+      }
+
+      .delete_account_btn {
+        font-family: $font-primary;
+        padding: 0.8rem 1.5rem;
+        background-color: #e74c3c;
+        color: $white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken(#e74c3c, 20%);
+        }
+      }
+    }
+  }
+}
