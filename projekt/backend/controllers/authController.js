@@ -96,7 +96,7 @@ exports.loginOwner = (req, res) => {
 
   // Sprawdzenie, czy właściciel istnieje w bazie danych
   const sql = `SELECT * FROM wlasciciele WHERE email = ?`;
-  db.query(sql, [email], (err, results) => {
+  db.query(sql, [email], async (err, results) => {
     if (err) {
       console.error("Błąd podczas pobierania danych:", err);
       return res.status(500).json({ error: "Błąd serwera" });
@@ -108,7 +108,9 @@ exports.loginOwner = (req, res) => {
 
     const owner = results[0];
 
-    if (haslo !== owner.haslo) {
+    // Porównanie zaszyfrowanego hasła
+    const isMatch = await bcrypt.compare(haslo, owner.haslo);
+    if (!isMatch) {
       return res.status(401).json({ error: "Błędne hasło lub e-mail" });
     }
 
@@ -118,6 +120,55 @@ exports.loginOwner = (req, res) => {
       imie: owner.imie,
       nazwisko: owner.nazwisko,
       email: owner.email,
+    });
+  });
+};
+
+// Zmiana hasła właściciela
+exports.changeOwnerPassword = (req, res) => {
+  const { ownerId, currentPassword, newPassword } = req.body;
+
+  // Walidacja danych wejściowych
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: "Wszystkie pola są wymagane" });
+  }
+
+  // Pobranie bieżącego zaszyfrowanego hasła właściciela z bazy
+  const sql = `SELECT haslo FROM wlasciciele WHERE id_wlasciciela = ?`;
+  db.query(sql, [ownerId], async (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania danych właściciela:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Właściciel nie istnieje" });
+    }
+
+    const owner = results[0];
+
+    // Sprawdzenie bieżącego zaszyfrowanego hasła
+    const isMatch = await bcrypt.compare(currentPassword, owner.haslo);
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ error: "Bieżące hasło jest nieprawidłowe" });
+    }
+
+    // Zaszyfrowanie nowego hasła
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Zaktualizowanie hasła w bazie danych
+    const updateSql = `UPDATE wlasciciele SET haslo = ? WHERE id_wlasciciela = ?`;
+    db.query(updateSql, [hashedPassword, ownerId], (err, result) => {
+      if (err) {
+        console.error("Błąd podczas aktualizowania hasła:", err);
+        return res
+          .status(500)
+          .json({ error: "Błąd serwera podczas aktualizacji hasła" });
+      }
+
+      res.status(200).json({ message: "Hasło zostało pomyślnie zmienione" });
     });
   });
 };

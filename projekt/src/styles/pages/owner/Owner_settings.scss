@@ -74,6 +74,9 @@
               border-color: $dark-color;
               outline: none;
             }
+            &::placeholder {
+              color: $light-color;
+            }
           }
         }
 

@@ -1,5 +1,4 @@
 1. GOSPODARZ
-- zmiana hasla (+ szyfrowanie)
 - usuwanie konta
 - walidacja zmiany danych
 - moje oferty
@@ -15,7 +14,7 @@
 3. CALY SERWIS
 - responsywnosc
 - komentarze
-- notification + errory
+> notification + errory ujednolicic
 > zabezpieczenia js i to co sie da
 > strzałka dla powrotu nie jest klikalna
 > ikonki i obrazki dla ozdoby
@@ -40,9 +39,4 @@
 > edycja danych
 > numer rezerwacji
 > ekran potwierdzenia
-
-react calendar + fs + bazy zdjec do sprawka
-React Context API
-React Hooks
-Web Storage API (sessionStorage)
 
