@@ -110,18 +110,40 @@
         color: $dark-color;
       }
 
-      .delete_account_btn {
-        font-family: $font-primary;
-        padding: 0.8rem 1.5rem;
-        background-color: #e74c3c;
-        color: $white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+      .delete_form {
+        label {
+          margin-bottom: 0.5rem;
+          display: block;
+        }
+        #delete_password {
+          width: 50%;
+          padding: 0.5rem;
+          font-family: $font-primary;
+          border: 1px solid lightgrey;
+          border-radius: 5px;
+          font-size: 0.9rem;
+          &::placeholder {
+            color: $light-color;
+          }
+          &:focus {
+            outline: none;
+            border-color: $dark-color;
+          }
+        }
+        .delete_account_btn {
+          margin-top: 1.2rem;
+          font-family: $font-primary;
+          padding: 0.8rem 1.5rem;
+          background-color: #e74c3c;
+          color: $white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
 
-        &:hover {
-          background-color: darken(#e74c3c, 20%);
+          &:hover {
+            background-color: darken(#e74c3c, 20%);
+          }
         }
       }
     }

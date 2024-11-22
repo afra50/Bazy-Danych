@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/pages/owner/Owner_settings.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../Auth_context";
 
 function Owner_settings() {
   const [formData, setFormData] = useState({
@@ -9,17 +10,32 @@ function Owner_settings() {
     confirmNewPassword: "",
   });
 
+  const [deletePassword, setDeletePassword] = useState("");
   const [notification, setNotification] = useState("");
+  const navigate = useNavigate();
+
+  const { logout } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleDeletePasswordChange = (e) => {
+    setDeletePassword(e.target.value);
+  };
+
+  const handleDeleteAccount = async (e) => {
     e.preventDefault();
 
-    // Pobierz ownerId z sessionStorage
+    const isConfirmed = window.confirm(
+      "Czy na pewno chcesz usunąć swoje konto?"
+    );
+
+    if (!isConfirmed) {
+      return;
+    }
+
     const ownerId = sessionStorage.getItem("ownerId");
 
     if (!ownerId) {
@@ -27,14 +43,14 @@ function Owner_settings() {
       return;
     }
 
-    if (formData.newPassword !== formData.confirmNewPassword) {
-      setNotification("Nowe hasło i jego potwierdzenie muszą być takie same.");
+    if (!deletePassword) {
+      setNotification("Podanie hasła jest wymagane do usunięcia konta.");
       return;
     }
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/change-owner-password",
+        "http://localhost:5000/api/owner/delete-owner-account",
         {
           method: "POST",
           headers: {
@@ -42,8 +58,7 @@ function Owner_settings() {
           },
           body: JSON.stringify({
             ownerId,
-            currentPassword: formData.currentPassword,
-            newPassword: formData.newPassword,
+            password: deletePassword,
           }),
         }
       );
@@ -51,22 +66,24 @@ function Owner_settings() {
       const result = await response.json();
 
       if (response.ok) {
-        setNotification("Hasło zostało zmienione pomyślnie");
+        setNotification("Konto zostało pomyślnie usunięte.");
 
-        // Przeładuj stronę po krótkim czasie
+        logout();
+
+        sessionStorage.removeItem("ownerId");
+
         setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+          navigate("/", { replace: true });
+        }, 2000);
       } else {
-        setNotification(result.error || "Błąd podczas zmiany hasła");
+        setNotification(result.error || "Błąd podczas usuwania konta.");
       }
     } catch (error) {
-      console.error("Błąd podczas zmiany hasła:", error);
-      setNotification("Wystąpił problem z serwerem");
+      console.error("Błąd podczas usuwania konta:", error);
+      setNotification("Wystąpił problem z serwerem.");
     }
   };
 
-  // Usuwanie powiadomienia po 3 sekundach
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 3000);
@@ -86,7 +103,7 @@ function Owner_settings() {
         <section className="password_section">
           <h2>Zmień hasło</h2>
           {notification && <p className="notification">{notification}</p>}
-          <form className="password_form" onSubmit={handleSubmit}>
+          <form className="password_form">
             <div className="form-group">
               <label htmlFor="current_password">Bieżące hasło</label>
               <input
@@ -131,7 +148,20 @@ function Owner_settings() {
             Usunięcie konta jest nieodwracalne. Wszystkie dane zostaną trwale
             usunięte.
           </p>
-          <button className="delete_account_btn">Usuń konto</button>
+          <form className="delete_form" onSubmit={handleDeleteAccount}>
+            <div className="form-group">
+              <label htmlFor="delete_password">Potwierdź hasło</label>
+              <input
+                type="password"
+                id="delete_password"
+                name="deletePassword"
+                value={deletePassword}
+                onChange={handleDeletePasswordChange}
+                placeholder="Wprowadź swoje hasło"
+              />
+            </div>
+            <button className="delete_account_btn">Usuń konto</button>
+          </form>
         </section>
       </div>
     </section>

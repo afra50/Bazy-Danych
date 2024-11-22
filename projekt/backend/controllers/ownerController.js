@@ -1,5 +1,6 @@
 const path = require("path");
 const db = require("../models/db");
+const bcrypt = require("bcrypt");
 
 // Pobieranie profilu właściciela
 exports.getOwnerProfile = (req, res) => {
@@ -179,5 +180,48 @@ exports.rejectReservation = (req, res) => {
         .json({ error: "Rezerwacja nie została znaleziona" });
     }
     res.status(200).json({ message: "Rezerwacja odrzucona pomyślnie" });
+  });
+};
+
+// Usuwanie konta właściciela
+exports.deleteOwnerAccount = (req, res) => {
+  const { ownerId, password } = req.body;
+
+  if (!ownerId || !password) {
+    return res
+      .status(400)
+      .json({ error: "ID właściciela i hasło są wymagane" });
+  }
+
+  // Pobranie zaszyfrowanego hasła właściciela
+  const sqlGetPassword = `SELECT haslo FROM wlasciciele WHERE id_wlasciciela = ?`;
+  db.query(sqlGetPassword, [ownerId], async (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania hasła właściciela:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Właściciel nie istnieje" });
+    }
+
+    const owner = results[0];
+
+    // Sprawdzenie poprawności hasła
+    const isMatch = await bcrypt.compare(password, owner.haslo);
+    if (!isMatch) {
+      return res.status(401).json({ error: "Podane hasło jest nieprawidłowe" });
+    }
+
+    // Usunięcie właściciela
+    const sqlDeleteOwner = `DELETE FROM wlasciciele WHERE id_wlasciciela = ?`;
+    db.query(sqlDeleteOwner, [ownerId], (err, result) => {
+      if (err) {
+        console.error("Błąd podczas usuwania konta właściciela:", err);
+        return res.status(500).json({ error: "Błąd serwera" });
+      }
+
+      res.status(200).json({ message: "Konto właściciela zostało usunięte" });
+    });
   });
 };

@@ -1,6 +1,5 @@
 1. GOSPODARZ
-- usuwanie konta
-- walidacja zmiany danych
+> walidacja zmiany danych
 - moje oferty
 > edycja ofert
 
@@ -8,7 +7,7 @@
 - zmiana hasła
 - mój profil + zmiana danych
 - usuwanie konta
-- walidacja zmiany danych
+> walidacja zmiany danych
 - moje rezerwacje + anulowanie z usunieciem z bazy 
 
 3. CALY SERWIS
