@@ -49,11 +49,19 @@ function Header() {
                   </li>
                 </>
               ) : (
-                <li>
-                  <a href="/client/reservations">
-                    <i className="fa-solid fa-note-sticky"></i> Moje rezerwacje
-                  </a>
-                </li>
+                <>
+                  <li>
+                    <a href="/client/settings">
+                      <i class="fa-solid fa-gear"></i> Ustawienia
+                    </a>
+                  </li>
+                  <li>
+                    <a href="/client/reservations">
+                      <i className="fa-solid fa-note-sticky"></i> Moje
+                      rezerwacje
+                    </a>
+                  </li>
+                </>
               )}
               <li>
                 <a href="/" onClick={logout}>

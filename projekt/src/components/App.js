@@ -18,6 +18,7 @@ import Search_page from "./pages/Search_page";
 import House from "./pages/House";
 import Reservation_form from "./pages/Reservation_form";
 import Owner_settings from "./pages/owner/Owner_settings";
+import Client_settings from "./pages/client/Client_settings";
 
 function App() {
   return (
@@ -61,6 +62,14 @@ function App() {
                   <Private_owner_route>
                     <Owner_settings />
                   </Private_owner_route>
+                }
+              />
+              <Route
+                path="/client/settings"
+                element={
+                  <Private_client_route>
+                    <Client_settings></Client_settings>
+                  </Private_client_route>
                 }
               />
               <Route

@@ -4,9 +4,7 @@
 > edycja ofert
 
 2. KLIENT 
-- zmiana hasła
-- mój profil + zmiana danych
-- usuwanie konta
+- zmiana hasła + usuwanie konta, zmiana danych
 > walidacja zmiany danych
 - moje rezerwacje + anulowanie z usunieciem z bazy 
 
@@ -20,6 +18,7 @@
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
 > czyszczenie bazy danych
 > stopka
+> react app api w env (adres)
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)
