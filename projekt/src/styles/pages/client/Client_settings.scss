@@ -23,15 +23,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    width: 75vw;
+    margin: 0 auto;
 
     .update_data_section,
     .change_password_section {
-      padding: 1.5rem;
       width: 45%;
     }
 
     .delete_account_section {
-      padding: 1.5rem;
       flex: 1 1 100%;
     }
 

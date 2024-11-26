@@ -191,9 +191,9 @@ function Client_settings() {
         // Usunięcie clientId z sessionStorage
         sessionStorage.removeItem("clientId");
 
-        // Przekierowanie na stronę logowania po krótkim czasie
+        // Przekierowanie na stronę główną
         setTimeout(() => {
-          navigate("/login", { replace: true });
+          navigate("/", { replace: true });
         }, 2000);
       } else {
         setNotification(result.error || "Błąd podczas usuwania konta.");

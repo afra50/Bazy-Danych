@@ -4,7 +4,6 @@
 > edycja ofert
 
 2. KLIENT 
-- zmiana hasła + usuwanie konta, zmiana danych
 > walidacja zmiany danych
 - moje rezerwacje + anulowanie z usunieciem z bazy 
 
