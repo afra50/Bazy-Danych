@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Waiting from "../../Waiting";
 import Confirmed from "../../Confirmed";
-import "../../../styles/App.scss";
 import "../../../styles/pages/owner/Reservations.scss";
 import axios from "axios";
 
 function Reservations() {
   const ownerId = sessionStorage.getItem("ownerId");
-  console.log("Pobrany ownerId:", ownerId); // Dodaj ten log
   const [waitingReservations, setWaitingReservations] = useState([]);
   const [confirmedReservations, setConfirmedReservations] = useState([]);
   const [refreshKey, setRefreshKey] = useState(0);
-  const [notification, setNotification] = useState(""); // Stan na powiadomienie
+  const [notification, setNotification] = useState("");
 
   const refreshReservations = async () => {
     try {

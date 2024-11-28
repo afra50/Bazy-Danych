@@ -1,0 +1,226 @@
+@import "../../Variables.scss";
+
+.myoffers {
+  background-image: url("../../../assets/images/myoffers.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 2rem 0;
+  display: grid;
+  justify-items: center;
+  font-family: $font-primary;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .back {
+    float: none;
+    display: block;
+    width: 100%;
+    margin-left: 2rem;
+    a {
+      font-family: $font-primary;
+    }
+  }
+
+  .myoffers_header {
+    font-size: 3rem;
+    margin: 1rem 0;
+    font-family: $font-primary;
+    color: $white;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .owner_other_pages {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8vw;
+
+    a {
+      text-decoration: none;
+      color: $primary-color;
+      font-family: $font-primary;
+      padding: 0.5rem 2rem;
+      border: 1px solid $light-color;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      background-color: $white;
+      transition: 0.3s background-color ease, 0.3s color ease;
+
+      &:hover {
+        background-color: $very-light-color;
+        color: $hover-color;
+      }
+    }
+  }
+
+  .myoffers_container {
+    padding: 2rem;
+    background-color: $white;
+    border-radius: 8px;
+    width: 85%;
+    text-align: center;
+  }
+
+  .no_offers {
+    font-family: $font-primary;
+    color: $primary-color;
+    margin: 5rem auto;
+    width: fit-content;
+    text-align: center;
+    font-size: 1.3rem;
+    i {
+      display: block;
+      font-size: 7rem;
+      justify-self: center;
+      margin: 1rem 0;
+      color: $light-color;
+    }
+  }
+
+  .houses {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+
+  .house-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.4s;
+    height: 300px;
+    border-radius: 10px;
+
+    .image-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    h3 {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: $white;
+      font-size: 1.5rem;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      font-weight: 400;
+    }
+
+    &:hover {
+      filter: brightness(0.8);
+    }
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .modal-content {
+      background: $white;
+      padding: 2rem;
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      max-height: 80vh;
+      overflow: auto;
+      color: $primary-color;
+      border-radius: 0%;
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 2rem;
+        cursor: pointer;
+      }
+
+      .image-wrapper {
+        width: 100%;
+        height: 450px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+        filter: brightness(0.7);
+      }
+
+      h2 {
+        margin-top: 1rem;
+        font-weight: 400;
+        position: absolute;
+        bottom: 75%;
+        left: 30%;
+        color: $white;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        z-index: 1;
+      }
+
+      p {
+        font-size: 0.9rem;
+        word-spacing: 0.25rem;
+        letter-spacing: 0.05rem;
+        line-height: 1.2rem;
+        text-align: center;
+      }
+
+      .house-details {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        p {
+          margin: 1rem;
+        }
+      }
+      .calendar_title {
+        margin-top: 0;
+        font-weight: 400;
+        font-size: 1.8rem;
+        letter-spacing: 0.1rem;
+      }
+    }
+  }
+}

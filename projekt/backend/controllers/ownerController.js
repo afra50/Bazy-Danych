@@ -225,3 +225,23 @@ exports.deleteOwnerAccount = (req, res) => {
     });
   });
 };
+
+// Pobieranie ofert domków dla danego właściciela
+exports.getHousesForOwner = (req, res) => {
+  const ownerId = req.params.ownerId;
+
+  const sql = `
+    SELECT id_domku, nazwa,  opis, liczba_osob, cena_za_noc, kategoria, lokalizacja
+    FROM domki 
+    WHERE id_wlasciciela = ?
+  `;
+
+  db.query(sql, [ownerId], (err, results) => {
+    if (err) {
+      console.error("Błąd podczas pobierania ofert:", err);
+      return res.status(500).json({ error: "Błąd serwera" });
+    }
+
+    res.status(200).json(results);
+  });
+};

@@ -40,3 +40,5 @@ router.post("/upload/:id", (req, res) => {
 module.exports = router;
 
 router.post("/delete-owner-account", ownerController.deleteOwnerAccount);
+
+router.get("/:ownerId/houses", ownerController.getHousesForOwner);
