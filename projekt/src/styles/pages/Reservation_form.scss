@@ -105,6 +105,8 @@
         }
       }
       .infotip {
+        display: flex;
+        width: 75%;
         flex-direction: row;
         align-items: center;
         span {

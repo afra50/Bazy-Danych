@@ -1,6 +1,5 @@
 1. GOSPODARZ
 > walidacja zmiany danych
-- moje oferty
 > edycja ofert
 
 2. KLIENT 
@@ -17,7 +16,7 @@
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
 > czyszczenie bazy danych
 > stopka
-> react app api w env (adres)
+> react app api w env (adres) - chodzi o backend?
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)

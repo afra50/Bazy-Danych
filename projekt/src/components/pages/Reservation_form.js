@@ -303,6 +303,13 @@ function Reservation_form() {
           <input type="hidden" name="id_domku" value={id_domku} />
           <input type="hidden" name="id_klienta" value={id_klienta} />
 
+          <div className="infotip">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>
+              Aby zmienić dane rezerwacji, zaktualizuj je w Ustawieniach.
+            </span>
+          </div>
+
           <div className="form-group">
             <label>Wybrane daty:</label>
             <DatePicker
