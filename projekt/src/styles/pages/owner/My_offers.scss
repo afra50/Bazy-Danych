@@ -221,6 +221,78 @@
         font-size: 1.8rem;
         letter-spacing: 0.1rem;
       }
+      .calendar {
+        width: 100%;
+        max-width: 100%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        .react-calendar {
+          width: 100%;
+          max-width: 100%;
+          font-family: $font-primary;
+          border: none;
+          line-height: 1.2em;
+          .react-calendar__tile {
+            pointer-events: none;
+            font-size: 1.1rem;
+          }
+          .react-calendar__navigation {
+            background-color: $primary-color;
+            color: $white;
+            margin-bottom: 0;
+            button {
+              color: $white;
+              font-family: $font-primary;
+              &:focus {
+                outline: none;
+                background-color: $primary-color;
+              }
+              &:hover {
+                background-color: $primary-color;
+              }
+            }
+          }
+          .react-calendar__navigation button:disabled {
+            background-color: $primary-color;
+          }
+          .react-calendar__navigation__label {
+            font-size: 1.25rem;
+            background-color: $primary-color;
+            color: $white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            text-align: center;
+            flex: 1;
+
+            &[disabled] {
+              background-color: $primary-color;
+              color: $white;
+              cursor: default;
+            }
+          }
+          .react-calendar_navigation_next-button {
+            &:hover {
+              background-color: $primary-color;
+            }
+          }
+          .react-calendar__month-view__weekdays {
+            text-align: center;
+            padding: 0.5rem 0;
+            background-color: $dark-color;
+            color: $white;
+            abbr {
+              text-decoration: none;
+              font-weight: 400;
+            }
+          }
+          .react-calendar__month-view__days__day {
+            color: $primary-color;
+            height: 3rem;
+          }
+          .react-calendar__tile--now {
+            background-color: $white;
+          }
+        }
+      }
     }
   }
 }

@@ -48,7 +48,12 @@ exports.getHouseImages = (req, res) => {
 exports.getHouseAvailability = (req, res) => {
   const houseId = req.params.id;
 
-  const sqlReservations = `SELECT data_od, data_do FROM rezerwacje WHERE id_domku = ?`;
+  const sqlReservations = `
+    SELECT data_od, data_do 
+    FROM rezerwacje 
+    WHERE id_domku = ? 
+    AND status IN ('Potwierdzona', 'Oczekująca')
+  `;
   const sqlUnavailable = `SELECT data_od, data_do FROM dostepnosc_domkow WHERE id_domku = ?`;
 
   // Pobieranie rezerwacji
