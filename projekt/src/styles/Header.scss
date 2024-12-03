@@ -125,3 +125,37 @@
     }
   }
 }
+
+//telefon
+@media (max-width: 480px) {
+  .top_bar {
+    padding: 0 1rem;
+    #logo {
+      height: 80%;
+    }
+  }
+  .navi {
+    width: 42vw;
+    justify-content: space-between;
+    a {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+//tablet
+@media (min-width: 481px) and (max-width: 1023px) {
+  .top_bar {
+    padding: 0 1rem;
+    #logo {
+      height: 80%;
+    }
+  }
+  .navi {
+    width: 42vw;
+    justify-content: space-evenly;
+    a {
+      font-size: 0.8rem;
+    }
+  }
+}
