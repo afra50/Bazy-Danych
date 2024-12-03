@@ -13,11 +13,11 @@
     padding: 1.25rem; 
     margin-bottom: 1rem; 
     border-radius: 0.625rem; 
-    border:none; // 0.125rem solid #ccc; /* Jasnoszara obwódka */
+    border:none; 
     box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     position: relative;
-    //animation: glow-border 2s infinite; /* Animacja świecenia */
+    
     transition: all 0.3s ease;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   
@@ -27,7 +27,25 @@
       margin-bottom: 1rem;
       text-align: center;
       margin-top: 0.5rem;
+      font-style: italic; /* Ustawienie tekstu na kursywę */
+      font-family: 'Dancing Script', cursive;
+      position: relative;
+      
     }
+    h3::after {
+      content: '';                     /* Pseudo-element */
+      position: absolute;              /* Pozycjonowanie względem rodzica */
+      bottom: -0.2rem;                 /* Odstęp od tekstu (przesunięcie w dół) */
+      left: 50%;                       /* Ustawienie na środku */
+      transform: translateX(-50%);     /* Centrowanie linii względem nagłówka */
+      width: 50%;                      /* Szerokość linii: 50% szerokości nagłówka */
+      height: 1px;                     /* Bardzo cienka linia */
+      background: #333;                /* Kolor linii - ciemnoszary */
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtelny biały cień */
+      border-radius: 2px;              /* Zaokrąglone rogi linii */
+    }
+    
+    
   
     .elements {
       font-family: Arial, sans-serif !important;
@@ -115,6 +133,11 @@
     margin: 0 auto;                 
     box-sizing: border-box;         
 }
+.reservation-date-from {
+  font-size: 1.1rem;
+  color: #2980b9;
+  margin: 0.5rem 0;
+}
 .reservations h1 {
 
     font-size: 2.5rem;
@@ -127,6 +150,28 @@
     font-family: $font-primary;
     margin-bottom: 2rem;
     margin-top: 0;
+    
+}
+.cancel-btn {
+  background-color: #131212;  
+  color: rgb(242, 234, 234);               
+  border: none;              
+  padding: 0.75rem 1.5rem;    
+  font-size: 1rem;            
+  font-weight: bold;          
+  border-radius: 5px;         
+  cursor: pointer;           
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  margin-left: 46rem;
+
+  &:hover {
+    background-color: #d32f2f;  
+    transform: scale(1.05);      
+  }
+
+  &:active {
+    background-color: #c62828;  
+  }
 }
 
     
