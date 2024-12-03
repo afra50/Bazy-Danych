@@ -7,7 +7,7 @@
 - moje rezerwacje + anulowanie z usunieciem z bazy 
 
 3. CALY SERWIS
-- responsywnosc
+- responsywnosc - owner[], client[]
 - komentarze
 > notification + errory ujednolicic
 > zabezpieczenia js i to co sie da

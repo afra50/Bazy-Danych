@@ -30,7 +30,7 @@
   .back {
     float: none;
     display: block;
-    width: 100%;
+    justify-self: left;
     margin-left: 2rem;
     a {
       font-family: $font-primary;
