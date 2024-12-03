@@ -33,16 +33,16 @@
       
     }
     h3::after {
-      content: '';                     /* Pseudo-element */
-      position: absolute;              /* Pozycjonowanie względem rodzica */
-      bottom: -0.2rem;                 /* Odstęp od tekstu (przesunięcie w dół) */
-      left: 50%;                       /* Ustawienie na środku */
-      transform: translateX(-50%);     /* Centrowanie linii względem nagłówka */
-      width: 50%;                      /* Szerokość linii: 50% szerokości nagłówka */
-      height: 1px;                     /* Bardzo cienka linia */
-      background: #333;                /* Kolor linii - ciemnoszary */
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtelny biały cień */
-      border-radius: 2px;              /* Zaokrąglone rogi linii */
+      content: '';                 
+      position: absolute;              
+      bottom: -0.2rem;                
+      left: 50%;                       
+      transform: translateX(-50%);    
+      width: 50%;                    
+      height: 1px;                  
+      background: #333;             
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
+      border-radius: 2px;              
     }
     
     
