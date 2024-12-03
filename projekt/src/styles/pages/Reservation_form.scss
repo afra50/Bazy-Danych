@@ -136,3 +136,12 @@
     }
   }
 }
+
+@media (max-width: 917px) {
+  .reservation-container {
+    .reservation-content {
+      flex-direction: column;
+      max-height: none;
+    }
+  }
+}
