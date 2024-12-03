@@ -23,12 +23,11 @@
     display: flex;
     flex-direction: column;
     width: 40%;
-    margin: 0 auto;
+    margin: 1.5rem auto;
     padding: 1rem 0;
     border: 1px solid $very-light-color;
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin-top: 1.5rem;
     .contact_title {
       font-size: 1.2rem;
       margin-bottom: 1rem;
@@ -43,6 +42,9 @@
           color: $primary-color;
         }
       }
+    }
+    @media (max-width: 1023px) {
+      width: auto;
     }
   }
 }

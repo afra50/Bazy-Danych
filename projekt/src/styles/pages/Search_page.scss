@@ -292,5 +292,9 @@
     &:hover {
       background-color: $hover-color;
     }
+
+    @media (max-width: 1023px) {
+      width: 50vw;
+    }
   }
 }

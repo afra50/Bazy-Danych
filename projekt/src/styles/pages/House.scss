@@ -161,7 +161,7 @@
     justify-content: center;
 
     .details-container {
-      height: 90vh;
+      flex-wrap: wrap;
       display: flex;
       gap: 3rem;
       flex-direction: row;
@@ -297,7 +297,7 @@
 
               /* Ensure the month label retains the desired styles even when disabled */
               .react-calendar__navigation__label {
-                font-size: 1.25rem;
+                font-size: 1.1rem;
                 font-weight: bold;
                 background-color: $primary-color;
                 color: $white;
@@ -490,5 +490,6 @@
     background-color: $light-color;
     border: none;
     height: 0.5px;
+    justify-self: center;
   }
 }

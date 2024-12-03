@@ -31,11 +31,10 @@
     color: $primary-color;
     font-weight: 400;
     text-decoration: none;
-    transition: color 0.3s ease, font-size 0.1s ease;
+    transition: color 0.3s ease;
 
     &:hover {
       color: $hover_color;
-      font-size: 1.01rem;
     }
   }
 
