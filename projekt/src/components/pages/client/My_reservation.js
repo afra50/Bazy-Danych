@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../../styles/App.scss"; 
 import "../../../styles/pages/client/My_reservation.scss";
 
-
 function MyReservations() {
   const clientId = sessionStorage.getItem("clientId");
   const [reservations, setReservations] = useState([]);
@@ -30,6 +29,29 @@ function MyReservations() {
       });
   }, [clientId]);
 
+  const cancelReservation = (reservationId) => {
+    if (!window.confirm("Czy na pewno chcesz anulować tę rezerwację?")) {
+      return;
+    }
+
+    fetch(`http://localhost:5000/api/reservations/${reservationId}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Nie udało się anulować rezerwacji.");
+        }
+        // Usuń rezerwację z listy po jej anulowaniu
+        setReservations((prev) =>
+          prev.filter((reservation) => reservation.id_rezerwacji !== reservationId)
+        );
+      })
+      .catch((err) => {
+        console.error("Błąd podczas anulowania rezerwacji:", err);
+        alert("Nie udało się anulować rezerwacji.");
+      });
+  };
+
   if (error) {
     return (
       <div className="reservations">
@@ -47,7 +69,9 @@ function MyReservations() {
       <div className="reservations-content">
         {reservations.length > 0 ? (
           reservations.map((reservation) => (
-            <div key={reservation.id_rezerwacji} className={`reservation-item highlight-${reservation.status.toLowerCase()}`}
+            <div 
+              key={reservation.id_rezerwacji} 
+              className={`reservation-item highlight-${reservation.status.toLowerCase()}`}
             >
               <h3>Rezerwacja numer {reservation.id_rezerwacji}</h3>
               <div className="elements">
@@ -58,6 +82,12 @@ function MyReservations() {
                   Status: {reservation.status}
                 </p>
               </div>
+              <button
+                className="cancel-btn"
+                onClick={() => cancelReservation(reservation.id_rezerwacji)}
+              >
+                Anuluj rezerwację
+              </button>
             </div>
           ))
         ) : (
@@ -66,7 +96,6 @@ function MyReservations() {
       </div>
     </div>
   );
-  
 }
 
 export default MyReservations;
