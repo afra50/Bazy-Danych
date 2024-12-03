@@ -33,7 +33,7 @@ function MyReservations() {
     if (!window.confirm("Czy na pewno chcesz anulować tę rezerwację?")) {
       return;
     }
-
+  
     fetch(`http://localhost:5000/api/reservations/${reservationId}`, {
       method: "DELETE",
     })
@@ -41,28 +41,25 @@ function MyReservations() {
         if (!res.ok) {
           throw new Error("Nie udało się anulować rezerwacji.");
         }
-        // Usuń rezerwację z listy po jej anulowaniu
-        setReservations((prev) =>
-          prev.filter((reservation) => reservation.id_rezerwacji !== reservationId)
-        );
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Odpowiedź z serwera:", data);  // Dodaj logowanie odpowiedzi
+        if (data.message) {
+          // Usuń rezerwację z listy po jej anulowaniu
+          setReservations((prev) =>
+            prev.filter((reservation) => reservation.id_rezerwacji !== reservationId)
+          );
+          alert(data.message);  // Pokazanie komunikatu, jeśli rezerwacja została anulowana
+        } else {
+          alert("Brak komunikatu o sukcesie.");
+        }
       })
       .catch((err) => {
         console.error("Błąd podczas anulowania rezerwacji:", err);
         alert("Nie udało się anulować rezerwacji.");
       });
   };
-
-  if (error) {
-    return (
-      <div className="reservations">
-        <h1>Moje Rezerwacje</h1>
-        <div className="reservation-wrapper">
-          <p>{error}</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="reservations">
       <h1>Moje Rezerwacje</h1>

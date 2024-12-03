@@ -96,3 +96,34 @@ exports.getReservationsForHouse = (req, res) => {
     res.status(200).json(results);
   });
 };
+// Usuwanie rezerwacji
+exports.deleteReservation = (req, res) => {
+  const { id_rezerwacji } = req.params; // Pobranie id rezerwacji z parametru URL
+
+  // Logowanie ID, żeby upewnić się, że jest poprawne
+  console.log("Usuwanie rezerwacji o ID:", id_rezerwacji);
+
+  // Sprawdzenie, czy rezerwacja istnieje
+  const sqlCheck = `SELECT * FROM rezerwacje WHERE id_rezerwacji = ?`;
+  db.query(sqlCheck, [id_rezerwacji], (err, results) => {
+    if (err) {
+      console.error("Błąd podczas sprawdzania rezerwacji:", err);
+      return res.status(500).json({ error: "Błąd serwera." });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "Rezerwacja nie istnieje." });
+    }
+
+    // Usuwanie rezerwacji z bazy danych
+    const sqlDelete = `DELETE FROM rezerwacje WHERE id_rezerwacji = ?`;
+    db.query(sqlDelete, [id_rezerwacji], (err, result) => {
+      if (err) {
+        console.error("Błąd podczas usuwania rezerwacji:", err);
+        return res.status(500).json({ error: "Błąd serwera podczas usuwania rezerwacji." });
+      }
+
+      res.status(200).json({ message: "Rezerwacja została anulowana." });
+    });
+  });
+};
