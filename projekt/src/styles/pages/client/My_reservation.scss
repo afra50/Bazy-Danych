@@ -17,6 +17,8 @@
     box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
     box-sizing: border-box;
     position: relative;
+    font-family: $font-primary;
+    color: $primary-color;
     
     transition: all 0.3s ease;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -54,6 +56,8 @@
         font-size: 1.2rem;
         color: #333;
         margin: 0.5rem 0;
+        font-family: $font-primary;
+        color: $primary-color;
   
         &.status {
           font-weight: bold;
@@ -61,6 +65,8 @@
           border-radius: 5px;
           text-align: center;
           display: inline-block;
+           font-family: $font-primary;
+  color: $primary-color;
   
           &.potwierdzona {
             background-color: #94b595; /* Zielone tło */
@@ -68,13 +74,13 @@
           }
   
           &.odrzucona {
-            background-color: #c8b5b4; /* Czerwone tło */
+            background-color: #ba514b; /* Czerwone tło */
             color: white;
           }
   
           &.oczekująca {
-            background-color: #d3ccb5; /* Żółte tło */
-            color: black;
+            background-color: #d9a734; /* Żółte tło */
+            color: rgb(213, 208, 208);
           }
         }
       }
@@ -107,10 +113,11 @@
       
       &:hover {
         transform: scale(1.05); /* Powiększenie elementu */
-        box-shadow: 0 8rem 16rem rgba(0, 0, 0, 0.5);
+        box-shadow: 0 8rem 16rem rgba(41, 40, 40, 0.5);
       }
     
     }
+
   
 
   .reservations-content {
@@ -133,11 +140,7 @@
     margin: 0 auto;                 
     box-sizing: border-box;         
 }
-.reservation-date-from {
-  font-size: 1.1rem;
-  color: #2980b9;
-  margin: 0.5rem 0;
-}
+
 .reservations h1 {
 
     font-size: 2.5rem;
@@ -162,7 +165,8 @@
   border-radius: 5px;         
   cursor: pointer;           
   transition: background-color 0.3s ease, transform 0.3s ease; 
-  margin-left: 46rem;
+  
+  margin-left: 43rem;
 
   &:hover {
     background-color: #d32f2f;  
@@ -172,6 +176,10 @@
   &:active {
     background-color: #c62828;  
   }
+}
+.elements{
+  font-family: Arial, sans-serif !important;
+
 }
 
     
