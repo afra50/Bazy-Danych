@@ -19,6 +19,7 @@
     height: 1px;
     background-color: $light-color;
     border: none;
+    margin: 0 auto;
   }
 
   .wrapper {
@@ -77,6 +78,10 @@
           object-fit: cover;
           display: block;
           transition: transform 1s ease;
+
+          @media (max-width: 768px) {
+            height: 200px;
+          }
         }
 
         .category {
@@ -98,6 +103,11 @@
         margin-top: 1rem;
         color: $primary-color;
         font-weight: 400;
+
+        @media (max-width: 768px) {
+          font-size: 1.1rem;
+          margin: 0.5rem;
+        }
       }
 
       p {
@@ -105,6 +115,11 @@
         margin: 0.7rem;
         margin-bottom: 1rem;
         color: $dark-color;
+
+        @media (max-width: 768px) {
+          font-size: 0.9rem;
+          margin: 0.5rem 0.5rem 1rem 0.5rem;
+        }
       }
     }
   }
@@ -122,10 +137,84 @@
     box-shadow: none;
     cursor: pointer;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 
     &:hover {
       background-color: $hover-color;
+      transform: translateY(-2px);
     }
+
+    @media (max-width: 768px) {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 3rem 4rem;
+  }
+
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    hr {
+      width: 50%;
+    }
+
+    .wrapper {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 1.5rem 0.5rem;
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .card {
+      .image-wrapper img {
+        height: 150px;
+      }
+
+      h2 {
+        font-size: 1rem;
+      }
+
+      p {
+        font-size: 0.85rem;
+      }
+    }
+
+    .more-places-link {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+}
+
+@keyframes slideAndFadeIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInOnly {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
