@@ -53,7 +53,7 @@
     background-color: $very-light-color;
     border: 1px solid #ddd;
     border-radius: 0.5rem;
-    height: 60vh;
+    height: 70vh;
 
     .profile-left {
       width: 40%;
@@ -538,7 +538,19 @@
 
     .modal-overlay {
       .modal-content {
+        width: 90%;
         padding: 1.25rem;
+        form {
+          width: 90%;
+          .save-button {
+            width: auto;
+          }
+          div {
+            input {
+              height: 3rem;
+            }
+          }
+        }
       }
     }
   }
