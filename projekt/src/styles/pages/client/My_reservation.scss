@@ -16,6 +16,8 @@
   box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
   position: relative;
+  font-family: $font-primary;
+  color: $primary-color;
 
   transition: all 0.3s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -26,7 +28,7 @@
     margin-bottom: 1rem;
     text-align: center;
     margin-top: 0.5rem;
-    font-style: italic;
+    font-style: italic; /* Ustawienie tekstu na kursywę */
     font-family: "Dancing Script", cursive;
     position: relative;
   }
@@ -50,6 +52,8 @@
       font-size: 1.2rem;
       color: #333;
       margin: 0.5rem 0;
+      font-family: $font-primary;
+      color: $primary-color;
 
       &.status {
         font-weight: bold;
@@ -57,20 +61,21 @@
         border-radius: 5px;
         text-align: center;
         display: inline-block;
+        font-family: $font-primary;
 
         &.potwierdzona {
-          background-color: #94b595;
+          background-color: #94b595; /* Zielone tło */
           color: white;
         }
 
         &.odrzucona {
-          background-color: #c8b5b4;
+          background-color: #ba514b; /* Czerwone tło */
           color: white;
         }
 
         &.oczekująca {
-          background-color: #d3ccb5;
-          color: black;
+          background-color: #d9a734; /* Żółte tło */
+          color: rgb(213, 208, 208);
         }
       }
     }
@@ -100,8 +105,8 @@
   }
 
   &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8rem 16rem rgba(0, 0, 0, 0.5);
+    transform: scale(1.05); /* Powiększenie elementu */
+    box-shadow: 0 8rem 16rem rgba(41, 40, 40, 0.5);
   }
 }
 
@@ -125,12 +130,8 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
-.reservation-date-from {
-  font-size: 1.1rem;
-  color: #2980b9;
-  margin: 0.5rem 0;
-}
-.reservations h1 {
+
+h1 {
   font-size: 2.5rem;
   margin: auto;
   margin-bottom: 2rem;
@@ -142,6 +143,32 @@
   margin-bottom: 2rem;
   margin-top: 0;
 }
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: -0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300%;
+  height: 1px;
+  background: #f3f1f1;
+  //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+  margin-bottom: 3rem;
+}
+h1::before {
+  content: "";
+  position: absolute;
+  bottom: -0.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300%;
+  height: 1px;
+  background: #f3f1f1;
+  //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
 .cancel-btn {
   background-color: #131212;
   color: rgb(242, 234, 234);
@@ -152,7 +179,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
-  margin-left: 46rem;
+
+  margin-left: 43rem;
 
   &:hover {
     background-color: #d32f2f;
@@ -162,4 +190,7 @@
   &:active {
     background-color: #c62828;
   }
+}
+.elements {
+  font-family: Arial, sans-serif !important;
 }
