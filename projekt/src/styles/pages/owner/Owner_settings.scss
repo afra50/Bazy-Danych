@@ -13,6 +13,9 @@
     color: $primary-color;
     margin-top: 1rem;
     margin-left: 1rem;
+    @media (max-width: 768px) {
+      display: none;
+    }
 
     a {
       color: $primary-color;
@@ -35,17 +38,26 @@
     height: 0.5px;
     background-color: $light-color;
     border: none;
+    justify-self: center;
+    margin-top: 1rem;
   }
 
   .container {
     display: flex;
     justify-content: center;
     gap: 2rem;
+    flex-wrap: wrap; // Umożliwia zawijanie elementów na mniejszych ekranach
 
     .password_section,
     .delete_account {
       padding: 1.5rem;
       width: 35%;
+      box-sizing: border-box;
+
+      @media (max-width: 768px) {
+        width: 100%; // Zajmuje pełną szerokość na mniejszych ekranach
+        padding: 1rem;
+      }
     }
 
     .password_section {
@@ -57,6 +69,8 @@
       .password_form {
         .form-group {
           margin-bottom: 1.2rem;
+          display: flex;
+          flex-direction: column;
 
           label {
             display: block;
@@ -65,7 +79,7 @@
 
           input {
             font-family: $font-primary;
-            width: 75%;
+            width: 100%; // Zajmuje całą dostępną szerokość
             padding: 0.8rem;
             border: 1px solid $light-color;
             border-radius: 5px;
@@ -94,6 +108,10 @@
             background-color: $hover-color;
             color: $white;
           }
+
+          @media (max-width: 768px) {
+            width: 100%; // Przycisk na pełną szerokość na małych ekranach
+          }
         }
       }
     }
@@ -111,25 +129,29 @@
       }
 
       .delete_form {
-        label {
-          margin-bottom: 0.5rem;
-          display: block;
-        }
-        #delete_password {
-          width: 50%;
-          padding: 0.5rem;
-          font-family: $font-primary;
-          border: 1px solid lightgrey;
-          border-radius: 5px;
-          font-size: 0.9rem;
-          &::placeholder {
-            color: $light-color;
+        .form-group {
+          label {
+            margin-bottom: 0.5rem;
+            display: block;
           }
-          &:focus {
-            outline: none;
-            border-color: $dark-color;
+
+          #delete_password {
+            width: 100%; // Szerokość pełna na mniejszych ekranach
+            padding: 0.5rem;
+            font-family: $font-primary;
+            border: 1px solid lightgrey;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            &::placeholder {
+              color: $light-color;
+            }
+            &:focus {
+              outline: none;
+              border-color: $dark-color;
+            }
           }
         }
+
         .delete_account_btn {
           margin-top: 1.2rem;
           font-family: $font-primary;
@@ -143,6 +165,10 @@
 
           &:hover {
             background-color: darken(#e74c3c, 20%);
+          }
+
+          @media (max-width: 768px) {
+            width: 100%; // Przycisk na pełną szerokość na małych ekranach
           }
         }
       }

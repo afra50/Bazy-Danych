@@ -17,6 +17,11 @@
     height: 0.5px;
     background-color: $light-color;
     border: none;
+    justify-self: center;
+    margin-bottom: 3rem;
+    @media (max-width: 768px) {
+      margin-bottom: 0;
+    }
   }
 
   .container {
@@ -154,6 +159,9 @@
       .change_password_section,
       .delete_account_section {
         flex: 1 1 100%;
+        width: auto;
+        text-align: center;
+        margin-top: 3rem;
       }
     }
   }
