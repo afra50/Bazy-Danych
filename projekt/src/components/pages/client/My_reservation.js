@@ -63,7 +63,7 @@ function MyReservations() {
   };
   return (
     <div className="reservations">
-      <h1>Moje Rezerwacje</h1>
+      <h1 className="client-reservation-title">Moje Rezerwacje</h1>
       <div className="reservations-content">
         {reservations.length > 0 ? (
           reservations.map((reservation) => (
@@ -71,7 +71,9 @@ function MyReservations() {
               key={reservation.id_rezerwacji}
               className={`reservation-item highlight-${reservation.status.toLowerCase()}`}
             >
-              <h3>Rezerwacja numer {reservation.id_rezerwacji}</h3>
+              <h3 className="client-reservation-number">
+                Rezerwacja numer {reservation.id_rezerwacji}
+              </h3>
               <div className="elements">
                 <p>Domek: {reservation.nazwa_domku}</p>
                 <p>Od: {new Date(reservation.data_od).toLocaleDateString()}</p>

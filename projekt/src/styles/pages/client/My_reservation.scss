@@ -22,7 +22,7 @@
   transition: all 0.3s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  h3 {
+  .client-reservation-number {
     font-size: 1.8rem;
     color: #444;
     margin-bottom: 1rem;
@@ -31,18 +31,18 @@
     font-style: italic; /* Ustawienie tekstu na kursywę */
     font-family: "Dancing Script", cursive;
     position: relative;
-  }
-  h3::after {
-    content: "";
-    position: absolute;
-    bottom: -0.2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50%;
-    height: 1px;
-    background: #333;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    border-radius: 2px;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -0.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;
+      height: 1px;
+      background: #333;
+      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+      border-radius: 2px;
+    }
   }
 
   .elements {
@@ -129,9 +129,31 @@
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
+  .cancel-btn {
+    background-color: #131212;
+    color: rgb(242, 234, 234);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    margin-left: 43rem;
+
+    &:hover {
+      background-color: #d32f2f;
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #c62828;
+    }
+  }
 }
 
-h1 {
+.client-reservation-title {
   font-size: 2.5rem;
   margin: auto;
   margin-bottom: 2rem;
@@ -142,55 +164,29 @@ h1 {
   font-family: $font-primary;
   margin-bottom: 2rem;
   margin-top: 0;
-}
-h1::after {
-  content: "";
-  position: absolute;
-  bottom: -0.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300%;
-  height: 1px;
-  background: #f3f1f1;
-  //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-  margin-bottom: 3rem;
-}
-h1::before {
-  content: "";
-  position: absolute;
-  bottom: -0.2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300%;
-  height: 1px;
-  background: #f3f1f1;
-  //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-  border-radius: 2px;
-}
-
-.cancel-btn {
-  background-color: #131212;
-  color: rgb(242, 234, 234);
-  border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-
-  margin-left: 43rem;
-
-  &:hover {
-    background-color: #d32f2f;
-    transform: scale(1.05);
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300%;
+    height: 1px;
+    background: #f3f1f1;
+    //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    margin-bottom: 3rem;
   }
-
-  &:active {
-    background-color: #c62828;
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 300%;
+    height: 1px;
+    background: #f3f1f1;
+    //box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
   }
-}
-.elements {
-  font-family: Arial, sans-serif !important;
 }
