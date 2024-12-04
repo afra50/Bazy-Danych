@@ -58,7 +58,7 @@
     }
 
     @media (max-width: 480px) {
-      grid-template-columns: 1fr; // Single column on very small screens
+      grid-template-columns: 1fr;
       padding: 1rem;
     }
   }
@@ -112,7 +112,6 @@
     }
   }
 
-  // Modal improvements (if needed)
   .reservation-modal {
     @media (max-width: 768px) {
       width: 90%;

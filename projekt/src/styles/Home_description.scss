@@ -2,10 +2,10 @@
 
 .home_description {
   display: flex;
-  flex-direction: column; // Zmiana na kolumnę domyślnie
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem; // Zmniejszenie paddingu na mniejszych ekranach
+  padding: 2rem 1rem;
   background-image: url("../assets/images/lightbackground.png");
   background-repeat: no-repeat;
   background-position: center;
@@ -19,7 +19,7 @@
 
   h1 {
     width: 100%;
-    max-width: 600px; // Maksymalna szerokość dla dużych ekranów
+    max-width: 600px;
     font-size: 2.5rem;
     font-family: $font-primary;
     color: $primary-color;
@@ -40,7 +40,7 @@
 
   div {
     width: 100%;
-    max-width: 800px; // Maksymalna szerokość dla dużych ekranów
+    max-width: 800px;
     font-family: $font-primary;
     opacity: 0;
     text-align: center;
@@ -80,7 +80,7 @@
   }
 
   @media (min-width: 768px) {
-    flex-direction: row; // Układ w rzędzie na tabletach i większych
+    flex-direction: row;
     padding: 4rem;
 
     h1 {

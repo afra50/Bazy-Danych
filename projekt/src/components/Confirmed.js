@@ -6,7 +6,7 @@ function Confirmed() {
   const ownerId = sessionStorage.getItem("ownerId");
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [notification, setNotification] = useState(""); // Dodany stan dla powiadomienia
+  const [notification, setNotification] = useState("");
 
   // Pobieranie potwierdzonych rezerwacji
   useEffect(() => {

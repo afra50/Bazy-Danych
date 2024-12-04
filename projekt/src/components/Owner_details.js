@@ -7,9 +7,8 @@ function Owner_details({ houseId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Zakładając, że REACT_APP_API_URL jest ustawiony w pliku .env
   const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-  const defaultImagePath = "/uploads/default_profile.png"; // Ścieżka do domyślnego obrazu
+  const defaultImagePath = "/uploads/default_profile.png";
 
   useEffect(() => {
     if (!houseId) return; // Jeśli brak ID, nie wysyłaj żądania
@@ -17,12 +16,12 @@ function Owner_details({ houseId }) {
     axios
       .get(`${API_URL}/api/houses/${houseId}/owner`)
       .then((response) => {
-        setOwner(response.data); // Ustaw dane właściciela
+        setOwner(response.data);
         setLoading(false);
       })
       .catch((err) => {
         console.error(err);
-        setError("Nie udało się pobrać danych właściciela."); // Obsługa błędów
+        setError("Nie udało się pobrać danych właściciela.");
         setLoading(false);
       });
   }, [houseId, API_URL]);
@@ -38,7 +37,6 @@ function Owner_details({ houseId }) {
   // Funkcja do sprawdzania, czy URL obrazu jest prawidłowy
   const isValidImageUrl = (url) => {
     if (!url) return false;
-    // Sprawdź, czy URL nie zawiera "null" lub innych nieprawidłowych fragmentów
     return !url.toLowerCase().includes("null");
   };
 
@@ -57,7 +55,7 @@ function Owner_details({ houseId }) {
         src={imageUrl}
         alt={`Zdjęcie właściciela: ${owner.imie}`}
         style={{ width: "150px", borderRadius: "50%" }}
-        onError={handleImageError} // Obsługa błędów ładowania obrazu
+        onError={handleImageError}
       />
       <p className="owner_name">{owner.imie}</p>
       <p className="owner_contact">

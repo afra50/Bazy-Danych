@@ -30,7 +30,7 @@ const fetchUnavailableDates = async (houseId) => {
       throw new Error("Nie udało się pobrać dostępności");
     }
     const data = await response.json();
-    return data; // Zakłada, że data ma postać [{ data_od, data_do }]
+    return data;
   } catch (error) {
     console.error(error);
     return [];

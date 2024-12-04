@@ -250,7 +250,6 @@
           max-width: 100%;
           margin: 1rem 0;
 
-          /* Stylizacja react-calendar */
           .react-calendar {
             width: 100%;
             max-width: 100%;
@@ -259,7 +258,6 @@
             font-family: $font-primary;
             line-height: 1.2em;
 
-            /* Nagłówki dni tygodnia */
             .react-calendar__navigation {
               display: flex;
               justify-content: space-between;
@@ -281,21 +279,17 @@
                   color: lighten($primary-color, 20%);
                 }
 
-                /* Remove the &:disabled styles from here */
-
                 &:focus {
                   outline: none;
                 }
               }
 
-              /* Adjusted selectors for disabled navigation buttons */
               .react-calendar__navigation__prev-button[disabled],
               .react-calendar__navigation__next-button[disabled] {
                 cursor: default;
                 background-color: $primary-color;
               }
 
-              /* Ensure the month label retains the desired styles even when disabled */
               .react-calendar__navigation__label {
                 font-size: 1.1rem;
                 font-weight: bold;
@@ -313,14 +307,12 @@
                 }
               }
 
-              /* Hide the year navigation buttons */
               .react-calendar__navigation__prev2-button,
               .react-calendar__navigation__next2-button {
                 display: none;
               }
             }
 
-            /* Nazwy dni tygodnia */
             .react-calendar__month-view__weekdays {
               text-align: center;
               padding: 0.5rem 0;
@@ -333,7 +325,6 @@
               }
             }
 
-            /* Komórki dni */
             .react-calendar__month-view__days__day {
               color: $primary-color;
               font-family: $font-primary;
@@ -365,7 +356,6 @@
                 }
               }
 
-              /* Dni z poprzedniego i następnego miesiąca */
               &.react-calendar__tile--neighboringMonth {
                 background-color: lighten($light-color, 20%);
                 color: $dark-color;
@@ -393,13 +383,11 @@
               background-color: $primary-color;
             }
 
-            /* Dni aktywne (wybrane) */
             .react-calendar__tile--active {
               background-color: $primary-color;
               color: $white;
             }
 
-            /* Dni aktualne */
             .react-calendar__tile--now {
               background-color: $primary-color;
               color: $secondary-color;
@@ -411,7 +399,6 @@
               }
             }
 
-            /* Targeting disabled buttons via attribute selector */
             button[disabled] {
               cursor: default;
               background-color: $almost-white;
@@ -447,7 +434,6 @@
       }
     }
 
-    // Responsywność
     @media (max-width: 768px) {
       .details {
         .details-container {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../../styles/App.scss"; 
+import "../../../styles/App.scss";
 import "../../../styles/pages/client/My_reservation.scss";
 
 function MyReservations() {
@@ -33,7 +33,7 @@ function MyReservations() {
     if (!window.confirm("Czy na pewno chcesz anulować tę rezerwację?")) {
       return;
     }
-  
+
     fetch(`http://localhost:5000/api/reservations/${reservationId}`, {
       method: "DELETE",
     })
@@ -44,13 +44,14 @@ function MyReservations() {
         return res.json();
       })
       .then((data) => {
-        console.log("Odpowiedź z serwera:", data);  // Dodaj logowanie odpowiedzi
         if (data.message) {
           // Usuń rezerwację z listy po jej anulowaniu
           setReservations((prev) =>
-            prev.filter((reservation) => reservation.id_rezerwacji !== reservationId)
+            prev.filter(
+              (reservation) => reservation.id_rezerwacji !== reservationId
+            )
           );
-          alert(data.message);  // Pokazanie komunikatu, jeśli rezerwacja została anulowana
+          alert(data.message);
         } else {
           alert("Brak komunikatu o sukcesie.");
         }
@@ -66,8 +67,8 @@ function MyReservations() {
       <div className="reservations-content">
         {reservations.length > 0 ? (
           reservations.map((reservation) => (
-            <div 
-              key={reservation.id_rezerwacji} 
+            <div
+              key={reservation.id_rezerwacji}
               className={`reservation-item highlight-${reservation.status.toLowerCase()}`}
             >
               <h3>Rezerwacja numer {reservation.id_rezerwacji}</h3>

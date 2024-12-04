@@ -1,6 +1,6 @@
 // src/components/Client_settings.js
 import React, { useState, useEffect } from "react";
-import "../../../styles/pages/client/Client_settings.scss"; // Utwórz osobny plik SCSS dla klienta
+import "../../../styles/pages/client/Client_settings.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../Auth_context";
 
@@ -24,24 +24,20 @@ function Client_settings() {
 
   const { logout } = useAuth();
 
-  // Handle changes for updating data
   const handleDataChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle changes for changing password
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
     setPasswordData({ ...passwordData, [name]: value });
   };
 
-  // Handle changes for delete password
   const handleDeletePasswordChange = (e) => {
     setDeletePassword(e.target.value);
   };
 
-  // Handle updating client data
   const handleUpdateData = async (e) => {
     e.preventDefault();
 
@@ -79,7 +75,6 @@ function Client_settings() {
 
       if (response.ok) {
         setNotification("Dane zostały pomyślnie zaktualizowane.");
-        // Opcjonalnie, można odświeżyć dane lub przekierować
       } else {
         setNotification(result.error || "Błąd podczas aktualizacji danych.");
       }
@@ -89,7 +84,6 @@ function Client_settings() {
     }
   };
 
-  // Handle changing password
   const handleChangePassword = async (e) => {
     e.preventDefault();
 
@@ -125,7 +119,6 @@ function Client_settings() {
 
       if (response.ok) {
         setNotification("Hasło zostało pomyślnie zmienione.");
-        // Opcjonalnie, można wyczyścić pola formularza
         setPasswordData({
           currentPassword: "",
           newPassword: "",
@@ -140,11 +133,9 @@ function Client_settings() {
     }
   };
 
-  // Handle deleting account
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
 
-    // Potwierdzenie przed usunięciem
     const isConfirmed = window.confirm(
       "Czy na pewno chcesz usunąć swoje konto? Tej operacji nie można cofnąć."
     );

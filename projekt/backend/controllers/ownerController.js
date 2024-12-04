@@ -139,7 +139,7 @@ exports.getConfirmedReservationsForOwner = (req, res) => {
 // Aktualizacja statusu rezerwacji na "Potwierdzona"
 exports.confirmReservation = (req, res) => {
   const reservationId = req.params.id;
-  const today = new Date().toISOString().slice(0, 10); // dzisiejsza data w formacie YYYY-MM-DD
+  const today = new Date().toISOString().slice(0, 10);
 
   const sql = `
     UPDATE rezerwacje 

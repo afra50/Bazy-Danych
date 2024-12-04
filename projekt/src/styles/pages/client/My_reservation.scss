@@ -1,137 +1,129 @@
 @import "../../Variables.scss";
 .reservations-content {
-    display: flex;
-    flex-wrap: wrap;  
-    justify-content: space-between;  
-    gap: 2rem;  
-  }
-
-  
-  .reservation-item {
-    background-color: white;
-    background-color: white;
-    padding: 1.25rem; 
-    margin-bottom: 1rem; 
-    border-radius: 0.625rem; 
-    border:none; 
-    box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
-    box-sizing: border-box;
-    position: relative;
-    
-    transition: all 0.3s ease;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-    h3 {
-      font-size: 1.8rem;
-      color: #444;
-      margin-bottom: 1rem;
-      text-align: center;
-      margin-top: 0.5rem;
-      font-style: italic; /* Ustawienie tekstu na kursywę */
-      font-family: 'Dancing Script', cursive;
-      position: relative;
-      
-    }
-    h3::after {
-      content: '';                 
-      position: absolute;              
-      bottom: -0.2rem;                
-      left: 50%;                       
-      transform: translateX(-50%);    
-      width: 50%;                    
-      height: 1px;                  
-      background: #333;             
-      box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); 
-      border-radius: 2px;              
-    }
-    
-    
-  
-    .elements {
-      font-family: Arial, sans-serif !important;
-  
-      p {
-        font-size: 1.2rem;
-        color: #333;
-        margin: 0.5rem 0;
-  
-        &.status {
-          font-weight: bold;
-          padding: 0.5rem 1rem;
-          border-radius: 5px;
-          text-align: center;
-          display: inline-block;
-  
-          &.potwierdzona {
-            background-color: #94b595; /* Zielone tło */
-            color: white;
-          }
-  
-          &.odrzucona {
-            background-color: #c8b5b4; /* Czerwone tło */
-            color: white;
-          }
-  
-          &.oczekująca {
-            background-color: #d3ccb5; /* Żółte tło */
-            color: black;
-          }
-        }
-      }
-      .elements {
-        font-family: Arial, sans-serif;
-    
-        p1 {
-          font-size: 1.2rem;
-          color: #333;
-          margin: 0.5rem 0;
-        }
-      }
-    
-    }
-    &.highlight-potwierdzona {
-        background-color: #e8f5e9; 
-        border: 2px solid #464545 ; 
-      }
-    
-      &.highlight-odrzucona {
-        background-color: #ffebee; 
-        border: 2px solid #464545; 
-      }
-    
-      &.highlight-oczekująca {
-        background-color: #fff8e1; 
-        border: 2px solid #464545; 
-      }
-    
-      
-      &:hover {
-        transform: scale(1.05); /* Powiększenie elementu */
-        box-shadow: 0 8rem 16rem rgba(0, 0, 0, 0.5);
-      }
-    
-    }
-  
-
-  .reservations-content {
-    display: flex;
-    flex-direction: column; 
-    gap: 2rem;              
-    width: 75%;            
-    padding: 0rem 0.5rem;     
-    box-sizing: border-box; 
-    transform:scale(0.8);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
 }
 
 .reservation-item {
-    background-color: white; 
-    padding: 2rem;                 
-    border-radius: 10px;           
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    width: 100%;                   
-    max-width: 1200px;              
-    margin: 0 auto;                 
-    box-sizing: border-box;         
+  background-color: white;
+  background-color: white;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 0.625rem;
+  border: none;
+  box-shadow: 0 4rem 8rem rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  position: relative;
+
+  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  h3 {
+    font-size: 1.8rem;
+    color: #444;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+    font-style: italic;
+    font-family: "Dancing Script", cursive;
+    position: relative;
+  }
+  h3::after {
+    content: "";
+    position: absolute;
+    bottom: -0.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 1px;
+    background: #333;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+  }
+
+  .elements {
+    font-family: Arial, sans-serif !important;
+
+    p {
+      font-size: 1.2rem;
+      color: #333;
+      margin: 0.5rem 0;
+
+      &.status {
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        text-align: center;
+        display: inline-block;
+
+        &.potwierdzona {
+          background-color: #94b595;
+          color: white;
+        }
+
+        &.odrzucona {
+          background-color: #c8b5b4;
+          color: white;
+        }
+
+        &.oczekująca {
+          background-color: #d3ccb5;
+          color: black;
+        }
+      }
+    }
+    .elements {
+      font-family: Arial, sans-serif;
+
+      p1 {
+        font-size: 1.2rem;
+        color: #333;
+        margin: 0.5rem 0;
+      }
+    }
+  }
+  &.highlight-potwierdzona {
+    background-color: #e8f5e9;
+    border: 2px solid #464545;
+  }
+
+  &.highlight-odrzucona {
+    background-color: #ffebee;
+    border: 2px solid #464545;
+  }
+
+  &.highlight-oczekująca {
+    background-color: #fff8e1;
+    border: 2px solid #464545;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8rem 16rem rgba(0, 0, 0, 0.5);
+  }
+}
+
+.reservations-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 75%;
+  padding: 0rem 0.5rem;
+  box-sizing: border-box;
+  transform: scale(0.8);
+}
+
+.reservation-item {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 .reservation-date-from {
   font-size: 1.1rem;
@@ -139,39 +131,35 @@
   margin: 0.5rem 0;
 }
 .reservations h1 {
-
-    font-size: 2.5rem;
-    margin: auto;
-    margin-bottom: 2rem;
-    text-align: center;
-    font-weight: 400;
-    font-size: 2rem;
-    color: $very-light-color;
-    font-family: $font-primary;
-    margin-bottom: 2rem;
-    margin-top: 0;
-    
+  font-size: 2.5rem;
+  margin: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: 400;
+  font-size: 2rem;
+  color: $very-light-color;
+  font-family: $font-primary;
+  margin-bottom: 2rem;
+  margin-top: 0;
 }
 .cancel-btn {
-  background-color: #131212;  
-  color: rgb(242, 234, 234);               
-  border: none;              
-  padding: 0.75rem 1.5rem;    
-  font-size: 1rem;            
-  font-weight: bold;          
-  border-radius: 5px;         
-  cursor: pointer;           
-  transition: background-color 0.3s ease, transform 0.3s ease; 
+  background-color: #131212;
+  color: rgb(242, 234, 234);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
   margin-left: 46rem;
 
   &:hover {
-    background-color: #d32f2f;  
-    transform: scale(1.05);      
+    background-color: #d32f2f;
+    transform: scale(1.05);
   }
 
   &:active {
-    background-color: #c62828;  
+    background-color: #c62828;
   }
 }
-
-    

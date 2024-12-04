@@ -16,15 +16,14 @@ function Waiting({ reservations, onConfirmReservation, onRejectReservation }) {
   const handleReject = async () => {
     if (selectedReservation) {
       try {
-        // Wywołanie trasy API dla odrzucenia rezerwacji
         await axios.patch(
           `http://localhost:5000/api/owner/reject-reservation/${selectedReservation.id_rezerwacji}`
         );
-        onRejectReservation(selectedReservation.id_rezerwacji); // Aktualizacja stanu rezerwacji
+        onRejectReservation(selectedReservation.id_rezerwacji);
       } catch (error) {
         console.error("Błąd podczas odrzucania rezerwacji:", error);
       }
-      setSelectedReservation(null); // Zamknięcie okna modalnego
+      setSelectedReservation(null);
     }
   };
 

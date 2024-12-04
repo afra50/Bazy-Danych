@@ -7,9 +7,9 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    const ownerId = req.params.id; // Pobieramy ownerId z parametrów
-    const extension = path.extname(file.originalname); // Zachowujemy rozszerzenie oryginalnego pliku
-    cb(null, `owner_${ownerId}${extension}`); // Nazwa pliku oparta na ownerId
+    const ownerId = req.params.id;
+    const extension = path.extname(file.originalname);
+    cb(null, `owner_${ownerId}${extension}`);
   },
 });
 
@@ -32,7 +32,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Inicjalizacja multer z konfiguracją storage i filtrem plików
+// Inicjalizacja multer
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,

@@ -61,7 +61,7 @@ function Reservations() {
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 3000);
-      return () => clearTimeout(timer); // Sprzątanie timera
+      return () => clearTimeout(timer);
     }
   }, [notification]);
 
@@ -73,9 +73,7 @@ function Reservations() {
       </span>
       <h2 className="reservations_header">Rezerwacje moich domków</h2>
 
-      {notification && (
-        <div className="notification">{notification}</div> // Powiadomienie
-      )}
+      {notification && <div className="notification">{notification}</div>}
 
       <section className="owner_other_pages">
         <a href="/owner/profile">Profil</a>

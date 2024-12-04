@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import { pl } from "date-fns/locale";
-import { format } from "date-fns"; // Import do formatowania dat
+import { format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import "../styles/DatePicker.scss";
 import "../styles/Search_form.scss";
 
 function Search_form(props) {
-  // Inicjalizacja stanu z obsługą initialData
   const [searchData, setSearchData] = useState({
-    dateRange: props.initialData?.dateRange || [null, null], // Zakres dat
-    location: props.initialData?.location || "", // Lokalizacja
+    dateRange: props.initialData?.dateRange || [null, null],
+    location: props.initialData?.location || "",
     guests: props.initialData?.guests || 1, // Początkowa liczba gości ustawiona na 1
   });
 
@@ -19,14 +18,14 @@ function Search_form(props) {
     props.initialData?.categories || []
   ); // Zaznaczone kategorie
   const [isDatePickerOpen, setDatePickerOpen] = useState(false); // Stan do otwierania i zamykania DatePicker
-  const dropdownRef = useRef(null); // Ref dla dropdown menu
+  const dropdownRef = useRef(null);
 
   // Obliczanie maksymalnej daty (ostatni dzień piątego pełnego miesiąca w przód)
   const today = new Date();
-  const maxMonth = today.getMonth() + 5; // Miesiące są indeksowane od 0
+  const maxMonth = today.getMonth() + 5;
   const maxYear = today.getFullYear() + Math.floor(maxMonth / 12);
   const adjustedMaxMonth = maxMonth % 12;
-  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0); // Dzień 0 następnego miesiąca to ostatni dzień bieżącego miesiąca
+  const maxDate = new Date(maxYear, adjustedMaxMonth + 1, 0);
 
   // Obsługa zmiany zakresu dat
   const handleDateChange = (dates) => {
@@ -139,16 +138,14 @@ function Search_form(props) {
       location: searchData.location,
       guests: searchData.guests,
       categories: selectedCategories,
-      sort: searchData.sort, // Dodajemy opcję sortowania do parametrów wyszukiwania
+      sort: searchData.sort,
       page: 1,
-      limit: 9, // Ustalona liczba wyników na stronę (dla spójności)
+      limit: 9, // Ustalona liczba wyników na stronę
     };
 
     if (props.onSubmit) {
-      // Jeśli przekazano onSubmit, używamy go do obsługi wyszukiwania (np. przekierowania)
       props.onSubmit(searchParams);
     } else {
-      // Domyślne zachowanie: wykonujemy wyszukiwanie
       fetch("http://localhost:5000/api/search", {
         method: "POST",
         headers: {
@@ -178,9 +175,9 @@ function Search_form(props) {
         <div className="form_group">
           <label>Data wyjazdu</label>
           <DatePicker
-            selected={searchData.dateRange[0]} // Początek zakresu
+            selected={searchData.dateRange[0]}
             onChange={handleDateChange}
-            startDate={searchData.dateRange[0]} // Początek zakresu
+            startDate={searchData.dateRange[0]}
             endDate={searchData.dateRange[1]} // Koniec zakresu
             selectsRange // Umożliwia wybór zakresu dat
             minDate={new Date().setHours(0, 0, 0, 0)} // Minimalna data to dzisiaj

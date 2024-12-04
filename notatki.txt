@@ -4,11 +4,10 @@
 
 2. KLIENT 
 > walidacja zmiany danych
-- moje rezerwacje + anulowanie z usunieciem z bazy 
+> moje rezerwacje
 
 3. CALY SERWIS
-- responsywnosc - owner[], client[]
-- komentarze
+> responsywnosc poprawic
 > notification + errory ujednolicic
 > zabezpieczenia js i to co sie da
 > strzałka dla powrotu nie jest klikalna
@@ -16,7 +15,6 @@
 > trzymanie sesji przez token/ciasteczka a nie sessionstorage
 > czyszczenie bazy danych
 > stopka
-> react app api w env (adres) - chodzi o backend?
 
 4. DOMKI
 > kilka kategorii (na homepage tez zmiany)

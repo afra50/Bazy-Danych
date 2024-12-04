@@ -21,18 +21,14 @@ router.patch("/reject-reservation/:id", ownerController.rejectReservation);
 
 // Obsługa przesyłania zdjęcia z weryfikacją błędów
 router.post("/upload/:id", (req, res) => {
-  // Użyj multer z konfiguracją upload.single i przechwyć błędy
   upload.single("zdjecie")(req, res, (err) => {
     if (err instanceof multer.MulterError) {
-      // Obsługa błędów multer (np. przekroczony limit rozmiaru)
       return res
         .status(400)
         .json({ error: "Przekroczono maksymalny rozmiar pliku 5MB." });
     } else if (err) {
-      // Obsługa błędów fileFilter lub innych
       return res.status(400).json({ error: err.message });
     }
-    // Kontynuuj z kontrolerem, jeśli nie ma błędów
     ownerController.uploadOwnerPhoto(req, res);
   });
 });

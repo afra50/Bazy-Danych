@@ -165,7 +165,6 @@ function Reservation_form() {
     const [start, end] = dates || [null, null];
 
     if (start && end) {
-      // Check if any selected date falls into unavailable dates
       const selectedRange = [];
       let currentDate = new Date(start);
       while (currentDate <= end) {

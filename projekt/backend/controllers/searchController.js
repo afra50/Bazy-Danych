@@ -20,7 +20,7 @@ const searchDomki = (req, res) => {
   // Destrukturyzacja zakresu dat
   const [startDate, endDate] = dateRange;
 
-  // Budowanie podstawy zapytania SQL
+  // SQL
   let baseQuery = "FROM domki d WHERE d.liczba_osob >= ?";
   const params = [guests];
 
@@ -52,16 +52,11 @@ const searchDomki = (req, res) => {
           )
       )
     `;
-    // Dodanie parametrów dla obu podzapytań
-    params.push(
-      endDate,
-      startDate, // dla dostepnosc_domku
-      endDate,
-      startDate // dla rezerwacje
-    );
+
+    params.push(endDate, startDate, endDate, startDate);
   }
 
-  // Definicja klauzuli ORDER BY na podstawie parametru sort
+  // Definicja ORDER BY na podstawie parametru sort
   let orderByClause = "ORDER BY d.polecany DESC";
 
   if (sort) {
@@ -73,7 +68,6 @@ const searchDomki = (req, res) => {
         orderByClause = "ORDER BY d.cena_za_noc DESC";
         break;
       case "most_relevant":
-        // Zakładamy, że masz pole 'recommended' typu BOOLEAN lub podobne
         orderByClause = "ORDER BY d.polecany DESC, RAND()";
         break;
       default:

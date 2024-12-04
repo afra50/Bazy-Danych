@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/Home_description.scss";
 
 function Home_description() {
-  const sectionRef = useRef(null); // Używamy ref, aby móc odnosić się do sekcji
+  const sectionRef = useRef(null);
 
   useEffect(() => {
     const observerOptions = {
@@ -13,18 +13,18 @@ function Home_description() {
     const observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("visible"); // Dodajemy klasę do sekcji
+          entry.target.classList.add("visible");
           const h1 = entry.target.querySelector("h1");
           const div = entry.target.querySelector("div");
-          if (h1) h1.classList.add("animate"); // Dodajemy klasę animacji do h1
-          if (div) div.classList.add("animate"); // Dodajemy klasę animacji do div
-          observer.unobserve(entry.target); // Przestajemy obserwować komponent po animacji
+          if (h1) h1.classList.add("animate");
+          if (div) div.classList.add("animate");
+          observer.unobserve(entry.target);
         }
       });
     }, observerOptions);
 
     if (sectionRef.current) {
-      observer.observe(sectionRef.current); // Obserwujemy element referencji
+      observer.observe(sectionRef.current);
     }
 
     return () => {

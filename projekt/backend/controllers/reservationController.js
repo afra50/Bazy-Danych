@@ -23,7 +23,7 @@ exports.createReservation = (req, res) => {
 
   // Walidacja, czy data_od nie jest w przeszłości
   const today = new Date();
-  today.setHours(0, 0, 0, 0); // Ustawienie godziny na 00:00
+  today.setHours(0, 0, 0, 0);
 
   if (data_od < today) {
     return res
@@ -98,10 +98,7 @@ exports.getReservationsForHouse = (req, res) => {
 };
 // Usuwanie rezerwacji
 exports.deleteReservation = (req, res) => {
-  const { id_rezerwacji } = req.params; // Pobranie id rezerwacji z parametru URL
-
-  // Logowanie ID, żeby upewnić się, że jest poprawne
-  console.log("Usuwanie rezerwacji o ID:", id_rezerwacji);
+  const { id_rezerwacji } = req.params;
 
   // Sprawdzenie, czy rezerwacja istnieje
   const sqlCheck = `SELECT * FROM rezerwacje WHERE id_rezerwacji = ?`;
@@ -120,7 +117,9 @@ exports.deleteReservation = (req, res) => {
     db.query(sqlDelete, [id_rezerwacji], (err, result) => {
       if (err) {
         console.error("Błąd podczas usuwania rezerwacji:", err);
-        return res.status(500).json({ error: "Błąd serwera podczas usuwania rezerwacji." });
+        return res
+          .status(500)
+          .json({ error: "Błąd serwera podczas usuwania rezerwacji." });
       }
 
       res.status(200).json({ message: "Rezerwacja została anulowana." });

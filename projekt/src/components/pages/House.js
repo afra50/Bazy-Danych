@@ -57,7 +57,6 @@ function House() {
     fetchHouseData();
   }, [id_domku]);
 
-  // Efekt do automatycznego ukrywania powiadomienia po 5 sekundach
   useEffect(() => {
     if (notification) {
       const timer = setTimeout(() => setNotification(""), 5000);

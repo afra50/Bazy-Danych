@@ -98,7 +98,6 @@ exports.getOwnerDetails = (req, res) => {
       return res.status(404).json({ error: "Właściciel nie znaleziony" });
     }
 
-    // Dodaj ścieżkę obrazu
     const owner = result[0];
     owner.zdjecie = `http://localhost:5000${owner.zdjecie}`;
 

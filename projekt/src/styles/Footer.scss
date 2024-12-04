@@ -7,21 +7,21 @@
   padding: 1rem 4rem 1rem 8rem;
   font-family: $font-primary;
   color: $primary-color;
-  align-items: flex-start; // Zmieniono na flex-start dla lepszego układu na małych ekranach
+  align-items: flex-start;
   box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.1);
 
   .column_footer {
     display: flex;
     flex-direction: column;
     margin-right: 8vw;
-    margin-bottom: 1rem; // Dodane dla odstępów na małych ekranach
-    width: 200px; // Stała szerokość kolumn na większych ekranach
+    margin-bottom: 1rem;
+    width: 200px;
 
     #footer_logo {
       display: block;
       height: 13vh;
-      margin: 0 auto 1rem; // Dodano dolny margines
-      max-width: 100%; // Zapewnia, że logo nie przekracza szerokości kontenera
+      margin: 0 auto 1rem;
+      max-width: 100%;
     }
 
     h2 {
@@ -54,7 +54,6 @@
     }
   }
 
-  // Media Queries dla responsywności
   @media (max-width: 1200px) {
     padding: 1rem 2rem;
 
