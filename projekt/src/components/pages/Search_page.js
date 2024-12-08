@@ -198,7 +198,7 @@ function Search_page() {
     <main className="search_page">
       <span className="back">
         <i className="fa-solid fa-chevron-left"></i>
-        <Link to="/searchpage">Wróć do wyszukiwania</Link>
+        <Link to="/">Wróć do wyszukiwania</Link>
       </span>
 
       {/* Formularz wyszukiwania */}
